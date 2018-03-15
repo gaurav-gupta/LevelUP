@@ -1,0 +1,10 @@
+<app-nav-bar></app-nav-bar>
+<div class="container">
+	<ul style="list-style-type:none">
+	  <ng-container *ngFor="let product of productList">
+	    <li class="ridge">
+	      <img src={{product.img}} [routerLink]="['/productDetail', product._id]" alt="blue shirt" hspace="20"><br>{{product.product_name}}
+	    </li>
+	  </ng-container>
+	</ul>
+</div>

@@ -1,0 +1,13 @@
+.btn-block {
+  width: 56%
+}
+
+.ridge {
+  border:1px solid #D3D3D3;
+  margin: 20px 40px 75px 10px;
+  text-align: center;
+}
+
+#center {
+  margin-left: 20%;
+}

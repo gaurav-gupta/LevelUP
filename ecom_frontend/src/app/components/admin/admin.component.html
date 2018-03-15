@@ -1,0 +1,33 @@
+<app-nav-bar></app-nav-bar>
+<div class="container">
+  <table class="table table-striped" [mfData]="data | dataFilter: filterQuery" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+      <tr><input type="text" align="left" name="search" [(ngModel)]="filterQuery"></tr><br>
+      <tr>
+        <th>
+          <mfDefaultSorter by="first_name">FirstName</mfDefaultSorter>
+        </th>
+        <th>
+          <mfDefaultSorter by="last_name">LastName</mfDefaultSorter>
+        </th>
+        <th>
+          <mfDefaultSorter by="email">Email</mfDefaultSorter>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of mf.data ">
+        <td>{{item.first_name}}</td>
+        <td>{{item.last_name}}</td>
+        <td>{{item.email}}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3">
+          <mfBootstrapPaginator></mfBootstrapPaginator>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
