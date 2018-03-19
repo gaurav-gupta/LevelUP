@@ -23,6 +23,7 @@ import { DashAuthService } from './services/dashAuth.service';
 import { UserService } from './services/users.service';
 import { ProductService } from './services/product.service';
 import { AdminProductComponent } from './components/admin-product/admin-product.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { AdminProductComponent } from './components/admin-product/admin-product.
     OrderComponent, DataFilterPipe, UserOrderComponent, AdminProductComponent
   ],
   imports: [
-    BrowserModule, routing, FormsModule, DataTableModule, ImageZoomModule, HttpClientModule, HttpModule
+    BrowserModule, routing, FormsModule, DataTableModule, ImageZoomModule, HttpClientModule, HttpModule, EditorModule
   ],
   providers: [ appRoutingProviders , StorageService, AuthGuard,
       {

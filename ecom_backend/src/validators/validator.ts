@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import * as  authUserModel  from './../models/user';
+import * as userModel  from './../models/user';
 import { CodeConstants } from '../interfaces/code_constants';
 var atob = require('atob');
 
@@ -10,12 +10,19 @@ export function ValidateAuthToken(req,res,next) {
   token = token.split(':')[1];
   if (token) {
     try {
-      jwt.verify(token, 'shhhhh', function(err, decoded) {
-        if(err){
-          return res.status(401).json({"status": CodeConstants.FAILURE, "msg": CodeConstants.INVALID_TOKEN});
-        }else{
-      	  next();
-        }
+      jwt.verify(token, 'shhhhh', function(err, decoded) {                
+        if(err){                    
+          return res.status(401).json({"status": CodeConstants.FAILURE, "msg": CodeConstants.INVALID_TOKEN});                
+        }else{                    
+          userModel.getUser(decoded.email).then(response =>{                        
+            if(response){                            
+              req.user_data = response;                            
+              next();                        
+            } else {                            
+              return res.status(401).json({"status": CodeConstants.FAILURE, "msg": CodeConstants.ACCESS_TOKEN_IS_EXPIRED});                        
+            }                   
+          });                
+        }            
       });
     }catch(e){
       return res.status(401).json(e);

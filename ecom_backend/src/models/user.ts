@@ -7,7 +7,7 @@ var userSchema = new Schema({
   last_name: { type: String , required: true},
   password: { type: String ,required:true},
   email: { type: String ,required:true},
-  roles: { type: String , required:true},
+  roles: { type: String , required:true, default: "user"},
   wallet_address: { type: String , required: false},
   wallet_amount: {type: Number, default: 0}
 });

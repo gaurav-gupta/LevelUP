@@ -45,6 +45,8 @@ export class AdminProductComponent implements OnInit {
   }
 
   createProduct(data) {
+  console.log("data >>>>>>>>>>>>>>>>>>>>>>>>>")
+  console.log(data)
     this.loader = true;
     const file = this.file;
     const that = this;
@@ -59,7 +61,7 @@ export class AdminProductComponent implements OnInit {
           that._productService.createProduct(data).subscribe(res => {
             if (res) {
               that.loader = false;
-              alert('Create Successfully');
+              // alert('Create Successfully');
               location.reload();
             }
           });

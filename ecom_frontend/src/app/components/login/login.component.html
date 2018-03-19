@@ -17,7 +17,7 @@
       <div class="row">
         <div class="card col-md-4" *ngFor="let product of product">
           <div class="card-block">
-            <img src={{product.img}} [routerLink]="['/productDetail', product._id]" alt="blue shirt">
+            <img src="https://ipfs.io/ipfs/{{product.imageLink}}" [routerLink]="['/productDetail', product._id]" alt="blue shirt">
             <p>{{product.name}}</p>
           </div>
         </div>
@@ -37,15 +37,15 @@
           <form class="form-signin">
             <div class="form-group">
               <div class="col-sm-7">
-                <input type="email" #email class="form-control" placeholder="Email address"  name="email"><br>
+                <input type="email" #email1 class="form-control" placeholder="Email address"  name="email"><br>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-7">
-                <input type="password" #password class="form-control" placeholder="Password" name="password"><br>
+                <input type="password" #password1 class="form-control" placeholder="Password" name="password"><br>
               </div>
             </div>
-            <button (click)="login(email, password)" class="btn btn-lg btn-primary btn-block" type="submit" >Sign in</button>
+            <button (click)="login(email1, password1)" class="btn btn-lg btn-primary btn-block" type="submit" >Sign in</button>
           </form>
         </div>
         <div class="modal-footer">
@@ -73,7 +73,7 @@
           </div>
           <div class="form-group">
             <div class="col-sm-7">
-                <input type="text" #firstname class="form-control" placeholder="Last Name"  name="last_name"><br>
+                <input type="text" #lastname class="form-control" placeholder="Last Name"  name="last_name"><br>
             </div>
           </div>
           <div class="form-group">
@@ -86,7 +86,7 @@
               <input type="password" #password class="form-control" placeholder="Password" name="password"><br>
             </div>
           </div>
-          <button (click)="signUp(first_name, lastname, email, password)" class="btn btn-lg btn-primary btn-block" type="submit" >Sign Up</button>
+          <button (click)="signUp(firstname, lastname, email, password)" class="btn btn-lg btn-primary btn-block" type="submit" >Sign Up</button>
         </form>
       </div>
       <div class="modal-footer">

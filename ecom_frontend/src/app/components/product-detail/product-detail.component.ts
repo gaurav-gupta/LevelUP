@@ -59,7 +59,7 @@ export class ProductDetailComponent implements OnInit {
         'customer_email': this.check.email,
         'customer_id': this.check._id,
         'price': this.product.price,
-        'product_name': this.product.name
+        'productId': this.product.productId
       };
       this._userService.createOrder(this.data).subscribe((res: any) => {
         if (Object.keys(res).length > 0) {

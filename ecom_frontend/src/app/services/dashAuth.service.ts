@@ -27,4 +27,10 @@ export class DashAuthService {
       }
     });
   }
+  signUpUser(data) {
+    console.log('>>>>>>>>>in service this is >>>>>>>>', data);
+    return this._http.post(this.baseUrl + '/users', data).map((res: any) => {
+      return res.json();
+    });
+  }
 }

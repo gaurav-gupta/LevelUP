@@ -17,7 +17,11 @@ export class LoginComponentComponent implements OnInit {
   product: any;
   uncheck: any;
   current_user: any;
+  first_name: any;
+  last_name: any;
   _id: any;
+  email1: any;
+  password1: any;
   constructor(private route: ActivatedRoute, private router: Router, private _dashAuthService: DashAuthService,
     private _storageService: StorageService, private _userService: UserService,  private _productService: ProductService)  { }
     ngOnInit() {
@@ -28,18 +32,21 @@ export class LoginComponentComponent implements OnInit {
       this.getProducts();
     }
     // Authenticate user
-    private login(email, password) {
-      this.email = email.value;
-      this.password = password.value;
+    private login(email1, password1) {
+      this.email1 = email1.value;
+      this.password1 = password1.value;
       const data = {
-        email: this.email,
-        password: this.password
+        email: this.email1,
+        password: this.password1
       };
+      console.log('>>>>>>>>>>>login data', data);
       this._dashAuthService.loginDashUser(data).subscribe(res => {
+        console.log('>>>>>>>>>>>login data', res);
         if (res) {
           this._storageService.setItem('current_user', JSON.stringify(res));
           const currentUser = JSON.parse(localStorage.getItem('current_user'));
           this._userService.getUserByEmail(currentUser.email).subscribe(res1 => {
+
             if (res1[0].roles === 'admin') {
               location.reload();
               this.router.navigate(['/admin']);
@@ -66,6 +73,23 @@ export class LoginComponentComponent implements OnInit {
   // user logout
   logout() {
     this._dashAuthService.logoutDashUser(this.current_user.email).subscribe(res => {
+      location.reload();
+    });
+  }
+  // sign up
+  signUp(first_name, last_name, email, password) {
+    this.email = email.value;
+    this.password = password.value;
+    this.first_name = first_name.value;
+    this.last_name = last_name.value;
+    const  data = {
+      first_name : this.first_name ,
+      last_name : this.last_name,
+      email : this.email,
+      password : this.password
+    };
+    console.log('>>>>>>>>>>>>sign up ????????', data);
+    this._dashAuthService.signUpUser(data).subscribe(res => {
       location.reload();
     });
   }

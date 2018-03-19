@@ -11,8 +11,8 @@ import * as common from '../helpers/common_helper';
 //create user
 export function createUser (req, res, next){
   try{
+    console.log(">>>>>>>>>>>>in controlsers >>>>>data");
     userModel.getUser(req.body.email).then((data: any)=>{
-      console.log(data)
       if(!data.length){
         console.log("data >?>>>>>>>>>>>>>>>>>")
         bcrypt.hash(req.body.password, 10).then(hash =>{
@@ -44,14 +44,14 @@ export function authenticateUser(req, res, next){
     let email = req.body.email.toLowerCase().replace(/ /g, '');
     let password = req.body.password;
     userModel.authenticateUser({email:email}).then((response: any) => {
+    console.log('>>>>>>>>>>usermosel', response);
       if(response.length){
         bcrypt.compare(password, response[0].password).then(check =>{
           if(check){
-            var token = jwt.sign({ email: email , id:response[0]._id}, 'shhhhh');
+            var token = jwt.sign({ email: email, id: response[0]._id}, 'shhhhh');
             if(token){
-              authUserModel.saveToken({email:email,token:token}).then(data =>{
+              console.log('>>>>>>>>token', token);
                 res.send({ email: email, user_auth_token: token });
-              });
             }
           }else{
             res.send({message: CodeConstants.PASSWORD_DO_NOT_MATCH});
