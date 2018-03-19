@@ -13,23 +13,27 @@ import { UserService } from '../../services/users.service';
 export class NavBarComponent implements OnInit {
   current_user: any;
   check = false;
-  constructor(private router: Router, private _dashAuthService: DashAuthService, private _storageService: StorageService, private _userService: UserService) { }
+  uncheck = false;
+  constructor(private router: Router, private _dashAuthService: DashAuthService,
+    private _storageService: StorageService, private _userService: UserService) { }
 
-  ngOnInit() {
-    this.current_user = JSON.parse(localStorage.getItem('current_user'));
-    this._userService.getUserByEmail(this.current_user.email).subscribe(res1 => {
-      if (res1[0].roles === 'admin') {
-        this.check = true;
-      }
-    });
-  }
+    ngOnInit() {
+      this.current_user = JSON.parse(localStorage.getItem('current_user'));
+      this._userService.getUserByEmail(this.current_user.email).subscribe(res1 => {
+        if (res1[0].roles === 'admin') {
+          this.check = true;
+        }
+        if (res1) {
+          this.uncheck = true;
+        }
+      });
+    }
 
-  // dashboardUser logout
-  private logout() {
-    this._dashAuthService.logoutDashUser(this.current_user.email).subscribe(res => {
-      this.router.navigate(['']);
-    }, (err) => {
-      console.log('error....', err);
-    });
+    // dashboardUser logout
+    private logout() {
+      this._dashAuthService.logoutDashUser(this.current_user.email).subscribe(res => {
+        this.router.navigate(['']);
+      });
+    }
+
   }
-}

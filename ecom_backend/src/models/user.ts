@@ -8,7 +8,8 @@ var userSchema = new Schema({
   password: { type: String ,required:true},
   email: { type: String ,required:true},
   roles: { type: String , required:true},
-  wallet_address: { type: String , required:true},
+  wallet_address: { type: String , required: false},
+  wallet_amount: {type: Number, default: 0}
 });
 
 var authUserSchema = new Schema({
@@ -41,9 +42,9 @@ export async function createUser (data){
   var obj = new userModel(data);
   return new Promise((resolve, reject) => {
     obj.save().then(function (doc) {
-        resolve(doc);
+      resolve(doc);
     }).catch(e=>{
-        reject(e);
+      reject(e);
     });
   });
 };

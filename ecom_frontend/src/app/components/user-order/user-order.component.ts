@@ -12,8 +12,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class UserOrderComponent implements OnInit {
   data: any[];
   userdata: any;
-  
-  constructor(private route: ActivatedRoute, private router: Router, private _userService: UserService, private _storeService: StorageService) { }
+
+  constructor(private route: ActivatedRoute, private router: Router, private _userService: UserService,
+     private _storeService: StorageService) { }
 
   ngOnInit() {
     this.getUserOrder();

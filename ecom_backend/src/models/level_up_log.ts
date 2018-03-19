@@ -3,14 +3,16 @@ var Schema = mongoose.Schema;
 
 var txLogSchema = new Schema({
   id:{ type: String },
-  logs: { type: Array }
+  receipt: {type: Object},
+  logs: { type: Array },
+  dtype: {type: String}
 });
 
-export var productTxLogsModel = mongoose.model('productTxLogs', txLogSchema);
+export var LogsModel = mongoose.model('levelUpLogs', txLogSchema);
 
 export function createLogs (data) {
   return new Promise((resolve, reject) => {
-    var obj = new productTxLogsModel(data);
+    var obj = new LogsModel(data);
     obj.save().then(function (doc) {
       resolve(doc);
     });

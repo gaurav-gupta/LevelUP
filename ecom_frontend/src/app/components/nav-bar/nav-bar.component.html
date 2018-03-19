@@ -1,7 +1,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Shopping</a>
+      <a class="navbar-brand" href="javascript:void(0)">Shopping</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
       <ng-container *ngIf="check">
@@ -10,9 +10,9 @@
         <li><a [routerLink]="['/adminproduct']">Product</a></li>
       </ng-container>
       <ng-container *ngIf="!check">
-        <li><a [routerLink]="['/userOrder']">My Order</a></li>
+        <li><a *ngIf="uncheck" [routerLink]="['/userOrder']">My Order</a></li>
       </ng-container>
-      <li><a *ngIf="check" (click)=logout()>SignOut</a></li>
+      <li><a *ngIf="uncheck" (click)=logout()>SignOut</a></li>
     </ul>
   </div>
 </nav>

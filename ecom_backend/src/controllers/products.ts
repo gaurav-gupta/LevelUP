@@ -1,13 +1,12 @@
 import * as express from 'express';
 import * as  productModel  from './../models/product';
-import * as  productTxLogsModel  from './../models/txlogs';
+import * as  LogModel  from './../models/level_up_log';
 import { CodeConstants } from '../interfaces/code_constants';
 import * as contract from 'truffle-contract';
 import * as Web3 from 'web3';
 var web3 = new Web3( new Web3.providers.HttpProvider("http://13.250.35.159:9545"));
 var LevelUp = contract(CodeConstants.LevelUp);
 LevelUp.setProvider(web3.currentProvider);
-
 
 //get product
 export function getProduct (req, res, next){
@@ -41,13 +40,12 @@ export function createProduct(req, res, next){
   try{
     var data = req.body;
     var user = req.user_data[0];
-    console.log(typeof(user._id));
     LevelUp.deployed().then(function(i){
       i.addProductToStore(user._id.toString(), data.product_name, data.selectName, data.imageLink, data.descLink, data.Price, {from: web3.eth.accounts[0], gas: 440000})
       .then(function(f){
         console.log(f);
-        var obj = {logs: f.logs};
-        productTxLogsModel.createLogs(obj).then(response =>{
+        var obj = {dtype: "product", receipt: f.receipt, logs: f.logs};
+        LogModel.createLogs(obj).then(response =>{
           if(response){
             res.send(response);
           }
@@ -58,7 +56,7 @@ export function createProduct(req, res, next){
       })
     }).catch((e) => {
       console.log("e >>>>>>>>>>>>>>>>>>>>>>>>>>>> addProductToStore 111111111111");
-        console.log(e)
+      console.log(e)
     });
   } catch(err){
     console.log(err)

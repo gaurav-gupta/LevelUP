@@ -6,22 +6,31 @@ import * as jwt from 'jsonwebtoken';
 import * as _ from 'underscore';
 import * as appConstant from './../../config/config';
 import { CodeConstants } from '../interfaces/code_constants';
+import * as common from '../helpers/common_helper';
 
 //create user
 export function createUser (req, res, next){
   try{
     userModel.getUser(req.body.email).then((data: any)=>{
+      console.log(data)
       if(!data.length){
+        console.log("data >?>>>>>>>>>>>>>>>>>")
         bcrypt.hash(req.body.password, 10).then(hash =>{
+        console.log("data >?>>>>>>>>>>>>>>>>>", hash)
           req.body.password =  hash;
           userModel.createUser(req.body).then(response => {
+            console.log("response >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+            console.log(response)
             if(response) {
+              common.assignLevelUpToUser(response);
               res.send(response);
             }
+          }).catch(err => {
+            console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeee", err)
           });
         });
       }else {
-        res.status(409).json({ "status":409,"error": CodeConstants.USER_ALREADY_EXIST});
+        res.status(409).json({ "status": 409, "error": CodeConstants.USER_ALREADY_EXIST});
       }
     });
   } catch(error) {
@@ -129,5 +138,26 @@ export function logoutUser(req,res,next){
     });
   }catch(e){
     res.send({message:e});
+  }
+}
+
+//update user token amount
+export function updateUserToken(user, token){
+  try{
+    console.log("data >>>>>>>>>>>>>>>>>>>>>");
+    console.log(token);
+    // let email = req.params.email;
+    // userModel.logoutUser(email).then(response =>{
+    //   res.send({message:CodeConstants.OK});
+    // });
+    user.wallet_amount = token;
+    console.log(user);
+    userModel.updateUser(user.email, user).then(function(user){
+      console.log(user)
+    });
+  }catch(e){
+    // res.send({message:e});
+    console.log("e >>>>>>>>>>>>>>>>>>>")
+    console.log(e)
   }
 }

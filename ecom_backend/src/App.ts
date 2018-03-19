@@ -8,31 +8,7 @@ import * as router from '././routes/users';
 import * as routerOrder from '././routes/orders';
 import * as routerProduct from '././routes/products';
 import * as config from '../config/config';
-import * as controller from '././controllers/products';
-import * as contract from 'truffle-contract';
-import { CodeConstants } from './interfaces/code_constants';
-import * as Web3 from 'web3';
-
-var web3 = new Web3( new Web3.providers.HttpProvider("http://13.250.35.159:9545"));
-var LevelUp = contract(CodeConstants.LevelUp);
-LevelUp.setProvider(web3.currentProvider);
-
-function setupProductEventListner() {
-  let productEvent;
-  LevelUp.deployed().then(function(i) {
-    productEvent = i.NewProduct({fromBlock: 0, toBlock: 'latest'});
-
-    productEvent.watch(function(err, result) {
-      if (err) {
-        console.log(err)
-        return;
-      }
-      controller.saveProduct(result.args);
-    });
-  }).catch((err) => {
-    console.log(err);
-  })
-}
+import * as common from './helpers/common_helper';
 
 var app = express();
 var url = config.MONGO_DB_URL;
@@ -68,5 +44,6 @@ server.listen(8080, function () {
   console.log("App now running on port", port);
 });
 
-setupProductEventListner();
+common.setupProductEventListner();
+common.setupUserTokenEventListner();
 export default app;

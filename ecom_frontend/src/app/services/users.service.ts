@@ -42,4 +42,13 @@ export class UserService {
       return res;
     });
   }
+  
+  updateOrderStatus(orderNumber, orderStatus) {
+    const body: any = {
+      'order_status': orderStatus
+    };
+    return this._httpClient.put(this.baseUrl + '/orders/' + orderNumber, body).map((res: any) => {
+      return res;
+    });
+  }
 }

@@ -18,6 +18,7 @@ export class AdminProductComponent implements OnInit {
   reader: any;
   formData: any;
   xhr: any;
+  loader = false;
   constructor(private _productService: ProductService) { }
 
   ngOnInit() {
@@ -44,28 +45,31 @@ export class AdminProductComponent implements OnInit {
   }
 
   createProduct(data) {
-    var file = this.file;
-    var that = this;
-    const reader = new FileReader(); 
+    this.loader = true;
+    const file = this.file;
+    const that = this;
+    const reader = new FileReader();
     reader.onloadend = function() {
-      var buf = Buffer1.from(reader.result);
-      ipfs.files.add(buf).then((response)=>{
+      const buf = Buffer1.from(reader.result);
+      ipfs.files.add(buf).then((response) => {
         const buf1 = Buffer1.from(data.descripton);
         ipfs.files.add(buf1).then((resp) => {
           data.imageLink = response[0].hash;
           data.descLink = resp[0].hash;
           that._productService.createProduct(data).subscribe(res => {
-            console.log(res);
-          });       
+            if (res) {
+              that.loader = false;
+              alert('Create Successfully');
+              location.reload();
+            }
+          });
         }).catch((err) => {
-          console.log("err ?<<<<<<<<<<<<<<<<,");
           console.log(err);
-        })
+        });
       }).catch((err) => {
-        console.log("err >>>>>>>>>>>>>>>>>>>>>");
         console.log(err);
-      })
-    }
+      });
+    };
     reader.readAsArrayBuffer(file);
   }
 }

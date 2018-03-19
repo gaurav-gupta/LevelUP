@@ -35,7 +35,7 @@ import { AdminProductComponent } from './components/admin-product/admin-product.
     OrderComponent, DataFilterPipe, UserOrderComponent, AdminProductComponent
   ],
   imports: [
-    BrowserModule, routing, FormsModule, DataTableModule, ImageZoomModule, HttpClientModule, HttpModule,
+    BrowserModule, routing, FormsModule, DataTableModule, ImageZoomModule, HttpClientModule, HttpModule
   ],
   providers: [ appRoutingProviders , StorageService, AuthGuard,
       {

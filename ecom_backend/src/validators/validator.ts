@@ -14,14 +14,7 @@ export function ValidateAuthToken(req,res,next) {
         if(err){
           return res.status(401).json({"status": CodeConstants.FAILURE, "msg": CodeConstants.INVALID_TOKEN});
         }else{
-          authUserModel.findToken({email:decoded.email}).then(response =>{
-            if(response){
-              req.user_data = response;
-              next();
-            }else {
-              return res.status(401).json({"status": CodeConstants.FAILURE, "msg": CodeConstants.ACCESS_TOKEN_IS_EXPIRED});
-            }
-          });
+      	  next();
         }
       });
     }catch(e){

@@ -4,9 +4,9 @@ var Schema = mongoose.Schema;
 var orderSchema = new Schema({
   order_number: { type: String ,required:true},
   order_status: { type: String, default: 'new'},
-  price: { type: Number , required:true},
-  customer_id: { type: String , required:true},
-  product_name:{type: String , required:true},
+  price: { type: Number, required:true},
+  customer_id: { type: String, required:true},
+  productId: { type: Number, required:true},
   date: { type: Date },
   created_at: { type: Date , default: null},
   updated_at: { type: Date },
