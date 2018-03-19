@@ -33,7 +33,6 @@
     "continuation-local-storage": "^3.2.1",
     "debug": "^2.2.0",
     "express": "^4.14.0",
-    "ipfs-api": "^18.1.2",
     "jsonschema": "^1.2.2",
     "mongodb": "^2.2.35",
     "mongoose": "4.7.2",
@@ -41,7 +40,6 @@
     "truffle-contract": "^3.0.4",
     "underscore": "*",
     "validate.js": "0.10.0",
-    "web3": "^0.20.6",
-    "web3-js": "^1.0.0-beta.26"
+    "web3": "^0.20.6"
   }
 }

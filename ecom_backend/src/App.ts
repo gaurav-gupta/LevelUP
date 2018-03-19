@@ -27,8 +27,10 @@ function setupProductEventListner() {
         console.log(err)
         return;
       }
-      controller.createProduct(result.args);
+      controller.saveProduct(result.args);
     });
+  }).catch((err) => {
+    console.log(err);
   })
 }
 

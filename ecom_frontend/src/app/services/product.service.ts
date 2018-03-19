@@ -35,9 +35,9 @@ export class ProductService {
     });
   }
 
-  saveProductTxLogs(Logs) {
-    const _path: string = (this.baseUrl + '/products/producttxLogs');
-    return this._httpClient.post(_path, Logs).map((res: any) => {
+  createProduct(productData){
+    const _path: string = (this.baseUrl + '/products');
+    return this._httpClient.post(_path, productData).map((res: any) => {
       return res;
     });
   }

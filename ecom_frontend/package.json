@@ -30,8 +30,6 @@
     "ipfs": "^0.28.2",
     "ipfs-api": "^18.1.2",
     "rxjs": "^5.5.2",
-    "truffle-contract": "^3.0.4",
-    "web3": "^0.20.6",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
