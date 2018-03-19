@@ -7,6 +7,6 @@ var router = express();
 router.get('/category', CategoriesController.getAllCategories);
 router.get('/:id', ProductsController.getProduct);
 router.get('/', ProductsController.getAllProduct);
-router.post('/', ProductsController.createProduct);
+router.post('/producttxLogs', ProductsController.createProductTxLogs);
 
 export = router;

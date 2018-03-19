@@ -3,19 +3,19 @@ var Schema = mongoose.Schema;
 
 var productSchema = new Schema({
   id:{ type: String },
+  productId:{ type: Number },
   name: { type: String },
   category: { type: String },
   imageLink: { type: String },
   descLink: { type: String },
-  brand_fit: { type: String },
-  price: { type: Number },
+  price: { type: Number }
 });
 
 export var productModel = mongoose.model('products', productSchema);
 
-export function getProduct (id){
+export function getProduct (cond){
   return new Promise((resolve, reject) => {
-    productModel.find({_id:id}).then(function (doc) {
+    productModel.find(cond).then(function (doc) {
       resolve(doc);
     });
   });

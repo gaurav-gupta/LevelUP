@@ -25,8 +25,13 @@
     "angular2-datatable-pagination": "0.0.3",
     "angular2-image-zoom": "^1.2.1",
     "btoa": "^1.1.2",
+    "buffer": "^5.1.0",
     "core-js": "^2.4.1",
+    "ipfs": "^0.28.2",
+    "ipfs-api": "^18.1.2",
     "rxjs": "^5.5.2",
+    "truffle-contract": "^3.0.4",
+    "web3": "^0.20.6",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

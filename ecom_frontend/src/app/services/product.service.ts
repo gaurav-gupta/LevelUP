@@ -28,20 +28,16 @@ export class ProductService {
     });
   }
 
-  createProduct(data, reader) {
-    const result = {
-      data: data ,
-      reader: reader
-    };
-    const _path: string = (this.baseUrl + '/products/');
-    return this._httpClient.post(_path, result).map((res: any) => {
+  getCategories() {
+    const _path: string = (this.baseUrl + '/products/category');
+    return this._httpClient.get(_path).map((res: any) => {
       return res;
     });
   }
 
-  getCategories() {
-    const _path: string = (this.baseUrl + '/products/category');
-    return this._httpClient.get(_path).map((res: any) => {
+  saveProductTxLogs(Logs) {
+    const _path: string = (this.baseUrl + '/products/producttxLogs');
+    return this._httpClient.post(_path, Logs).map((res: any) => {
       return res;
     });
   }
