@@ -1,4 +1,7 @@
 import * as mongoose from 'mongoose';
+// import * as userModel from './user';
+// import {ObjectId} from 'mongodb';
+var ObjectId = require('mongoose').Types.ObjectId; 
 var Schema = mongoose.Schema;
 
 var orderSchema = new Schema({
@@ -6,8 +9,8 @@ var orderSchema = new Schema({
   orderId: { type: Number, required:true},
   order_status: { type: String, default: 'new'},
   price: { type: Number, required:true},
-  customer_id: { type: String, required:true},
-  productId: { type: String, required:true},
+  customer_id: { type: Object, required:true},
+  productId: { type: Object, required:true},
   created_at: { type: Date },
   updated_at: { type: Date },
   address:{
@@ -42,16 +45,51 @@ export function updateOrder (order_number, data){
 
 export function getOrders (){
   return new Promise((resolve, reject) => {
-    orderModel.find().then(function (doc) {
-      resolve(doc);
+    orderModel.aggregate([{
+      $lookup: {
+        from: "users",
+        localField: "customer_id",
+        foreignField: "_id",
+        as: "usersinfo"
+      }
+    },
+    {
+      $lookup: {
+         from: "products",
+        localField: "productId",
+        foreignField: "_id",
+        as: "productsinfo"
+      }
+    }
+    ]).then(res => {
+      resolve(res);
+      console.log(JSON.stringify(res));
     });
   });
 };
 
 export function getOrdersUser(id) {
   return new Promise((resolve, reject) => {
-    orderModel.find({customer_id:id}).then(function (doc) {
-      resolve(doc);
+    var da = new ObjectId(id);
+    orderModel.aggregate([{$match:{customer_id: da}},{
+      $lookup: {
+        from: "users",
+        localField: "customer_id",
+        foreignField: "_id",
+        as: "usersinfo"
+      }
+    },
+    {
+      $lookup: {
+         from: "products",
+        localField: "productId",
+        foreignField: "_id",
+        as: "productsinfo"
+      }
+    }
+    ]).then(res => {
+      resolve(res);
+      console.log(JSON.stringify(res));
     });
   });
 }

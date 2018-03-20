@@ -7,7 +7,19 @@
                     <mfDefaultSorter by="order_number">Order Id</mfDefaultSorter>
                 </th>
                 <th>
-                    <mfDefaultSorter by="product_name">Product Id</mfDefaultSorter>
+                    <mfDefaultSorter by="product_name">Product Name</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="product_name">Product Category</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="product_name">Price</mfDefaultSorter>
+                </th>
+                 <th>
+                    <mfDefaultSorter by="product_name">Ordered by</mfDefaultSorter>
+                </th>
+                 <th>
+                    <mfDefaultSorter by="product_name">Ordered At</mfDefaultSorter>
                 </th>
                 <th id="disableSorting">
                     Shipping Address
@@ -20,8 +32,12 @@
         <tbody>
             <tr *ngFor="let item of mf.data">
                 <td>{{item.order_number}}</td>
-                <td>{{item.productId}}</td>
-                <td>{{item.address.address}},{{item.address.city}},{{item.address.state}}</td>
+                <td>{{item.productsinfo[0].name}}</td>
+                <td>{{item.productsinfo[0].category}}</td>
+                <td>{{item.productsinfo[0].price}}</td>
+                <td>{{item.usersinfo[0].first_name}} {{item.usersinfo[0].last_name}}</td>
+                <td>{{item.created_at}}</td>
+                <td>{{item.address.address}}, {{item.address.city}}, {{item.address.state}}, {{item.address.pincode}}</td>
                 <td>
                     <!-- <select class="form-control input-sm" #selectedCategory required>
                          <ng-container *ngIf="item.order_status == 'new'">

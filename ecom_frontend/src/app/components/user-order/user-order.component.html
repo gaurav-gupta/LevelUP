@@ -7,18 +7,30 @@
           <mfDefaultSorter by="order_number">OrderId</mfDefaultSorter>
         </th>
         <th>
-          <mfDefaultSorter by="product_name">ProductId</mfDefaultSorter>
+          <mfDefaultSorter by="product_name">Product Name</mfDefaultSorter>
+        </th>
+        <th>
+          <mfDefaultSorter by="product_name">Product Category</mfDefaultSorter>
+        </th>
+        <th>
+          <mfDefaultSorter by="product_name">Product Price</mfDefaultSorter>
         </th>
         <th>
           <mfDefaultSorter by="ordered_on">Ordered on</mfDefaultSorter>
+        </th>
+        <th>
+          <mfDefaultSorter by="ordered_on">User Email</mfDefaultSorter>
         </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of mf.data">
         <td>{{item.order_number}}</td>
-        <td>{{item.productId}}</td>
-        <td>{{item.date}}</td>
+        <td>{{item.productsinfo[0].name}}</td>
+        <td>{{item.productsinfo[0].category}}</td>
+        <td>{{item.productsinfo[0].price}}</td>
+        <td>{{item.created_at}}</td>
+        <td>{{item.usersinfo[0].email}}</td>
       </tr>
     </tbody>
     <tfoot>

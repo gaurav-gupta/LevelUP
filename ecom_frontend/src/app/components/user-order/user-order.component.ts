@@ -24,10 +24,12 @@ export class UserOrderComponent implements OnInit {
     const currentUser = JSON.parse(localStorage.getItem('current_user'));
     this._userService.getUserByEmail(currentUser.email).subscribe(res1 => {
       this.userdata = res1[0];
+      console.log('>>>>>>>>>>>>>this >>>>>>>>>>>>>>>>>>', this.userdata._id);
       this._userService.getUserOrder(this.userdata._id).subscribe(response => {
         console.log('>>>>>>>>>>>>get user order', response);
         if (response.length > 0) {
           this.data = response;
+           console.log('>>>>>>>>>>>>get user order', this.data);
         } else {
           alert('No Orders Placed Yet !!');
         }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/users.service';
+import * as moment from 'moment'; 
 
 @Component({
   selector: 'app-order',
@@ -17,6 +18,7 @@ export class OrderComponent implements OnInit {
 
   getOrders() {
     this._userService.getOrders().subscribe(res => {
+      console.log('>>>>>>>>>>>>data of user?> dayata after lookup>>>>>>>>', res);
       this.data = res;
     });
   }

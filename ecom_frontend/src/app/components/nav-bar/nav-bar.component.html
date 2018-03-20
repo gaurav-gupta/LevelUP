@@ -1,7 +1,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Shopping</a>
+      <a class="navbar-brand" href="/product">Shopping</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
       <ng-container *ngIf="check">
@@ -10,11 +10,12 @@
         <li><a [routerLink]="['/adminproduct']"><b>Product</b></a></li>
       </ng-container>
       <ng-container *ngIf="!check">
+          <li><a *ngIf="uncheck" [routerLink]="['/product']"><b>Current balance ({{wallet_amount}} levelup)</b></a></li>
+        </ng-container>
+      <ng-container *ngIf="!check">
         <li><a *ngIf="uncheck" [routerLink]="['/userOrder']"><b>My Order</b></a></li>
       </ng-container>
-      <ng-container *ngIf="!check">
-          <li><a *ngIf="uncheck" [routerLink]="['/product']"><b>({{wallet_amount}}) levelup</b></a></li>
-        </ng-container>
+      
 
       <li><a *ngIf="uncheck" (click)=logout()><b>SignOut</b></a></li>
     </ul>

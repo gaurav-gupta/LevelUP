@@ -63,6 +63,8 @@ export function getOrders(req,res,next){
 export function getOrdersUser(req,res,next){
   try {
     let id = req.params.id;
+    console.log("ssssssssssssssssssssssssssssssssssssss", id);
+    console.log("ssssssssssssssssssssssssssssssssssssss", typeof(id));
     orderModel.getOrdersUser(id).then(response =>{
       res.send(response);
     });
