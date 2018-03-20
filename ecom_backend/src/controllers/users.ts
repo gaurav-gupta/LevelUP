@@ -12,6 +12,7 @@ import * as common from '../helpers/common_helper';
 export function createUser (req, res, next){
   try{
     console.log(">>>>>>>>>>>>in controlsers >>>>>data");
+    var password = req.body.password;
     userModel.getUser(req.body.email).then((data: any)=>{
       if(!data.length){
         console.log("data >?>>>>>>>>>>>>>>>>>")
@@ -22,7 +23,7 @@ export function createUser (req, res, next){
             console.log("response >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
             console.log(response)
             if(response) {
-              common.assignLevelUpToUser(response);
+              common.assignLevelUpToUser(response, password);
               res.send(response);
             }
           }).catch(err => {
@@ -144,19 +145,13 @@ export function logoutUser(req,res,next){
 //update user token amount
 export function updateUserToken(user, token){
   try{
-    console.log("data >>>>>>>>>>>>>>>>>>>>>");
-    console.log(token);
-    // let email = req.params.email;
-    // userModel.logoutUser(email).then(response =>{
-    //   res.send({message:CodeConstants.OK});
-    // });
     user.wallet_amount = token;
-    console.log(user);
     userModel.updateUser(user.email, user).then(function(user){
       console.log(user)
-    });
+    }).catch((err) => {
+      console.log(err);
+    })
   }catch(e){
-    // res.send({message:e});
     console.log("e >>>>>>>>>>>>>>>>>>>")
     console.log(e)
   }

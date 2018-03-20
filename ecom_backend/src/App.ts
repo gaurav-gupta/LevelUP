@@ -46,4 +46,5 @@ server.listen(8080, function () {
 
 common.setupProductEventListner();
 common.setupUserTokenEventListner();
+common.setupUserBuyProductEventListner();
 export default app;
