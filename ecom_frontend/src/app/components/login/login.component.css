@@ -30,3 +30,12 @@ img{
 .thumbnail{
   text-align: center;
 }
+
+i{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+buttonplaced{
+  height: 60px;
+  width: 80px;
+}

@@ -6,7 +6,9 @@
         <div class="card col-md-4" *ngFor="let product of productList">
           <div class="thumbnail">
             <img  src="https://ipfs.io/ipfs/{{product.imageLink}}" [routerLink]="['/productDetail', product._id]" alt="blue shirt">
-            <p><b>{{product?.name}}  (&#x20b9; {{product?.price}})</b></p>
+            <p><b>{{product?.name}}</b></p>
+            <p>{{product?.category}}</p>
+            <p>{{product?.price}} levelup</p>
           </div>
         </div>
       </div>

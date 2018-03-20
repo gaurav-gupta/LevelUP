@@ -44,7 +44,7 @@ export class LoginComponentComponent implements OnInit {
       };
       this._dashAuthService.loginDashUser(data).subscribe(res => {
         if (!res.error) {
-          console.log('>>>>>>>>>>inside this >res');
+          console.log('>>>>>>>>>>inside this >res', res);
           email1 = '';
           password1 = '';
           this._storageService.setItem('current_user', JSON.stringify(res));
@@ -69,6 +69,7 @@ export class LoginComponentComponent implements OnInit {
   // get list of products
   getProducts() {
     this._productService.getProduct().subscribe(res => {
+      console.log('>>>>>>>>>>>>thisis ?>', res);
       this.product = res;
     });
   }

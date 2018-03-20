@@ -18,7 +18,10 @@
         <div class="card col-md-4" *ngFor="let product of product">
           <div class="thumbnail">
             <img src="https://ipfs.io/ipfs/{{product.imageLink}}" [routerLink]="['/productDetail', product._id]" alt="blue shirt">
-            <p><b>{{product?.name}}  (&#x20b9; {{product?.price}})</b></p>
+            <b>{{product?.name}}</b><br>
+            {{product?.category}}<br>
+            {{product?.price}} levelup<br>
+            <button data-toggle="modal" data-target="#login" id="buttonplaced" class="btn btn-lg btn-primary" type="submit">BUY NOW</button>
           </div>
         </div>
       </div>
@@ -88,7 +91,7 @@
               <input type="password" #password class="form-control" placeholder="Password" name="password"><br>
             </div>
           </div>
-          <button (click)="signUp(firstname, lastname, email, password)" class="btn btn-lg btn-primary btn-block" type="submit" >Sign Up</button>
+           <button type="submit" (click)="signUp(firstname, lastname, email, password)" class="btn btn-primary btn-md btn btn-lg btn-primary btn-block"><i class="fa fa-circle-o-notch fa-spin"></i> Sign Up</button>
         </form>
       </div>
       <div class="modal-footer">

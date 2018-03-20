@@ -12,18 +12,18 @@
                 <th id="disableSorting">
                     Shipping Address
                 </th>
-                <th id="disableSorting">
+                <!-- <th id="disableSorting">
                     Status
-                </th>
+                </th> -->
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of mf.data">
                 <td>{{item.order_number}}</td>
                 <td>{{item.productId}}</td>
-                <td>{{item.address.address}}</td>
+                <td>{{item.address.address}},{{item.address.city}},{{item.address.state}}</td>
                 <td>
-                    <select class="form-control input-sm" #selectedCategory required>
+                    <!-- <select class="form-control input-sm" #selectedCategory required>
                          <ng-container *ngIf="item.order_status == 'new'">
                              <option [ngValue]=item.order_status>{{item.order_status}}</option>
                              <option [ngValue]="processing">processing</option>
@@ -39,12 +39,12 @@
                              <option [ngValue]="new">new</option>
                              <option [ngValue]="processing">processing</option>
                          </ng-container>
-                    </select>
+                    </select> -->
                 </td>
                 <td></td>
-                <td>
+                <!-- <td>
                     <input type="submit" class="btn btn-primary" (click)="updateOrderStatus(item['order_number'], selectedCategory.value)" value="Update Status">
-                </td>
+                </td> -->
             </tr>
         </tbody>
         <tfoot>
