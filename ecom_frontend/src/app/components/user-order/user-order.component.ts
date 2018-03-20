@@ -25,6 +25,7 @@ export class UserOrderComponent implements OnInit {
     this._userService.getUserByEmail(currentUser.email).subscribe(res1 => {
       this.userdata = res1[0];
       this._userService.getUserOrder(this.userdata._id).subscribe(response => {
+        console.log('>>>>>>>>>>>>get user order', response);
         if (response.length > 0) {
           this.data = response;
         } else {

@@ -54,7 +54,7 @@ export function authenticateUser(req, res, next){
                 res.send({ email: email, user_auth_token: token });
             }
           }else{
-            res.send({message: CodeConstants.PASSWORD_DO_NOT_MATCH});
+            res.send({error: CodeConstants.PASSWORD_DO_NOT_MATCH});
           }
         });
       }else {

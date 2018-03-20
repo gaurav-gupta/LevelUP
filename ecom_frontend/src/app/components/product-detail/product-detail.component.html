@@ -1,30 +1,22 @@
 <app-nav-bar></app-nav-bar>
 <div class="container" *ngIf='!statebuy'>
-    <img [imageZoom]="zoomedImageSrc" class="border" src={{product?.img}} alt="shirt" id="shirtImagePosition">
+    <img  src="https://ipfs.io/ipfs/{{product?.imageLink}}" class="thumbnail"[imageZoom]="zoomedImageSrc"  alt="shirt" id="shirtImagePosition">
     <div class="container" id="form1">
         <form>
-            <h3>{{product.name}}</h3>
+            <h3>{{product?.name}}</h3>
             <h4>Be the first to Review this product <img src="../.././assets/shop.png" alt="shopping icon" width="42" height="42"> </h4>
-            <p>Price &#x20b9; {{product.price}}</p>
+            <p>Price &#x20b9; {{product?.price}} levelup</p>
             <h5>Hurry, Only 1 left!</h5>
             <h3>Specifications</h3>
             <table>
                 <tbody>
                     <tr>
-                        <td>Size</td>
-                        <td>{{product?.size}}</td>
+                        <td><b>Category</b></td>
+                        <td>{{product?.category}}</td>
                     </tr>
                     <tr>
-                        <td>Pattern</td>
-                        <td>{{product?.pattern}}</td>
-                    </tr>
-                    <tr>
-                        <td>Brand Fit</td>
-                        <td>{{product.brand_fit}}</td>
-                    </tr>
-                    <tr>
-                        <td>Fabric</td>
-                        <td>{{product?.fabric}}</td>
+                        <td><b>Description</b></td>
+                        <td>{{filedata}}</td>
                     </tr>
                 </tbody>
             </table><br>
@@ -42,9 +34,9 @@
                     <h4>{{product?.name}}</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Price(1 item) &nbsp; &nbsp;&#x20b9; {{product.price}} </p>
+                    <p>Price(1 item) &nbsp; &nbsp;&#x20b9; {{product?.price}} levelup</p>
                     <p>Delivery Charge &nbsp; &nbsp; (Free) </p>
-                    <h5>Amount Payable &nbsp; &nbsp; &#x20b9; {{product.price}} </h5>
+                    <h5>Amount Payable &nbsp; &nbsp; &#x20b9; {{product?.price}} levelup</h5>
                     <hr>
                     <h3>Billing Address</h3>
                     <form role="form" #form="ngForm" class="form-horizontal makeform" (ngSubmit)="createOrder(form.value)">
@@ -112,9 +104,6 @@
                                 <input type="text" class="form-control" name="phone_number" [(ngModel)]="phone_number" placeholder="Enter Mobile Number" maxlength="10" required  class="form-control input-xlarge">
                             </div>
                         </div>
-                        <div class="loader" *ngIf="loader">
-                          <img src="./assets/loader.gif"/>
-                        </div>
                         <button type="submit" id="order" class="btn btn-primary">Order Placed</button>
                     </form>
                 </div>
@@ -123,6 +112,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="onloader_col"  *ngIf="loader">
+        <img src="./assets/loader.gif"/>
     </div>
 
   <div class="container">
@@ -149,7 +141,6 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>

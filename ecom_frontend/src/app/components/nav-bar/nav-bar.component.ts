@@ -14,12 +14,15 @@ export class NavBarComponent implements OnInit {
   current_user: any;
   check = false;
   uncheck = false;
+  wallet_amount: any;
   constructor(private router: Router, private _dashAuthService: DashAuthService,
     private _storageService: StorageService, private _userService: UserService) { }
 
     ngOnInit() {
       this.current_user = JSON.parse(localStorage.getItem('current_user'));
       this._userService.getUserByEmail(this.current_user.email).subscribe(res1 => {
+        console.log('>>>>>>>>>>>>>res1', res1[0].wallet_amount);
+        this.wallet_amount = res1[0].wallet_amount;
         if (res1[0].roles === 'admin') {
           this.check = true;
         }

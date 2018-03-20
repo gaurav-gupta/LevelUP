@@ -14,6 +14,7 @@ import { ProductService } from '../../services/product.service';
 export class LoginComponentComponent implements OnInit {
   private email: string;
   private password: string;
+  error: any;
   product: any;
   uncheck: any;
   current_user: any;
@@ -21,7 +22,9 @@ export class LoginComponentComponent implements OnInit {
   last_name: any;
   _id: any;
   email1: any;
+  check: any;
   password1: any;
+  errorState: any;
   constructor(private route: ActivatedRoute, private router: Router, private _dashAuthService: DashAuthService,
     private _storageService: StorageService, private _userService: UserService,  private _productService: ProductService)  { }
     ngOnInit() {
@@ -39,15 +42,16 @@ export class LoginComponentComponent implements OnInit {
         email: this.email1,
         password: this.password1
       };
-      console.log('>>>>>>>>>>>login data', data);
       this._dashAuthService.loginDashUser(data).subscribe(res => {
-        console.log('>>>>>>>>>>>login data', res);
-        if (res) {
+        if (!res.error) {
+          console.log('>>>>>>>>>>inside this >res');
+          email1 = '';
+          password1 = '';
           this._storageService.setItem('current_user', JSON.stringify(res));
           const currentUser = JSON.parse(localStorage.getItem('current_user'));
           this._userService.getUserByEmail(currentUser.email).subscribe(res1 => {
-
             if (res1[0].roles === 'admin') {
+              this.check = true;
               location.reload();
               this.router.navigate(['/admin']);
             } else {
@@ -55,12 +59,11 @@ export class LoginComponentComponent implements OnInit {
               this.router.navigate(['/product']);
             }
           });
+        }else {
+          this.error = res.error;
+          this.errorState = true;
         }
-      },
-      (err) => {
-        console.log('error....', err);
-      }
-    );
+      });
   }
 
   // get list of products
@@ -88,7 +91,6 @@ export class LoginComponentComponent implements OnInit {
       email : this.email,
       password : this.password
     };
-    console.log('>>>>>>>>>>>>sign up ????????', data);
     this._dashAuthService.signUpUser(data).subscribe(res => {
       location.reload();
     });

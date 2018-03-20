@@ -45,7 +45,7 @@ export class AdminProductComponent implements OnInit {
   }
 
   createProduct(data) {
-  console.log("data >>>>>>>>>>>>>>>>>>>>>>>>>")
+  console.log('data >>>>>>>>>>>>>>>>>>>>>>>>>');
   console.log(data)
     this.loader = true;
     const file = this.file;
@@ -59,9 +59,10 @@ export class AdminProductComponent implements OnInit {
           data.imageLink = response[0].hash;
           data.descLink = resp[0].hash;
           that._productService.createProduct(data).subscribe(res => {
+            console.log('>>>>>>>>>>res', res);
             if (res) {
               that.loader = false;
-              // alert('Create Successfully');
+              alert('Create Successfully');
               location.reload();
             }
           });

@@ -4,7 +4,7 @@
       <a class="navbar-brand" href="#">Shopping</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <li><a *ngIf="uncheck" [routerLink]="['/userOrder']">My Order</a></li>
+      <li><a *ngIf="uncheck && check" [routerLink]="['/userOrder']">My Order</a></li>
       <li><a *ngIf="!uncheck" data-toggle="modal" data-target="#login">SignIn</a></li>
       <li><a *ngIf="!uncheck" data-toggle="modal" data-target="#signup">SignUp</a></li>
       <li><a *ngIf="uncheck" (click)=logout() >SignOut</a></li>
@@ -16,13 +16,16 @@
     <div class="container">
       <div class="row">
         <div class="card col-md-4" *ngFor="let product of product">
-          <div class="card-block">
+          <div class="thumbnail">
             <img src="https://ipfs.io/ipfs/{{product.imageLink}}" [routerLink]="['/productDetail', product._id]" alt="blue shirt">
-            <p>{{product.name}}</p>
+            <p><b>{{product?.name}}  (&#x20b9; {{product?.price}})</b></p>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="" *ngIf="errorState">
+    <h5>Error:{{errorState}}</h5>
   </div>
 
   <!-- login modal -->
@@ -49,7 +52,6 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

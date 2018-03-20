@@ -4,9 +4,9 @@
     <div class="container">
       <div class="row">
         <div class="card col-md-4" *ngFor="let product of productList">
-          <div class="card-block">
-            <img src={{product.img}} [routerLink]="['/productDetail', product._id]" alt="blue shirt">
-            <p>{{product.name}}</p>
+          <div class="thumbnail">
+            <img  src="https://ipfs.io/ipfs/{{product.imageLink}}" [routerLink]="['/productDetail', product._id]" alt="blue shirt">
+            <p><b>{{product?.name}}  (&#x20b9; {{product?.price}})</b></p>
           </div>
         </div>
       </div>
