@@ -18,7 +18,7 @@ const ipfs = ipfsAPI({host: '13.250.35.159', port: '5001', protocol: 'http'});
 export class ProductDetailComponent implements OnInit {
   _id: any;
   product: any;
-  state: any = 'Select State';
+  state: any;
   data: any;
   current_user: any;
   check: any;
