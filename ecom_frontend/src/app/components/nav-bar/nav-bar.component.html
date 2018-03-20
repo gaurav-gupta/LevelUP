@@ -15,8 +15,6 @@
       <ng-container *ngIf="!check">
         <li><a *ngIf="uncheck" [routerLink]="['/userOrder']"><b>My Order</b></a></li>
       </ng-container>
-      
-
       <li><a *ngIf="uncheck" (click)=logout()><b>SignOut</b></a></li>
     </ul>
   </div>
