@@ -10,7 +10,7 @@
         <li><a [routerLink]="['/adminproduct']"><b>Product</b></a></li>
       </ng-container>
       <ng-container *ngIf="!check">
-          <li><a *ngIf="uncheck" [routerLink]="['/product']"><b>Current balance ({{wallet_amount}} levelup)</b></a></li>
+          <li><a *ngIf="uncheck" ><b>Current balance ({{wallet_amount}} levelup)</b></a></li>
         </ng-container>
       <ng-container *ngIf="!check">
         <li><a *ngIf="uncheck" [routerLink]="['/userOrder']"><b>My Order</b></a></li>
