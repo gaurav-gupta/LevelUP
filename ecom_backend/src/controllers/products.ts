@@ -41,10 +41,10 @@ export function createProduct(req, res, next){
     var data = req.body;
     var user = req.user_data[0];
     LevelUp.deployed().then(function(i){
-      i.addProductToStore(user._id.toString(), data.product_name, data.selectName, data.imageLink, data.descLink, data.Price, {from: web3.eth.accounts[0], gas: 440000})
+      i.addProductToStore(data.product_name, data.selectName, data.imageLink, data.descLink, data.Price, {from: web3.eth.accounts[0], gas: 440000})
       .then(function(f){
         console.log(f);
-        var obj = {dtype: "product", receipt: f.receipt, logs: f.logs};
+        var obj = {dtype: "Add_Product_To_Store_Log", receipt: f.receipt, logs: f.logs, created_at: new Date()};
         LogModel.createLogs(obj).then(response =>{
           if(response){
             res.send(response);

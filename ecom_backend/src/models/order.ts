@@ -2,13 +2,13 @@ import * as mongoose from 'mongoose';
 var Schema = mongoose.Schema;
 
 var orderSchema = new Schema({
-  order_number: { type: String ,required:true},
+  order_number: { type: String, required:true},
+  orderId: { type: Number, required:true},
   order_status: { type: String, default: 'new'},
   price: { type: Number, required:true},
   customer_id: { type: String, required:true},
-  productId: { type: Number, required:true},
-  date: { type: Date },
-  created_at: { type: Date , default: null},
+  productId: { type: String, required:true},
+  created_at: { type: Date },
   updated_at: { type: Date },
   address:{
     address:{type: String , required:true},
@@ -51,6 +51,14 @@ export function getOrders (){
 export function getOrdersUser(id) {
   return new Promise((resolve, reject) => {
     orderModel.find({customer_id:id}).then(function (doc) {
+      resolve(doc);
+    });
+  });
+}
+
+export function getOrder(cond) {
+  return new Promise((resolve, reject) => {
+    orderModel.find(cond).then(function (doc) {
       resolve(doc);
     });
   });

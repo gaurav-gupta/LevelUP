@@ -8,7 +8,7 @@ var userSchema = new Schema({
   password: { type: String ,required:true},
   email: { type: String ,required:true},
   roles: { type: String , required:true, default: "user"},
-  wallet_address: { type: String , required: false},
+  wallet_address: { type: String , default: ''},
   wallet_amount: {type: Number, default: 0}
 });
 
@@ -60,6 +60,14 @@ export function authenticateUser (data: any){
 export function getUser (data: any){
   return new Promise((resolve, reject) => {
     userModel.find({email:data}).then(function (doc) {
+      resolve(doc);
+    });
+  });
+};
+
+export function getUser1 (cond: any){
+  return new Promise((resolve, reject) => {
+    userModel.find(cond).then(function (doc) {
       resolve(doc);
     });
   });

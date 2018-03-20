@@ -5,7 +5,8 @@ var txLogSchema = new Schema({
   id:{ type: String },
   receipt: {type: Object},
   logs: { type: Array },
-  dtype: {type: String}
+  dtype: {type: String},
+  created_at: {type: Date}
 });
 
 export var LogsModel = mongoose.model('levelUpLogs', txLogSchema);
