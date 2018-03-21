@@ -6,7 +6,6 @@ var router = express();
 
 router.post('/', userController.createUser);
 router.post('/login', userController.authenticateUser);
-router.post('/logout/:email', userController.logoutUser);
 router.get('/', validator.ValidateAuthToken, userController.getAllUser);
 router.get('/:email', validator.ValidateAuthToken, userController.getUser);
 router.put('/:email', validator.ValidateAuthToken, userController.updateUser);

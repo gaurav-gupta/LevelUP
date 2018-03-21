@@ -14,7 +14,7 @@ export function ValidateAuthToken(req,res,next) {
         if(err){                    
           return res.status(401).json({"status": CodeConstants.FAILURE, "msg": CodeConstants.INVALID_TOKEN});                
         }else{                    
-          userModel.getUser(decoded.email).then(response =>{                        
+          userModel.getUser({email: decoded.email}).then(response =>{                        
             if(response){                            
               req.user_data = response;                            
               next();                        

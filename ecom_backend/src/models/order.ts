@@ -1,12 +1,10 @@
 import * as mongoose from 'mongoose';
-// import * as userModel from './user';
-// import {ObjectId} from 'mongodb';
-var ObjectId = require('mongoose').Types.ObjectId; 
+var ObjectId = mongoose.Types.ObjectId; 
 var Schema = mongoose.Schema;
 
 var orderSchema = new Schema({
   order_number: { type: String, required:true},
-  orderId: { type: Number, required:true},
+  orderId: { type: String, required:true},
   order_status: { type: String, default: 'new'},
   price: { type: Number, required:true},
   customer_id: { type: Object, required:true},
@@ -35,9 +33,9 @@ export function createOrder (data){
   });
 };
 
-export function updateOrder (order_number, data){
+export function updateOrder (condition, data){
   return new Promise((resolve, reject) => {
-    orderModel.findOneAndUpdate({order_number: order_number},data).then(function (doc) {
+    orderModel.findOneAndUpdate(condition, data).then(function (doc) {
       resolve(doc);
     });
   });
@@ -63,7 +61,6 @@ export function getOrders (){
     }
     ]).then(res => {
       resolve(res);
-      console.log(JSON.stringify(res));
     });
   });
 };
@@ -89,7 +86,6 @@ export function getOrdersUser(id) {
     }
     ]).then(res => {
       resolve(res);
-      console.log(JSON.stringify(res));
     });
   });
 }

@@ -9,29 +9,24 @@ import { CodeConstants } from '../interfaces/code_constants';
 import * as common from '../helpers/common_helper';
 
 //create user
-export function createUser (req, res, next){
+export function createUser(req, res, next){
   try{
-    console.log(">>>>>>>>>>>>in controlsers >>>>>data");
     var password = req.body.password;
-    userModel.getUser(req.body.email).then((data: any)=>{
+    userModel.getUser({email: req.body.email}).then((data: any)=>{
       if(!data.length){
-        console.log("data >?>>>>>>>>>>>>>>>>>")
         bcrypt.hash(req.body.password, 10).then(hash =>{
-        console.log("data >?>>>>>>>>>>>>>>>>>", hash)
           req.body.password =  hash;
           userModel.createUser(req.body).then(response => {
-            console.log("response >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-            console.log(response)
             if(response) {
               common.assignLevelUpToUser(response, password);
               res.send(response);
             }
           }).catch(err => {
-            console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeee", err)
+            res.send({ "message": err});
           });
         });
       }else {
-        res.status(409).json({ "status": 409, "error": CodeConstants.USER_ALREADY_EXIST});
+        res.send({ "message": CodeConstants.USER_ALREADY_EXIST});
       }
     });
   } catch(error) {
@@ -44,15 +39,13 @@ export function authenticateUser(req, res, next){
   try{
     let email = req.body.email.toLowerCase().replace(/ /g, '');
     let password = req.body.password;
-    userModel.authenticateUser({email:email}).then((response: any) => {
-    console.log('>>>>>>>>>>usermosel', response);
+    userModel.getUser({email:email}).then((response: any) => {
       if(response.length){
         bcrypt.compare(password, response[0].password).then(check =>{
           if(check){
             var token = jwt.sign({ email: email, id: response[0]._id}, 'shhhhh');
             if(token){
-              console.log('>>>>>>>>token', token);
-                res.send({ email: email, user_auth_token: token });
+              res.send({ email: email, user_auth_token: token });
             }
           }else{
             res.send({error: CodeConstants.PASSWORD_DO_NOT_MATCH});
@@ -71,7 +64,7 @@ export function authenticateUser(req, res, next){
 export function getUser(req, res, next){
   try {
     let email = req.params.email;
-    userModel.getUser(email).then(response =>{
+    userModel.getUser({email: email}).then(response =>{
       if(response){
         res.send(response);
       }else{
@@ -102,7 +95,7 @@ export function getAllUser(req,res,next){
 export function updateUser(req,res,next){
   try{
     let email = req.params.email;
-    userModel.updateUser(email, req.body).then(response =>{
+    userModel.updateUser({email: email}, req.body).then(response =>{
       if(response){
         res.send(response);
       }else{
@@ -118,7 +111,7 @@ export function updateUser(req,res,next){
 export function deleteUser(req,res,next){
   try{
     let email = req.params.email;
-    userModel.deleteUser(email).then(response =>{
+    userModel.deleteUser({email: email}).then(response =>{
       if(response){
         res.send(response);
       }else{
@@ -130,29 +123,18 @@ export function deleteUser(req,res,next){
   }
 }
 
-//logout user
-export function logoutUser(req,res,next){
-  try{
-    let email = req.params.email;
-    userModel.logoutUser(email).then(response =>{
-      res.send({message:CodeConstants.OK});
-    });
-  }catch(e){
-    res.send({message:e});
-  }
-}
-
 //update user token amount
 export function updateUserToken(user, token){
   try{
     user.wallet_amount = token;
-    userModel.updateUser(user.email, user).then(function(user){
+    userModel.updateUser({email: user.email}, user).then(function(user){
       console.log(user)
     }).catch((err) => {
+      console.log("updateUserToken err");
       console.log(err);
     })
   }catch(e){
-    console.log("e >>>>>>>>>>>>>>>>>>>")
+    console.log("updateUserToken >>>>>>>>>>>>>>>>>>>")
     console.log(e)
   }
 }
