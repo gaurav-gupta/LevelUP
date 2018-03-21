@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, ResponseContentType } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from './storage.service';
+import { environment } from './../../environments/environment';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ProductService {
-  private baseUrl = 'http://localhost:8080';
+  private baseUrl = environment.baseUrl;
   formData: any;
   xhr: any;
   constructor(private _httpClient: HttpClient, private _http: Http, private _storageService: StorageService) {
