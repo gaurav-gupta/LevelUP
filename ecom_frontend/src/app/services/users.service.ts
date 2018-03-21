@@ -10,7 +10,7 @@ export class UserService {
   private baseUrl = environment.baseUrl;
   constructor(private _httpClient: HttpClient, private _http: Http, private _storageService: StorageService) {
   }
-  
+
   // Get user by Email
   getUserByEmail(email) {
     return this._httpClient.get(this.baseUrl + '/users/' + email).map((res: any) => {
@@ -24,33 +24,34 @@ export class UserService {
       return res;
     });
   }
-
+  // create user
   createOrder(data) {
     const body: any = JSON.stringify(data);
+    console.log('>>>>>>>>>>>>this is >>>>>>>>>serviec', body);
     const _path: string = (this.baseUrl + '/orders');
     return this._httpClient.post(_path, body).map((res: any) => {
       return res;
     });
   }
-
+// get order of user
   getUserOrder(_id) {
     return this._httpClient.get(this.baseUrl + '/orders/' + _id).map((res: any) => {
       return res;
     });
   }
-
+// get all orders
   getOrders() {
     return this._httpClient.get(this.baseUrl + '/orders').map((res: any) => {
       return res;
     });
   }
-  
-  updateOrderStatus(orderNumber, orderStatus) {
-    const body: any = {
-      'order_status': orderStatus
-    };
-    return this._httpClient.put(this.baseUrl + '/orders/' + orderNumber, body).map((res: any) => {
-      return res;
-    });
-  }
+
+  // updateOrderStatus(orderNumber, orderStatus) {
+  //   const body: any = {
+  //     'order_status': orderStatus
+  //   };
+  //   return this._httpClient.put(this.baseUrl + '/orders/' + orderNumber, body).map((res: any) => {
+  //     return res;
+  //   });
+  // }
 }

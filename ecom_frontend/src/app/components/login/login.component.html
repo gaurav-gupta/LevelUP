@@ -10,7 +10,7 @@
             {{product?.category}}<br>
             {{product?.price}} <b>levelup</b><br>
             <a href="javascript:void(0)" *ngIf="!uncheck" data-toggle="modal" data-target="#login" > Buy</a>
-            <a href="javascript:void(0)" *ngIf="uncheck"  data-toggle="modal" data-target="#myModal" > Buy</a>
+            <a href="/productDetail/{{product._id}}" *ngIf="uncheck"  > Buy</a>
           </div>
         </div>
       </div>

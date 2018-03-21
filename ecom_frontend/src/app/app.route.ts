@@ -1,7 +1,6 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponentComponent } from './components/login/login.component';
-import { ProductComponent } from './components/product/product.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { OrderComponent } from './components/order/order.component';
@@ -13,11 +12,6 @@ const appRoutes: Routes = [
   {
     path: '',
     component: LoginComponentComponent
-  },
-  {
-    path: 'product',
-    component: ProductComponent,
-    canActivate: [AuthGuard]
   },
   {
     path: 'productDetail/:_id',

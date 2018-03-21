@@ -6,6 +6,6 @@ var router = express();
 router.post('/', validator.ValidateAuthToken, OrdersController.createOrder);
 router.put('/:order_number', validator.ValidateAuthToken, OrdersController.updateOrder);
 router.get('/', validator.ValidateAuthToken, OrdersController.getOrders);
-router.get('/:id', OrdersController.getOrdersUser);
+router.get('/:id', validator.ValidateAuthToken,OrdersController.getOrdersUser);
 
 export = router;

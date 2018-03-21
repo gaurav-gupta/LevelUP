@@ -15,8 +15,6 @@ export class AppComponent implements OnInit {
   email: any;
   password: any;
   check: any= false;
-  error: any;
-  errorState: any;
   current_user: any;
   product: any;
   first_name: any;
@@ -61,9 +59,6 @@ export class AppComponent implements OnInit {
               this.router.navigate(['/']);
             }
           });
-        }else {
-          this.error = res.error;
-          this.errorState = true;
         }
       });
     }
@@ -89,37 +84,7 @@ export class AppComponent implements OnInit {
       };
       this._dashAuthService.signUpUser(data).subscribe(res => {
         location.reload();
+        confirm('User created successfully');
       });
     }
-    // create order
-    createOrder(form) {
-      this.loader = true;
-      this.data = {
-        'address': {
-          'address': form.address,
-          'pincode': form.pincode,
-          'state': form.state,
-          'phone_number': form.phone_number,
-          'city': form.city
-        },
-        'customer_email': this.check.email,
-        'customer_id': this.check._id,
-        'price': this.product.price,
-        'productId': this.product.productId
-      };
-      console.log('>>>>>>>>>>>this.data', this.data);
-      this._userService.createOrder(this.data).subscribe((res: any) => {
-        if (Object.keys(res).length > 0) {
-          this.loader = false;
-          alert('Order Placed Successfully !!');
-          this.router.navigate(['/']);
-          location.reload();
-        }
-      },
-      (err) => {
-        console.log('error>>>>>>>>>>>>', err);
-      });
-    }
-
-
   }

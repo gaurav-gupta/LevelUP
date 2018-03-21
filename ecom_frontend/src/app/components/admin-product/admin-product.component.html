@@ -1,97 +1,97 @@
 <app-nav-bar></app-nav-bar>
 <div class="container">
-    <button data-toggle="modal" data-target="#myProductmodal" id="buttonplaced" class="btn btn-lg btn-primary" type="submit">Add</button>
-    <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
-        <thead>
-            <tr>
-                <th>
-                    <mfDefaultSorter by="product_id">ProductId</mfDefaultSorter>
-                </th>
-                <th>
-                    <mfDefaultSorter by="product_name">Product Name</mfDefaultSorter>
-                </th>
-                <th>
-                    <mfDefaultSorter by="categories">Categories</mfDefaultSorter>
-                </th>
-                <th>
-                    <mfDefaultSorter by="price">Price</mfDefaultSorter>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of mf.data">
-                <td>{{item._id}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.category}}</td>
-                <td>{{item.price}} levelup</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="2">
-                    <mfBootstrapPaginator></mfBootstrapPaginator>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+  <button data-toggle="modal" data-target="#myProductmodal" id="buttonplaced" class="btn btn-lg btn-primary" type="submit">Add</button>
+  <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+      <tr>
+        <th>
+          <mfDefaultSorter by="product_id">ProductId</mfDefaultSorter>
+        </th>
+        <th>
+          <mfDefaultSorter by="product_name">Product Name</mfDefaultSorter>
+        </th>
+        <th>
+          <mfDefaultSorter by="categories">Categories</mfDefaultSorter>
+        </th>
+        <th>
+          <mfDefaultSorter by="price">Price</mfDefaultSorter>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of mf.data">
+        <td>{{item?._id}}</td>
+        <td>{{item?.name}}</td>
+        <td>{{item?.category}}</td>
+        <td>{{item?.price}} levelup</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2">
+          <mfBootstrapPaginator></mfBootstrapPaginator>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
 </div>
 
 
 <div class="onloader_col "  *ngIf="loader">
-    <img src="./assets/loader.gif"/>
+  <img src="./assets/loader.gif"/>
 </div>
 
 <!-- Modal content-->
 <div class="modal fade" id="myProductmodal" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h1 class="modal-title">Product Details</h1>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h1 class="modal-title">Product Details</h1>
+      </div>
+      <div class="modal-body">
+        <form role="form" #form="ngForm" class="form-horizontal" (ngSubmit)="createProduct(productModel)">
+          <h4>Product Name</h4>
+          <div class="form-group">
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="product_name" [(ngModel)]="productModel.product_name" placeholder="Enter Name of Product" required  class="form-control input-xlarge">
             </div>
-            <div class="modal-body">
-                <form role="form" #form="ngForm" class="form-horizontal" (ngSubmit)="createProduct(form.value)">
-                    <h4>Product Name</h4>
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="product_name" [(ngModel)]="product_name" placeholder="Enter Name of Product" required  class="form-control input-xlarge">
-                        </div>
-                    </div>
-                    <h4>Categories</h4>
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <select class="form-control" name="selectName"  [(ngModel)]="selectName" >
-                                <option> Select the Categories </option>
-                                <option  *ngFor="let Categories of Categories" >{{Categories.title}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <h4>Img</h4>
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <input  class="input-group-text" type="file" id="logo_image" name="file" (change)="changeListener($event)">
-                        </div>
-                    </div>
-                    <h4>Description</h4>
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <textarea  rows="4" class="form-control" name="descripton" [(ngModel)]="descripton" placeholder="Enter descripton" required  class="form-control input-xlarge"></textarea>
-                        </div>
-                    </div>
-                    <h4>Price</h4>
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="Price" [(ngModel)]="Price" placeholder="Enter Price" required  class="form-control input-xlarge">
-                        </div>
-                    </div>
+          </div>
+          <h4>Categories</h4>
+          <div class="form-group">
+            <div class="col-sm-10">
+              <select class="form-control" name="selectName"  [(ngModel)]="productModel.selectName" >
+                <option> Select the Categories </option>
+                <option  *ngFor="let Categories of Categories" >{{Categories.title}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <h4>Img</h4>
+          <div class="form-group">
+            <div class="col-sm-10">
+              <input  class="input-group-text" type="file" id="logo_image" name="productModel.file" (change)="changeListener($event)">
+            </div>
+          </div>
+          <h4>Description</h4>
+          <div class="form-group">
+            <div class="col-sm-10">
+              <textarea  rows="4" class="form-control" name="descripton" [(ngModel)]="productModel.descripton" placeholder="Enter descripton" required  class="form-control input-xlarge"></textarea>
+            </div>
+          </div>
+          <h4>Price</h4>
+          <div class="form-group">
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="Price" [(ngModel)]="productModel.Price" placeholder="Enter Price" required  class="form-control input-xlarge">
+            </div>
+          </div>
 
-                    <button type="submit"  class="btn btn-primary">Add New Product</button>
-                    <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
+          <button type="submit"  class="btn btn-primary">Add New Product</button>
+          <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
     </div>
+  </div>
 </div>

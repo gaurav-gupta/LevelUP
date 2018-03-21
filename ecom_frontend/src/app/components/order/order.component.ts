@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/users.service';
-import * as moment from 'moment'; 
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-order',
@@ -15,7 +15,6 @@ export class OrderComponent implements OnInit {
   ngOnInit() {
     this.getOrders();
   }
-
   getOrders() {
     this._userService.getOrders().subscribe(res => {
       console.log('>>>>>>>>>>>>data of user?> dayata after lookup>>>>>>>>', res);
@@ -23,15 +22,16 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  updateOrderStatus(orderNumber, updatedOrderStatus) {
-    this._userService.updateOrderStatus(orderNumber, updatedOrderStatus).subscribe(res => {
-      if (Object.keys(res).length > 0) {
-        alert('Order Status Update Successfully !!');
-        this.getOrders();
-      }
-    },
-    (err) => {
-      console.log('error>>>>>>>>>>>>', err);
-    });
-  }
+//   updateOrderStatus(orderNumber, updatedOrderStatus) {
+//     this._userService.updateOrderStatus(orderNumber, updatedOrderStatus).subscribe(res => {
+//       if (Object.keys(res).length > 0) {
+//         alert('Order Status Update Successfully !!');
+//         this.getOrders();
+//       }
+//     },
+//     (err) => {
+//       console.log('error>>>>>>>>>>>>', err);
+//     });
+//   }
+// }
 }

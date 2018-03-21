@@ -28,6 +28,7 @@ export class ProductDetailComponent implements OnInit {
   password: any;
   loader: any = false;
   filedata: any;
+  orderModel: any = {};
 
   constructor(private route: ActivatedRoute, private router: Router, private _productService: ProductService,
     private _userService: UserService , private _dashAuthService: DashAuthService, private _storageService: StorageService) { }
@@ -54,4 +55,36 @@ export class ProductDetailComponent implements OnInit {
         console.log('error....', err);
       });
     }
+
+    // create order
+    createOrder(form) {
+      console.log('?>form >????????????', form);
+      this.loader = true;
+      this.data = {
+        'address': {
+          'address': form.address,
+          'pincode': form.pincode,
+          'state': form.state,
+          'phone_number': form.phone_number,
+          'city': form.city
+        },
+        'customer_email': this.check.email,
+        'customer_id': this.check._id,
+        'price': this.product.price,
+        'productId': this.product.productId
+      };
+      console.log('>>>>>>>>>>>this.data', this.data);
+      this._userService.createOrder(this.data).subscribe((res: any) => {
+        if (Object.keys(res).length > 0) {
+          this.loader = false;
+          // location.reload();
+          // this.router.navigate(['/']);
+          // alert('Order Placed Successfully !!');
+        }
+      },
+      (err) => {
+        console.log('error>>>>>>>>>>>>', err);
+      });
+    }
+
   }

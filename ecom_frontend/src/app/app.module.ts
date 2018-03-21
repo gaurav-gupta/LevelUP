@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { routing, appRoutingProviders } from './app.route';
 import { AppComponent } from './app.component';
 import { LoginComponentComponent } from './components/login/login.component';
-import { ProductComponent } from './components/product/product.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FormsModule } from '@angular/forms';
@@ -15,7 +14,6 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { AuthGuard } from './_guards/auth.guard';
-// import { NG2DataTableModule } from 'angular2-datatable-pagination';
 import { ImageZoomModule } from 'angular2-image-zoom';
 import { StorageService } from './services/storage.service';
 import { UserOrderComponent } from './components/user-order/user-order.component';
@@ -29,7 +27,6 @@ import { EditorModule } from '@tinymce/tinymce-angular';
   declarations: [
     AppComponent,
     LoginComponentComponent,
-    ProductComponent,
     ProductDetailComponent,
     NavBarComponent,
     AdminComponent,
@@ -39,11 +36,11 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     BrowserModule, routing, FormsModule, DataTableModule, ImageZoomModule, HttpClientModule, HttpModule, EditorModule
   ],
   providers: [ appRoutingProviders , StorageService, AuthGuard,
-      {
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
-  }, DashAuthService, UserService, ProductService],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
+    }, DashAuthService, UserService, ProductService],
+    bootstrap: [AppComponent]
+  })
+  export class AppModule { }

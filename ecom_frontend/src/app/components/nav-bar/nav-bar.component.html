@@ -10,10 +10,10 @@
         <li><a *ngIf="admin" [routerLink]="['/adminproduct']"><b>Product</b></a></li>
       </ng-container>
       <ng-container >
-          <li><a  *ngIf="!admin && uncheck"><b>Current balance ({{price}} levelup)</b></a></li>
-          <li><a *ngIf="!uncheck" data-toggle="modal" data-target="#login">SignIn</a></li>
-          <li><a *ngIf="!uncheck" data-toggle="modal" data-target="#signUp">Sign Up</a></li>
-        </ng-container>
+        <li><a  *ngIf="!admin && uncheck"><b>Current balance ({{price}} levelup)</b></a></li>
+        <li><a *ngIf="!uncheck" data-toggle="modal" data-target="#login">SignIn</a></li>
+        <li><a *ngIf="!uncheck" data-toggle="modal" data-target="#signUp">Sign Up</a></li>
+      </ng-container>
       <ng-container >
         <li><a  *ngIf="!admin && uncheck" [routerLink]="['/userOrder']"><b>My Order</b></a></li>
       </ng-container>

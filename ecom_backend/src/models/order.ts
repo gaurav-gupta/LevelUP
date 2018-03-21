@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-var ObjectId = mongoose.Types.ObjectId; 
+var ObjectId = mongoose.Types.ObjectId;
 var Schema = mongoose.Schema;
 
 var orderSchema = new Schema({
@@ -24,6 +24,7 @@ export var orderModel = mongoose.model('orders', orderSchema);
 
 export function createOrder (data){
   var obj = new orderModel(data);
+  console.log('>>>>>>>>>>>oin orders>>>>>>>>>>>bj>>>>>>>>', obj);
   return new Promise((resolve, reject) => {
     obj.save().then(function (doc) {
       resolve(doc);

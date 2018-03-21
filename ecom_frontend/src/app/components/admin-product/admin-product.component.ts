@@ -19,6 +19,7 @@ export class AdminProductComponent implements OnInit {
   formData: any;
   xhr: any;
   loader = false;
+  productModel: any = {};
   constructor(private _productService: ProductService) { }
 
   ngOnInit() {
@@ -39,14 +40,11 @@ export class AdminProductComponent implements OnInit {
       this.data = res;
     });
   }
-
   changeListener(event) {
     this.file = event.target.files[0];
   }
 
   createProduct(data) {
-  console.log('data >>>>>>>>>>>>>>>>>>>>>>>>>');
-  console.log(data)
     this.loader = true;
     const file = this.file;
     const that = this;
@@ -59,10 +57,9 @@ export class AdminProductComponent implements OnInit {
           data.imageLink = response[0].hash;
           data.descLink = resp[0].hash;
           that._productService.createProduct(data).subscribe(res => {
-            console.log('>>>>>>>>>>res', res);
             if (res) {
               that.loader = false;
-              alert('Create Successfully');
+              confirm('Create Successfully');
               location.reload();
             }
           });

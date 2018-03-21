@@ -14,26 +14,23 @@ export class UserOrderComponent implements OnInit {
   userdata: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private _userService: UserService,
-     private _storeService: StorageService) { }
+    private _storeService: StorageService) { }
 
-  ngOnInit() {
-    this.getUserOrder();
-  }
-
-  getUserOrder() {
-    const currentUser = JSON.parse(localStorage.getItem('current_user'));
-    this._userService.getUserByEmail(currentUser.email).subscribe(res1 => {
-      this.userdata = res1[0];
-      console.log('>>>>>>>>>>>>>this >>>>>>>>>>>>>>>>>>', this.userdata._id);
-      this._userService.getUserOrder(this.userdata._id).subscribe(response => {
-        console.log('>>>>>>>>>>>>get user order', response);
-        if (response.length > 0) {
-          this.data = response;
-           console.log('>>>>>>>>>>>>get user order', this.data);
-        } else {
-          alert('No Orders Placed Yet !!');
-        }
+    ngOnInit() {
+      this.getUserOrder();
+    }
+    
+    getUserOrder() {
+      const currentUser = JSON.parse(localStorage.getItem('current_user'));
+      this._userService.getUserByEmail(currentUser.email).subscribe(res1 => {
+        this.userdata = res1[0];
+        this._userService.getUserOrder(this.userdata._id).subscribe(response => {
+          if (response.length > 0) {
+            this.data = response;
+          } else {
+            alert('No Orders Placed Yet !!');
+          }
+        });
       });
-    });
+    }
   }
-}
