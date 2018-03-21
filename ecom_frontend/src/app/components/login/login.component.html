@@ -3,14 +3,21 @@
   <div class="app flex-row align-items-center">
     <div class="container">
       <div class="row">
-        <div class="card col-md-4" *ngFor="let product of product">
+        <div class="card col-md-3 product_list" *ngFor="let product of product">
           <div class="thumbnail">
             <img src="https://ipfs.io/ipfs/{{product?.imageLink}}" [routerLink]="['/productDetail', product._id]" alt="blue shirt">
-            <b>{{product?.name}}</b><br>
-            {{product?.category}}<br>
-            {{product?.price}} <b>levelup</b><br>
+          </div>  
+
+          <div class="product_des">
+            <h3>{{product?.name}}</h3>
+            <p>{{product?.category}}</p>
+            <span>{{product?.price}} <b>levelup</b></span>
+
             <a href="javascript:void(0)" *ngIf="!uncheck" data-toggle="modal" data-target="#login" > Buy</a>
-            <a href="/productDetail/{{product._id}}" *ngIf="uncheck"  > Buy</a>
+            <a href="/#/productDetail/{{product._id}}" class="buy_btn" *ngIf="uncheck"  > Buy</a>
+          </div>
+
+            
           </div>
         </div>
       </div>

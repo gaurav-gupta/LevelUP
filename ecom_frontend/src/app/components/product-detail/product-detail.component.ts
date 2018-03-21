@@ -22,7 +22,6 @@ export class ProductDetailComponent implements OnInit {
   data: any;
   current_user: any;
   check: any;
-  statebuy: any  = false;
   statte: any = false;
   email: any;
   password: any;
@@ -77,8 +76,8 @@ export class ProductDetailComponent implements OnInit {
       this._userService.createOrder(this.data).subscribe((res: any) => {
         if (Object.keys(res).length > 0) {
           this.loader = false;
-          // location.reload();
-          // this.router.navigate(['/']);
+          location.reload();
+          this.router.navigate(['/']);
           // alert('Order Placed Successfully !!');
         }
       },

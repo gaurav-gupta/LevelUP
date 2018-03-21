@@ -27,15 +27,40 @@ img{
 .modal-title{
   margin-left: 14%;
 }
-.thumbnail{
-  text-align: center;
-}
+
 
 i{
   margin-left: 10px;
   margin-right: 10px;
 }
-buttonplaced{
-  height: 20px;
-  width: 30px;
-}
+
+
+.product_list{       border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 23%;
+    padding-bottom: 15px;
+        margin: 0 10px 16px;
+    }
+.thumbnail {    width: 100%;
+    min-height: 150px;
+    display: table;
+    border: 0px;
+    padding: 0;
+    margin: 0;
+    line-height: inherit;
+    border-radius: 0;
+    padding: 12px 0;}
+.thumbnail img{    width: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0;
+    margin: 0;
+    border: 0;}
+
+ .product_des{text-align: center;}
+    .product_des h3{    font-size: 18px;
+    margin: 0;}
+  .product_des p{    margin: 0;}
+    .product_des a.buy_btn{    float: left;
+    width: 100%;
+    margin-top: 5px;}
