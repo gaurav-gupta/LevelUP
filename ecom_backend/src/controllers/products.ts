@@ -31,7 +31,7 @@ export function getAllProduct(req,res,next){
       }
     });
   }catch(e){
-    res.send({message:e});
+    res.send({message: e});
   }
 }
 
@@ -43,23 +43,27 @@ export function createProduct(req, res, next){
     LevelUp.deployed().then(function(i){
       i.addProductToStore(data.product_name, data.selectName, data.imageLink, data.descLink, data.Price, {from: web3.eth.accounts[0], gas: 440000})
       .then(function(f){
-        console.log(f);
-        var obj = {dtype: "Add_Product_To_Store_Log", receipt: f.receipt, logs: f.logs, created_at: new Date()};
+        var obj = {
+            dtype: "Add_Product_To_Store_Log", 
+            logs: f.logs, 
+            receipt: f.receipt, 
+            created_at: new Date(),
+            reference_id: f.logs[0].args._productId,
+            block_hash: f.logs[0].blockHash,
+            transaction_hash: f.logs[0].transactionHash
+          }
         LogModel.createLogs(obj).then(response =>{
           if(response){
             res.send(response);
           }
         });
-      }).catch((e) =>{
-        console.log("e >>>>>>>>>>>>>>>>>>>>>>>>>>>> addProductToStore");
-        console.log(e)
+      }).catch((error) =>{
+        res.send({message: error});
       })
-    }).catch((e) => {
-      console.log("e >>>>>>>>>>>>>>>>>>>>>>>>>>>> addProductToStore 111111111111");
-      console.log(e)
+    }).catch((error) => {
+      res.send({message: error});
     });
   } catch(err){
-    console.log(err)
     res.send({message: err});
   }
 }
@@ -77,12 +81,14 @@ export function saveProduct(data){
     }
     productModel.getProduct({productId: parseInt(obj.productId)}).then((response:any) => {
       if(response.length == 0){
-        productModel.createProduct(obj).then(response =>{
+        productModel.createProduct(obj).then(response => {
           console.log("product created successfully", response);
         })
+      }else{
+        console.log("product already created ............")
       } 
     });
   } catch(err){
-    console.log(err)
+    console.log("saveProduct >>>>>>>>>>>", err);
   }
 }

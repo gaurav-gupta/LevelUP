@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, ResponseContentType } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from './storage.service';
+import { environment } from './../../environments/environment';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class UserService {
-  private baseUrl = 'http://localhost:8080';
+  private baseUrl = environment.baseUrl;
   constructor(private _httpClient: HttpClient, private _http: Http, private _storageService: StorageService) {
   }
+  
   // Get user by Email
   getUserByEmail(email) {
     return this._httpClient.get(this.baseUrl + '/users/' + email).map((res: any) => {

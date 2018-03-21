@@ -63,7 +63,7 @@ export function createOrder(data) {
       if(order.length > 0 ){
         throw new Error("Order already created >.......");
       }else{
-        userModel.getUser1({wallet_address: data.buyer}).then((user:any) => {
+        userModel.getUser({wallet_address: data.buyer}).then((user:any) => {
           console.log(user)
           if(user.length > 0){
             productModel.getProduct({productId: parseInt(data._productId)}).then((product:any) => {
@@ -137,7 +137,7 @@ export function setupUserTokenEventListner() {
 export function getUserByWalletAddress(args) {
   try {
     console.log(args);
-    userModel.getUser1({wallet_address: args.buyer}).then((user:any) => {
+    userModel.getUser({wallet_address: args.buyer}).then((user:any) => {
       console.log(user)
       if(user.length > 0){
         userController.updateUserToken(user[0], parseInt(args._balanceTokens));
@@ -160,8 +160,17 @@ export function assignLevelUpToUser(user, pass) {
       i.giveLevelUpTokens(resp, {from: web3.eth.accounts[2], value: web3.toWei(10 * 0.001), gas: 440000})
       .then(function(f){
         user.wallet_amount = 10;
-        userModel.updateUser(user.email, user).then(function(user){
-          LogModel.createLogs({dtype: "Assign_Level_Up_Token_To_User", logs: f.logs, receipt: f.receipt, created_at: new Date()}).then(function(log){
+        userModel.updateUser({email: user.email}, user).then(function(user){
+          var obj = {
+            dtype: "Assign_Level_Up_Token_To_User", 
+            logs: f.logs, 
+            receipt: f.receipt, 
+            created_at: new Date(),
+            reference_id: f.logs[0].args.buyer,
+            block_hash: f.logs[0].blockHash,
+            transaction_hash: f.logs[0].transactionHash
+          }
+          LogModel.createLogs(obj).then(function(log){
             console.log("user logs >>>>>>>>>>>>>>>>", log);
           }).catch((error) => {
             console.log("create assign level up to user error", error);
@@ -205,7 +214,16 @@ export function buyProduct(data, user) {
       LevelUp.deployed().then(function(i) {
         i.buyProduct(user.wallet_address, data.productId, data.price, address.address, address.state, address.city, address.pincode, address.phone_number, {from: web3.eth.accounts[0], gas: 440000})
         .then(function(f){
-          LogModel.createLogs({dtype: "Buy_Product_Log", logs: f.logs, receipt: f.receipt, created_at: new Date()}).then(function(log){
+          var obj = {
+            dtype: "Buy_Product_Log", 
+            logs: f.logs, 
+            receipt: f.receipt, 
+            created_at: new Date(),
+            reference_id: f.logs[0].args._orderId,
+            block_hash: f.logs[0].blockHash,
+            transaction_hash: f.logs[0].transactionHash
+          }
+          LogModel.createLogs(obj).then(function(log){
             return resolve(f);
           }).catch((error) => {
             reject(error);  

@@ -6,7 +6,10 @@ var txLogSchema = new Schema({
   receipt: {type: Object},
   logs: { type: Array },
   dtype: {type: String},
-  created_at: {type: Date}
+  created_at: {type: Date},
+  reference_id: {type: String},
+  block_hash: {type: String},
+  transaction_hash: {type: String}
 });
 
 export var LogsModel = mongoose.model('levelUpLogs', txLogSchema);

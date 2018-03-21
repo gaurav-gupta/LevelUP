@@ -12,33 +12,9 @@ var userSchema = new Schema({
   wallet_amount: {type: Number, default: 0}
 });
 
-var authUserSchema = new Schema({
-  id: { type: String},
-  email: { type: String },
-  token: { type: String },
-});
-
 export var userModel = mongoose.model('users', userSchema);
-export var authUserModel = mongoose.model('auth', authUserSchema);
 
-export function saveToken(data){
-  var obj = new authUserModel(data);
-  return new Promise((resolve, reject) => {
-    obj.save().then(function (doc) {
-      resolve(doc);
-    });
-  });
-}
-
-export function findToken(email){
-  return new Promise((resolve, reject) => {
-    authUserModel.find(email).then(function (doc) {
-      resolve(doc);
-    });
-  });
-}
-
-export async function createUser (data){
+export async function createUser(data){
   var obj = new userModel(data);
   return new Promise((resolve, reject) => {
     obj.save().then(function (doc) {
@@ -49,31 +25,15 @@ export async function createUser (data){
   });
 };
 
-export function authenticateUser (data: any){
+export function getUser(condition) {
   return new Promise((resolve, reject) => {
-    userModel.find({"email":data.email}).then(function (doc) {
+    userModel.find(condition).then(function (doc) {
       resolve(doc);
     });
   });
 };
 
-export function getUser (data: any){
-  return new Promise((resolve, reject) => {
-    userModel.find({email:data}).then(function (doc) {
-      resolve(doc);
-    });
-  });
-};
-
-export function getUser1 (cond: any){
-  return new Promise((resolve, reject) => {
-    userModel.find(cond).then(function (doc) {
-      resolve(doc);
-    });
-  });
-};
-
-export function getAllUser (){
+export function getAllUser() {
   return new Promise((resolve, reject) => {
     userModel.find().then(function (doc) {
       resolve(doc);
@@ -81,25 +41,17 @@ export function getAllUser (){
   });
 };
 
-export function updateUser (email, data: any ){
+export function updateUser(condition, data: any ){
   return new Promise((resolve, reject) => {
-    userModel.findOneAndUpdate({email: email},data).then(function (doc) {
+    userModel.findOneAndUpdate(condition, data).then(function (doc) {
       resolve(doc);
     });
   });
 };
 
-export function deleteUser (email){
+export function deleteUser (condition){
   return new Promise((resolve, reject) => {
-    userModel.findOneAndRemove({email: email}).then(function (doc) {
-      resolve(doc);
-    });
-  });
-};
-
-export function logoutUser (email){
-  return new Promise((resolve, reject) => {
-    authUserModel.findOneAndRemove({email: email}).then(function (doc) {
+    userModel.findOneAndRemove(condition).then(function (doc) {
       resolve(doc);
     });
   });

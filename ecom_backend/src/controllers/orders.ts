@@ -11,22 +11,17 @@ import * as userController from '../controllers/users';
 
 //create order
 export function createOrder (req, res, next){
-  try{
-    userModel.getUser(req.user_data[0].email).then(user =>{
-      console.log("sssssssssssssssssssssss ???", user)
-      common.getBuyerTokens(user[0]).then((token:any) => {
-      console.log("sssssssssssssssssssssss token ???", token)
-        if(parseInt(token) >= req.body.price){
-          console.log("sssssssssssssssssssssss token ??? lllllllllllllll")
-          common.buyProduct(req.body, user[0]).then((plog) => {
-          console.log("sssssssssssssssssssssss token ??? plog", plog)
-            res.send(plog);
-          })
-        } else {
-          res.send({message: "you have not sufficient levelup in your account"});
-        }
-      })
-    });
+  try {
+    var user = req.user_data[0];
+    common.getBuyerTokens(user).then((token:any) => {
+      if(parseInt(token) >= req.body.price){
+        common.buyProduct(req.body, user).then((plog) => {
+          res.send(plog);
+        })
+      } else {
+        res.send({message: "you have not sufficient levelup in your account"});
+      }
+    })
   } catch(error) {
     res.send({message:error});
   }
@@ -36,7 +31,7 @@ export function createOrder (req, res, next){
 export function updateOrder(req, res, next){
   try{
     req.body.updated_at = new Date();
-    orderModel.updateOrder(req.params.order_number, req.body).then(response => {
+    orderModel.updateOrder({order_number: req.params.order_number}, req.body).then(response => {
       if(response){
         res.send(response);
       }
@@ -63,8 +58,6 @@ export function getOrders(req,res,next){
 export function getOrdersUser(req,res,next){
   try {
     let id = req.params.id;
-    console.log("ssssssssssssssssssssssssssssssssssssss", id);
-    console.log("ssssssssssssssssssssssssssssssssssssss", typeof(id));
     orderModel.getOrdersUser(id).then(response =>{
       res.send(response);
     });
