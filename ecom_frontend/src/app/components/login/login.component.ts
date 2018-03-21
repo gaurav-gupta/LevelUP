@@ -35,7 +35,7 @@ export class LoginComponentComponent implements OnInit {
       this.getProducts();
     }
     // Authenticate user
-    private login(email1, password1) {
+    login(email1, password1) {
       this.email1 = email1.value;
       this.password1 = password1.value;
       const data = {

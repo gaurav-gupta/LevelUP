@@ -19,6 +19,7 @@ export class AdminProductComponent implements OnInit {
   formData: any;
   xhr: any;
   loader = false;
+  productModal: any = {};
   constructor(private _productService: ProductService) { }
 
   ngOnInit() {
