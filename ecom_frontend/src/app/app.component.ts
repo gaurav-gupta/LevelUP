@@ -23,6 +23,8 @@ export class AppComponent implements OnInit {
   admin: any = false;
   loader: any = false;
   data: any;
+  hideModal: any;
+  
   constructor(private route: ActivatedRoute, private router: Router, private _dashAuthService: DashAuthService,
     private _storageService: StorageService, private _userService: UserService,  private _productService: ProductService)  { }
 

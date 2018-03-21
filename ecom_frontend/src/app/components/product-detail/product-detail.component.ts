@@ -28,6 +28,7 @@ export class ProductDetailComponent implements OnInit {
   loader: any = false;
   filedata: any;
   orderModel: any = {};
+  zoomedImageSrc: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private _productService: ProductService,
     private _userService: UserService , private _dashAuthService: DashAuthService, private _storageService: StorageService) { }
