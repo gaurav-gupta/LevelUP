@@ -16,14 +16,7 @@
     margin-left: 20%;
 }
 
-img{
-    border:1px solid #D3D3D3;
-    text-align: center;
-    margin: 10px;
-    padding: 10px;
-    width: 300px;
-    height: 200px;
-}
+
 .modal-title{
   margin-left: 14%;
 }
@@ -59,8 +52,13 @@ i{
     display: inline-block;}
 
  .product_des{text-align: center;}
-    .product_des h3{    font-size: 18px;
-    margin: 0;}
+    .product_des h3{ font-size: 18px;
+    margin: 0;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+    overflow: hidden;}
   .product_des p{    margin: 0;}
     .product_des a.buy_btn{    float: left;
     width: 100%;
