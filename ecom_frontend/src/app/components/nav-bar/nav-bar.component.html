@@ -1,21 +1,23 @@
 <nav class="navbar navbar-inverse">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/product">Shopping</a>
+      <a class="navbar-brand" href="/">Shopping</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <ng-container *ngIf="check">
-        <li><a [routerLink]="['/admin']"><b>User</b></a></li>
-        <li><a [routerLink]="['/order']"><b>Order</b></a></li>
-        <li><a [routerLink]="['/adminproduct']"><b>Product</b></a></li>
+      <ng-container>
+        <li><a *ngIf="admin" [routerLink]="['/admin']"><b>User</b></a></li>
+        <li><a *ngIf="admin" [routerLink]="['/order']"><b>Order</b></a></li>
+        <li><a *ngIf="admin" [routerLink]="['/adminproduct']"><b>Product</b></a></li>
       </ng-container>
-      <ng-container *ngIf="!check">
-          <li><a *ngIf="uncheck" ><b>Current balance ({{wallet_amount}} levelup)</b></a></li>
+      <ng-container >
+          <li><a  *ngIf="!admin && uncheck"><b>Current balance ({{price}} levelup)</b></a></li>
+          <li><a *ngIf="!uncheck" data-toggle="modal" data-target="#login">SignIn</a></li>
+          <li><a *ngIf="!uncheck" data-toggle="modal" data-target="#signUp">Sign Up</a></li>
         </ng-container>
-      <ng-container *ngIf="!check">
-        <li><a *ngIf="uncheck" [routerLink]="['/userOrder']"><b>My Order</b></a></li>
+      <ng-container >
+        <li><a  *ngIf="!admin && uncheck" [routerLink]="['/userOrder']"><b>My Order</b></a></li>
       </ng-container>
-      <li><a *ngIf="uncheck" (click)=logout()><b>SignOut</b></a></li>
+      <li><a *ngIf="uncheck" (click)=logout()><b>Sign Out</b></a></li>
     </ul>
   </div>
 </nav>

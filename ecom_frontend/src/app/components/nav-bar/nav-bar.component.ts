@@ -15,28 +15,33 @@ export class NavBarComponent implements OnInit {
   check = false;
   uncheck = false;
   wallet_amount: any;
+  user: any = false ;
+  admin: any = false;
+  price: any;
   constructor(private router: Router, private _dashAuthService: DashAuthService,
     private _storageService: StorageService, private _userService: UserService) { }
 
     ngOnInit() {
       this.current_user = JSON.parse(localStorage.getItem('current_user'));
-      this._userService.getUserByEmail(this.current_user.email).subscribe(res1 => {
-        console.log('>>>>>>>>>>>>>res1', res1[0].wallet_amount);
-        this.wallet_amount = res1[0].wallet_amount;
-        if (res1[0].roles === 'admin') {
-          this.check = true;
-        }
-        if (res1) {
-          this.uncheck = true;
-        }
-      });
+      if  (this.current_user) {
+        this._userService.getUserByEmail(this.current_user.email).subscribe(res1 => {
+          this.price = res1[0].wallet_amount;
+          if (res1[0].roles === 'admin') {
+            this.admin = true;
+          } else {
+            this.user = true;
+          }
+        });
+      }
+      if (this.current_user) {
+        this.uncheck = true;
+      }
     }
 
     // dashboardUser logout
-    private logout() {
-      this._dashAuthService.logoutDashUser(this.current_user.email).subscribe(res => {
-        this.router.navigate(['']);
-      });
+    logout() {
+      localStorage.removeItem('current_user');
+        this.router.navigate(['/']);
+        location.reload();
     }
-
   }

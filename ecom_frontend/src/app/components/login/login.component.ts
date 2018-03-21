@@ -16,7 +16,7 @@ export class LoginComponentComponent implements OnInit {
   private password: string;
   error: any;
   product: any;
-  uncheck: any;
+  uncheck: any = false;
   current_user: any;
   first_name: any;
   last_name: any;
@@ -25,51 +25,21 @@ export class LoginComponentComponent implements OnInit {
   check: any;
   password1: any;
   errorState: any;
+  admin: any;
+  user: any;
   constructor(private route: ActivatedRoute, private router: Router, private _dashAuthService: DashAuthService,
     private _storageService: StorageService, private _userService: UserService,  private _productService: ProductService)  { }
     ngOnInit() {
+      this.getProducts();
       this.current_user = JSON.parse(localStorage.getItem('current_user'));
       if (this.current_user) {
         this.uncheck = true;
       }
-      this.getProducts();
     }
-    // Authenticate user
-    private login(email1, password1) {
-      this.email1 = email1.value;
-      this.password1 = password1.value;
-      const data = {
-        email: this.email1,
-        password: this.password1
-      };
-      this._dashAuthService.loginDashUser(data).subscribe(res => {
-        if (!res.error) {
-          console.log('>>>>>>>>>>inside this >res', res);
-          email1 = '';
-          password1 = '';
-          this._storageService.setItem('current_user', JSON.stringify(res));
-          const currentUser = JSON.parse(localStorage.getItem('current_user'));
-          this._userService.getUserByEmail(currentUser.email).subscribe(res1 => {
-            if (res1[0].roles === 'admin') {
-              this.check = true;
-              location.reload();
-              this.router.navigate(['/admin']);
-            } else {
-              location.reload();
-              this.router.navigate(['/product']);
-            }
-          });
-        }else {
-          this.error = res.error;
-          this.errorState = true;
-        }
-      });
-  }
 
   // get list of products
   getProducts() {
     this._productService.getProduct().subscribe(res => {
-      console.log('>>>>>>>>>>>>thisis ?>', res);
       this.product = res;
     });
   }
@@ -80,20 +50,5 @@ export class LoginComponentComponent implements OnInit {
       location.reload();
     });
   }
-  // sign up
-  signUp(first_name, last_name, email, password) {
-    this.email = email.value;
-    this.password = password.value;
-    this.first_name = first_name.value;
-    this.last_name = last_name.value;
-    const  data = {
-      first_name : this.first_name ,
-      last_name : this.last_name,
-      email : this.email,
-      password : this.password
-    };
-    this._dashAuthService.signUpUser(data).subscribe(res => {
-      location.reload();
-    });
-  }
+
 }

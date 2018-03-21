@@ -50,63 +50,6 @@ export class ProductDetailComponent implements OnInit {
         ipfs.files.cat(this.product.descLink, function (err, file) {
           that.filedata = file;
         });
-
-        console.log('>>>>>>>>>description>>>>>', this.product);
-      }, (err) => {
-        console.log('error....', err);
-      });
-    }
-
-    createOrder(form) {
-      this.loader = true;
-      this.data = {
-        'address': {
-          'address': form.address,
-          'pincode': form.pincode,
-          'state': form.state,
-          'phone_number': form.phone_number,
-          'city': form.city
-        },
-        'customer_email': this.check.email,
-        'customer_id': this.check._id,
-        'price': this.product.price,
-        'productId': this.product.productId
-      };
-      console.log('>>>>>>>>>>>this.data', this.data);
-      this._userService.createOrder(this.data).subscribe((res: any) => {
-        if (Object.keys(res).length > 0) {
-          this.loader = false;
-          alert('Order Placed Successfully !!');
-          location.reload();
-          this.router.navigate(['product']);
-        }
-      },
-      (err) => {
-        console.log('error>>>>>>>>>>>>', err);
-      });
-    }
-
-    login(email, password ) {
-      this.email = email.value;
-      this.password = password.value;
-      const data = {
-        email: this.email,
-        password: this.password
-      };
-      this._dashAuthService.loginDashUser(data).subscribe(res => {
-        if (res) {
-          this._storageService.setItem('current_user', JSON.stringify(res));
-          const currentUser = JSON.parse(localStorage.getItem('current_user'));
-          this._userService.getUserByEmail(currentUser.email).subscribe(res1 => {
-            if (res1[0].roles === 'admin') {
-              location.reload();
-              this.router.navigate(['/admin']);
-            } else {
-              location.reload();
-              this.router.navigate(['/product']);
-            }
-          });
-        }
       }, (err) => {
         console.log('error....', err);
       });

@@ -1,28 +1,16 @@
-<nav class="navbar navbar-inverse">
-  <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Shopping</a>
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a *ngIf="uncheck && check" [routerLink]="['/userOrder']">My Order</a></li>
-      <li><a *ngIf="!uncheck" data-toggle="modal" data-target="#login">SignIn</a></li>
-      <li><a *ngIf="!uncheck" data-toggle="modal" data-target="#signup">SignUp</a></li>
-      <li><a *ngIf="uncheck" (click)=logout() >SignOut</a></li>
-    </ul>
-  </div>
-</nav>
+<app-nav-bar></app-nav-bar>
 <div class="container" >
   <div class="app flex-row align-items-center">
     <div class="container">
       <div class="row">
         <div class="card col-md-4" *ngFor="let product of product">
           <div class="thumbnail">
-            <img src="https://ipfs.io/ipfs/{{product.imageLink}}" [routerLink]="['/productDetail', product._id]" alt="blue shirt">
+            <img src="https://ipfs.io/ipfs/{{product?.imageLink}}" [routerLink]="['/productDetail', product._id]" alt="blue shirt">
             <b>{{product?.name}}</b><br>
             {{product?.category}}<br>
             {{product?.price}} <b>levelup</b><br>
-            <!-- <a href="javascript:void(0)" data-toggle="modal" data-target="#login" > Buy</a> -->
-            <!-- <button data-toggle="modal" data-target="#login" id="buttonplaced" class="btn  btn-primary" type="submit">buy now</button> -->
+            <a href="javascript:void(0)" *ngIf="!uncheck" data-toggle="modal" data-target="#login" > Buy</a>
+            <a href="javascript:void(0)" *ngIf="uncheck"  data-toggle="modal" data-target="#myModal" > Buy</a>
           </div>
         </div>
       </div>
@@ -31,72 +19,3 @@
   <div class="" *ngIf="errorState">
     <h5>Error:{{errorState}}</h5>
   </div>
-
-  <!-- login modal -->
-  <div class="modal fade" id="login" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Please sign in</h4>
-        </div>
-        <div class="modal-body" id="center">
-          <form class="form-signin">
-            <div class="form-group">
-              <div class="col-sm-7">
-                <input type="email" #email1 class="form-control" placeholder="Email address"  name="email"><br>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-7">
-                <input type="password" #password1 class="form-control" placeholder="Password" name="password"><br>
-              </div>
-            </div>
-            <button (click)="login(email1, password1)" class="btn btn-lg btn-primary btn-block" type="submit" >Sign in</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- signUp -->
-<div class="modal fade" id="signup" role="dialog">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body" id="center">
-        <h2 class="modal-title">Please sign Up</h2>
-        <form class="form-signin">
-          <div class="form-group">
-            <div class="col-sm-7">
-              <input type="text" #firstname class="form-control" placeholder="First Name"  name="first_name"><br>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-7">
-                <input type="text" #lastname class="form-control" placeholder="Last Name"  name="last_name"><br>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-7">
-              <input type="email" #email class="form-control" placeholder="Email address"  name="email"><br>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-7">
-              <input type="password" #password class="form-control" placeholder="Password" name="password"><br>
-            </div>
-          </div>
-           <button type="submit" (click)="signUp(firstname, lastname, email, password)" class="btn btn-primary btn-md btn btn-lg btn-primary btn-block"><i class="fa fa-circle-o-notch fa-spin"></i> Sign Up</button>
-        </form>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
