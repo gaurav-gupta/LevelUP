@@ -48,12 +48,10 @@ export class AdminProductComponent implements OnInit {
 
     createProduct(data) {
         const that = this;
-        console.log('data>>>>>>>>>>>>..', data);
         if (Object.keys(data).length === 0) {
             this.productError = 'All these fields are required !!';
             this.flag = true;
             setTimeout(function(){
-                console.log(that.flag);
                 that.flag = false;
             }, 3000);
         } else {
@@ -69,7 +67,6 @@ export class AdminProductComponent implements OnInit {
                         data.descLink = resp[0].hash;
                         that._productService.createProduct(data).subscribe(res => {
                             if (res) {
-                                console.log('response>>>>>>>>>>>>.', res);
                                 that.loader = false;
                                 confirm('Create Successfully');
                                 location.reload();

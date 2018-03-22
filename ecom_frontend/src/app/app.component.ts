@@ -38,7 +38,8 @@ export class AppComponent implements OnInit {
                 this.check = true;
             }
         }
-        // login
+
+        // Authenticate user
         login(email1, password1) {
             const that = this;
             this.email = email1.value;
@@ -47,7 +48,6 @@ export class AppComponent implements OnInit {
                 this.loginError = 'Email/Password are required !!';
                     this.flag = true;
                     setTimeout(function(){
-                        console.log(that.flag);
                         that.flag = false;
                     }, 3000);
             } else {
@@ -57,8 +57,6 @@ export class AppComponent implements OnInit {
                 };
                 this._dashAuthService.loginDashUser(data).subscribe(res => {
                     if (!res.error) {
-                        // email1 = '';
-                        // password1 = '';
                         this._storageService.setItem('current_user', JSON.stringify(res));
                         const currentUser = JSON.parse(localStorage.getItem('current_user'));
                         this._userService.getUserByEmail(currentUser.email).subscribe(res1 => {
@@ -74,13 +72,11 @@ export class AppComponent implements OnInit {
                         });
                     }
                 }, (err) => {
-                    this.loginError = err._body;
+                    this.loginError = err._body.replace(/"/g, '');
                     this.flag = true;
                     setTimeout(function() {
-                        console.log(that.flag);
                         that.flag = false;
                     }, 3000);
-
                 });
             }
         }
@@ -92,19 +88,17 @@ export class AppComponent implements OnInit {
             });
         }
 
-        // sign up
+        // create User
         signUp(first_name, last_name, email, password) {
             const that = this;
             this.email = email.value;
             this.password = password.value;
             this.first_name = first_name.value;
             this.last_name = last_name.value;
-            console.log('this.email>............', this.email);
             if (this.email === '' ||  this.password === '' || this.first_name === '' || this.last_name === '') {
-                this.singupError = 'These fields are required !!';
+                this.singupError = 'All these fields are required !!';
                 this.flag = true;
                 setTimeout(function() {
-                    console.log(that.flag);
                     that.flag = false;
                 }, 3000);
             } else {
@@ -118,9 +112,11 @@ export class AppComponent implements OnInit {
                     location.reload();
                     confirm('User created successfully');
                 }, (err) => {
-                    console.log('erro>>>>>>>>..', err);
-                    console.log('erro>>>>>>>', err._body);
                     this.singupError = err._body;
+                    this.flag = true;
+                    setTimeout(function() {
+                        that.flag = false;
+                    }, 3000);
                 });
             }
         }

@@ -73,7 +73,6 @@ export class ProductDetailComponent implements OnInit {
                 this.orderError = 'All these fields are required !!';
                 that.flag = true;
                 setTimeout(function() {
-                    console.log(that.flag);
                     that.flag = false;
                 }, 3000);
 
