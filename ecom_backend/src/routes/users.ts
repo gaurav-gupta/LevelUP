@@ -1,14 +1,15 @@
 import * as express from 'express';
-import * as userController from './../controllers/users';
+import { userController }from './../controllers/users';
 import * as validator from './../validators/validator';
 import {Router} from 'express';
 var router = express();
+var usersController = new userController();
 
-router.post('/', userController.createUser);
-router.post('/login', userController.authenticateUser);
-router.get('/', validator.ValidateAuthToken, userController.getAllUser);
-router.get('/:email', validator.ValidateAuthToken, userController.getUser);
-router.put('/:email', validator.ValidateAuthToken, userController.updateUser);
-router.delete('/', validator.ValidateAuthToken, userController.deleteUser);
+router.post('/', usersController.createUser);
+router.post('/login', usersController.authenticateUser);
+router.get('/', validator.ValidateAuthToken, usersController.getAllUser);
+router.get('/:email', validator.ValidateAuthToken, usersController.getUser);
+router.put('/:email', validator.ValidateAuthToken, usersController.updateUser);
+router.delete('/', validator.ValidateAuthToken, usersController.deleteUser);
 
 export = router;
