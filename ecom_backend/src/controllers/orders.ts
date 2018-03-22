@@ -5,29 +5,29 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import * as _ from 'underscore';
 import * as appConstant from './../../config/config';
-import * as  common from '../helpers/common_helper';
 import { CodeConstants } from '../interfaces/code_constants';
 import { commonHelper  }from '../helpers/common_helper';
-
+var common = new commonHelper;
 export class orderController{
-  private common: commonHelper;
-  constructor() {
-    this.common = new commonHelper();
-  }
 
   //create order
   createOrder (req, res, next){
     try {
       var user = req.user_data[0];
-      this.common.getBuyerTokens(user).then((token:any) => {
+      console.log(">******************user", user);
+      common.getBuyerTokens(user.email).then((token:any) => {
         if(parseInt(token) >= req.body.price){
-          this.common.buyProduct(req.body, user).then((plog) => {
+          common.buyProduct(req.body, user).then((plog) => {
             res.send(plog);
+          }).catch(e =>{
+            res.send(e);
           })
         } else {
-          res.send({message: "you have not sufficient levelup in your account"});
+          res.send("you have not sufficient levelup in your account");
         }
-      })
+      }).catch(e =>{
+        res.send(e);
+      });
     } catch(error) {
       res.send({message:error});
     }

@@ -13,7 +13,7 @@ export class userHelper{
          throw new Error("User not exists");
        }
      }).catch((err) => {
-       console.log(err);
+       throw new Error(err);
      })
    } catch(e) {
      throw new Error(e);
@@ -28,10 +28,12 @@ export class userHelper{
       }).catch((err) => {
         console.log("updateUserToken err");
         console.log(err);
+        throw new Error(err);
       })
     }catch(e){
       console.log("updateUserToken >>>>>>>>>>>>>>>>>>>")
       console.log(e)
+      throw new Error(e);
     }
   }
 

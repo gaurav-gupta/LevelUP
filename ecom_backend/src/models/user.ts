@@ -20,6 +20,7 @@ export async function createUser(data){
     obj.save().then(function (doc) {
       resolve(doc);
     }).catch(e=>{
+      console.log('>>>>>>>>>>error', e);
       reject(e);
     });
   });
@@ -29,6 +30,8 @@ export function getUser(condition) {
   return new Promise((resolve, reject) => {
     userModel.find(condition).then(function (doc) {
       resolve(doc);
+    }).catch(e=>{
+      reject(e);
     });
   });
 };
@@ -37,6 +40,8 @@ export function getAllUser() {
   return new Promise((resolve, reject) => {
     userModel.find().then(function (doc) {
       resolve(doc);
+    }).catch(e=>{
+      reject(e);
     });
   });
 };
@@ -45,6 +50,9 @@ export function updateUser(condition, data: any ){
   return new Promise((resolve, reject) => {
     userModel.findOneAndUpdate(condition, data).then(function (doc) {
       resolve(doc);
+    }).catch(e=>{
+      console.log(">>>>>>>.in update error ?>?????????");
+      reject(e);
     });
   });
 };
@@ -53,6 +61,8 @@ export function deleteUser (condition){
   return new Promise((resolve, reject) => {
     userModel.findOneAndRemove(condition).then(function (doc) {
       resolve(doc);
+    }).catch(e=>{
+      reject(e);
     });
   });
 };

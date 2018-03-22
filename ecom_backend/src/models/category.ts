@@ -12,6 +12,8 @@ export function getAllCategories (){
   return new Promise((resolve, reject) => {
     categoryModel.find().then(function (categories) {
       resolve(categories);
+    }).catch(e=>{
+      reject(e);
     });
   });
 };

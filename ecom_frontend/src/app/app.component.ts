@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   loader: any = false;
   data: any;
   hideModal: any;
-  
+
   constructor(private route: ActivatedRoute, private router: Router, private _dashAuthService: DashAuthService,
     private _storageService: StorageService, private _userService: UserService,  private _productService: ProductService)  { }
 
@@ -51,6 +51,8 @@ export class AppComponent implements OnInit {
           this._storageService.setItem('current_user', JSON.stringify(res));
           const currentUser = JSON.parse(localStorage.getItem('current_user'));
           this._userService.getUserByEmail(currentUser.email).subscribe(res1 => {
+            console.log('>>>>>>>>>>>res1', res1);
+            console.log('>>>>>>>>>>>res1', res1.error);
             if (res1[0].roles === 'admin') {
               this.admin = true;
               location.reload();

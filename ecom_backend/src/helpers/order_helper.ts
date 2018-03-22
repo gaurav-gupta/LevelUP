@@ -40,7 +40,7 @@ export class orderHelper {
                      console.log(response);
                      this.userhelper.updateUserToken(user[0], user[0].wallet_amount - product[0].price);
                   }).catch((err) =>{
-                    console.log("err >>>>>>>>>>>>>>>>>")
+                    console.log("err >>>>>>>>>>>>>>>>>");
                     console.log(err)
                   });
                 }else{

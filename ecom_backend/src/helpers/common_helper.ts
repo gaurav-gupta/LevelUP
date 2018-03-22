@@ -87,12 +87,13 @@ export class commonHelper {
 
   assignLevelUpToUser(user, pass) {
     try {
+      console.log('>>>>>>>>>>this is error ???????????/in comon ????????????')
       var resp = web3.personal.newAccount(pass);
       user.wallet_address = resp;
       LevelUp.deployed().then(function(i) {
         i.giveLevelUpTokens(resp, {from: web3.eth.accounts[2], value: web3.toWei(10 * 0.001), gas: 440000})
         .then(function(f){
-          user.wallet_amount = 10;
+         user.wallet_amount = 10;
           userModel.updateUser({email: user.email}, user).then(function(user){
             var obj = {
               dtype: "Assign_Level_Up_Token_To_User",
@@ -124,6 +125,7 @@ export class commonHelper {
   }
 
   getBuyerTokens(user) {
+    console.log('>>>>>>>>>>>>this is get buyrs token >>>>>>>>>>>>')
     return new Promise((resolve, reject) => {
       try {
         LevelUp.deployed().then(function(i) {
@@ -132,8 +134,8 @@ export class commonHelper {
             return resolve(f);
           }).catch((e) =>{
             reject(e)
-          })
-        })
+          });
+        });
       } catch(e) {
         throw new Error(e);
       }
@@ -141,6 +143,7 @@ export class commonHelper {
   }
 
   buyProduct(data, user) {
+    console.log('>>>>>>>>>>>>.in buy product>>>>>>>>>>>>>>')
     return new Promise((resolve, reject) => {
       try {
         var address = data.address;
@@ -166,9 +169,11 @@ export class commonHelper {
             return reject(e)
           })
         }).catch((err) => {
+          console.log("ssssssssssssssss33333333333333333ssssssssssssss", err);
           throw new Error(err);
         })
       }catch(e){
+          console.log("4444444444444444444443333333333ssssssssssssss", e);
         throw new Error(e);
       }
     });

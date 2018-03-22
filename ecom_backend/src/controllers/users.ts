@@ -11,6 +11,7 @@ export class userController {
   private common: commonHelper;
   constructor() {
     this.common = new commonHelper();
+    console.log('>>>>>>>>>this<<<<<<<<<common', this.common);
   }
 
   //create user
@@ -27,14 +28,15 @@ export class userController {
                 res.send(response);
               }
             }).catch(err => {
-              res.send({ "message": err});
+              res.send(err.message);
             });
           });
         }else {
-          res.send({ "message": CodeConstants.USER_ALREADY_EXIST});
+          res.send(CodeConstants.USER_ALREADY_EXIST);
         }
       });
     } catch(error) {
+        console.log('>>>>>>>ervvvvvvvvvvvvvvror', error);
       res.send({message:error});
     }
   }
@@ -53,11 +55,11 @@ export class userController {
                 res.send({ email: email, user_auth_token: token });
               }
             }else{
-              res.send({error: CodeConstants.PASSWORD_DO_NOT_MATCH});
+              res.send(CodeConstants.PASSWORD_DO_NOT_MATCH);
             }
           });
         }else {
-          res.status(404).json({ "status":404,"error": CodeConstants.USER_NOT_FOUND});
+          res.status(404).json(CodeConstants.USER_NOT_FOUND);
         }
       });
     }catch(e){
@@ -73,7 +75,7 @@ export class userController {
         if(response){
           res.send(response);
         }else{
-          res.send({message: CodeConstants.USER_NOT_FOUND});
+          res.send(CodeConstants.USER_NOT_FOUND);
         }
       });
     }catch(e){
@@ -88,7 +90,7 @@ export class userController {
         if(response){
           res.send(response);
         }else {
-          res.send({message: CodeConstants.USER_NOT_FOUND});
+          res.send(CodeConstants.USER_NOT_FOUND);
         }
       });
     }catch(e){
@@ -104,7 +106,7 @@ export class userController {
         if(response){
           res.send(response);
         }else{
-          res.send({message: CodeConstants.USER_NOT_FOUND});
+          res.send(CodeConstants.USER_NOT_FOUND);
         }
       });
     }catch(e){
@@ -120,28 +122,12 @@ export class userController {
         if(response){
           res.send(response);
         }else{
-          res.send({message: CodeConstants.USER_NOT_FOUND});
+          res.send(CodeConstants.USER_NOT_FOUND);
         }
       });
     }catch(e){
       res.send({message:e});
     }
   }
-
-  //update user token amount
-  // updateUserToken(user, token){
-  //   try{
-  //     user.wallet_amount = token;
-  //     userModel.updateUser({email: user.email}, user).then(function(user){
-  //       console.log(user)
-  //     }).catch((err) => {
-  //       console.log("updateUserToken err");
-  //       console.log(err);
-  //     })
-  //   }catch(e){
-  //     console.log("updateUserToken >>>>>>>>>>>>>>>>>>>")
-  //     console.log(e)
-  //   }
-  // }
 
 }
