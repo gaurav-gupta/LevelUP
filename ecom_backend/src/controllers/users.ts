@@ -24,15 +24,15 @@ export class userController {
                 res.send(response);
               }
             }).catch(err => {
-              res.send(err.message);
+                res.status(400).json(err.message);
             });
           });
         }else {
-          res.send(CodeConstants.USER_ALREADY_EXIST);
+          res.status(400).json(CodeConstants.USER_ALREADY_EXIST);
         }
       });
     } catch(error) {
-      res.send(error);
+        res.status(400).json(error);
     }
   }
 
@@ -50,7 +50,8 @@ export class userController {
                 res.send({ email: email, user_auth_token: token });
               }
             }else{
-              res.send(CodeConstants.PASSWORD_DO_NOT_MATCH);
+              console.log(">>>>>>>>.error>>>>>>",CodeConstants.PASSWORD_DO_NOT_MATCH );
+              res.status(400).json(CodeConstants.PASSWORD_DO_NOT_MATCH);
             }
           });
         }else {
@@ -58,7 +59,7 @@ export class userController {
         }
       });
     }catch(e){
-      res.send(e);
+        res.status(400).json(e);
     }
   }
 
@@ -70,11 +71,11 @@ export class userController {
         if(response){
           res.send(response);
         }else{
-          res.send(CodeConstants.USER_NOT_FOUND);
+            res.status(400).json(CodeConstants.USER_NOT_FOUND);
         }
       });
     }catch(e){
-      res.send(e);
+      res.status(400).json(e);
     }
   }
 
@@ -85,11 +86,11 @@ export class userController {
         if(response){
           res.send(response);
         }else {
-          res.send(CodeConstants.USER_NOT_FOUND);
+            res.status(400).json(CodeConstants.USER_NOT_FOUND);
         }
       });
     }catch(e){
-      res.send(e);
+        res.status(400).json(e);
     }
   }
 
@@ -101,11 +102,11 @@ export class userController {
         if(response){
           res.send(response);
         }else{
-          res.send(CodeConstants.USER_NOT_FOUND);
+            res.status(400).json(CodeConstants.USER_NOT_FOUND);
         }
       });
     }catch(e){
-      res.send(e);
+        res.status(400).json(e);
     }
   }
 
@@ -117,11 +118,11 @@ export class userController {
         if(response){
           res.send(response);
         }else{
-          res.send(CodeConstants.USER_NOT_FOUND);
+            res.status(400).json(CodeConstants.USER_NOT_FOUND);
         }
       });
     }catch(e){
-      res.send(e);
+        res.status(400).json(e);
     }
   }
 

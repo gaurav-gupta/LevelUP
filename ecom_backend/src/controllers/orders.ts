@@ -19,16 +19,16 @@ export class orderController{
           common.buyProduct(req.body, user).then((plog) => {
             res.send(plog);
           }).catch(e =>{
-            res.send(e);
+            res.status(400).json(e);
           })
         } else {
-          res.send(CodeConstants.SUFFIECIENT_LEVELUP);
+          res.status(400).json(CodeConstants.SUFFIECIENT_LEVELUP);
         }
       }).catch(e =>{
-        res.send(e);
+          res.status(400).json(e);
       });
     } catch(error) {
-      res.send(error);
+      res.status(400).json(error);
     }
   }
 
@@ -42,7 +42,7 @@ export class orderController{
         }
       });
     }catch(error){
-      res.send(error);
+        res.status(400).json(error);
     }
   }
 
@@ -51,11 +51,11 @@ export class orderController{
     try{
       orderModel.getOrders().then(response =>{
         if(response){
-          res.send(response);
+            res.send(response);
         }
       });
     }catch(error){
-      res.send(error);
+        res.status(400).json(error);
     }
   }
 
@@ -64,10 +64,10 @@ export class orderController{
     try {
       let id = req.params.id;
       orderModel.getOrdersUser(id).then(response =>{
-        res.send(response);
+          res.send(response);
       });
     }catch(error){
-      res.send(error);
+        res.status(400).json(error);
     }
   }
 }

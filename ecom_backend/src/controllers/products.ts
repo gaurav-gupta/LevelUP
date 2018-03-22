@@ -19,7 +19,7 @@ export class ProductsController{
       }
     });
   } catch(error) {
-    res.send({message:error});
+      res.status(400).json(error);
   }
 }
 
@@ -32,7 +32,7 @@ getAllProduct(req,res,next){
       }
     });
   }catch(e){
-    res.send({message: e});
+      res.status(400).json(e);
   }
 }
 
@@ -59,13 +59,13 @@ createProduct(req, res, next){
           }
         });
       }).catch((error) =>{
-        res.send(error);
+          res.status(400).json(error);
       })
     }).catch((error) => {
-      res.send(error);
+        res.status(400).json(error);
     });
   } catch(err){
-    res.send(err);
+      res.status(400).json(err);
   }
 }
 }
