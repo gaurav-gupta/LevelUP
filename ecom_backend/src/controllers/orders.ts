@@ -8,27 +8,21 @@ import * as appConstant from './../../config/config';
 import { CodeConstants } from '../interfaces/code_constants';
 import { commonHelper  }from '../helpers/common_helper';
 var common = new commonHelper;
-export class orderController{
 
+export class orderController {
   //create order
   createOrder(req, res, next) {
     try {
       var user = req.user_data[0];
-      console.log("sssssssssssssssssssssss", user);
       if (user.wallet_amount >= (req.body.price)) {
-        console.log("sssssssssssssssssssssss");
         common.buyProduct(req.body, user).then((plog) => {
           res.send(plog);
         })
       } else {
-        res.send({
-          message: "you have not sufficient levelup in your account"
-        });
+        res.send({ message: "you have not sufficient levelup in your account" });
       }
     } catch (error) {
-      res.send({
-        message: error
-      });
+      res.send({ message: error });
     }
   }
 

@@ -27,7 +27,6 @@ export class UserService {
   // create user
   createOrder(data) {
     const body: any = JSON.stringify(data);
-    console.log('>>>>>>>>>>>>this is >>>>>>>>>serviec', body);
     const _path: string = (this.baseUrl + '/orders');
     return this._httpClient.post(_path, body).map((res: any) => {
       return res;

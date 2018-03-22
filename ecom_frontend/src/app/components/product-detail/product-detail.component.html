@@ -23,7 +23,7 @@
                         </tr>
                         <tr>
                             <td><b>Price</b></td>
-                            <td>{{product?.price}} levelup</td>
+                            <td>{{product?.price/1000000000000000000}} levelup</td>
                         </tr>
                     </tbody>
                 </table><br>
@@ -49,9 +49,9 @@
                 <h4>{{product?.name}}</h4>
             </div>
             <div class="modal-body">
-                <p>Price(1 item) &nbsp; &nbsp; {{product?.price}} levelup</p>
+                <p>Price(1 item) &nbsp; &nbsp; {{product?.price/1000000000000000000}} levelup</p>
                 <p>Delivery Charge &nbsp; &nbsp; (Free) </p>
-                <h5>Amount Payable &nbsp; &nbsp; {{product?.price}} levelup</h5>
+                <h5>Amount Payable &nbsp; &nbsp; {{product?.price/1000000000000000000}} levelup</h5>
                 <hr>
                 <h3>Billing Address</h3>
                 <p class="errorColor" *ngIf='flag'>{{orderError}}</p>

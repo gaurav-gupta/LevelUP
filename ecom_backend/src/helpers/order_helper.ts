@@ -8,6 +8,7 @@ export class orderHelper {
   constructor() {
     this.userhelper = new userHelper();
   }
+
   createOrder(data) {
     try {
       orderModel.getOrder({orderId: parseInt(data._orderId)}).then((order:any) => {
@@ -15,7 +16,6 @@ export class orderHelper {
           throw new Error("Order already created >.......");
         }else{
           userModel.getUser({wallet_address: data.buyer}).then((user:any) => {
-            console.log(user)
             if(user.length > 0){
               productModel.getProduct({productId: parseInt(data._productId)}).then((product:any) => {
                 if(product.length > 0){
@@ -36,8 +36,6 @@ export class orderHelper {
                     }
                   }
                   orderModel.createOrder(obj).then(response => {
-                     console.log(response);
-                     this.userhelper.updateUserToken(user[0], user[0].wallet_amount - product[0].price);
                   }).catch((err) =>{
                     throw new Error(err);
                   });
@@ -51,17 +49,14 @@ export class orderHelper {
               throw new Error("User not exists");
             }
           }).catch((err) => {
-            console.log(err);
             throw new Error(err);
           })
         }
       }).catch((err) => {
-        console.log(err);
         throw new Error(err);
       })
     } catch(e) {
       throw new Error(e);
     }
   }
-
 }

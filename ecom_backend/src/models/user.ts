@@ -8,10 +8,10 @@ var userSchema = new Schema({
   password: { type: String ,required:true},
   email: { type: String ,required:true},
   roles: { type: String , required:true, default: "user"},
-  wallet_address: { type: String , default: ''},
+  wallet_address: { type: String , default: '' },
   wallet_amount: {type: Number, default: 0},
-  uuid: { type: String, required: true },
-  website_url: { type: Number, required: true }
+  uuid: { type: String, required: false },
+  website_url: { type: Number, required: false }
 });
 
 export var userModel = mongoose.model('users', userSchema);

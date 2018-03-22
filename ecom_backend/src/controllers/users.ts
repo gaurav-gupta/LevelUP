@@ -8,8 +8,8 @@ import * as appConstant from './../../config/config';
 import { CodeConstants } from '../interfaces/code_constants';
 import { commonHelper  }from '../helpers/common_helper';
 var common = new commonHelper;
-export class userController {
 
+export class userController {
   //create user
   createUser(req, res, next){
     try{
@@ -50,7 +50,6 @@ export class userController {
                 res.send({ email: email, user_auth_token: token });
               }
             }else{
-              console.log(">>>>>>>>.error>>>>>>",CodeConstants.PASSWORD_DO_NOT_MATCH );
               res.status(400).json(CodeConstants.PASSWORD_DO_NOT_MATCH);
             }
           });
@@ -125,5 +124,4 @@ export class userController {
       res.status(400).json(e);
     }
   }
-
 }
