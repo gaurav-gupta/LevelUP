@@ -3,15 +3,21 @@
 <div class="modal fade" id="login" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <div class="modal-header text-center">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2>Please signIn</h2>
       </div>
       <div class="wrapper">
         <form class="form-signin">
-          <h2 class="form-signin-heading">Please login</h2>
-          <input type="email" #email1 class="form-control" name="email" placeholder="Email Address" required="" autofocus="" /><br>
-          <input type="password" #password1 class="form-control" name="password" placeholder="Password" required=""/><br>
-          <button class="btn btn-lg btn-primary btn-block" (click)="login(email1, password1)" type="submit">Login</button><br>
+        <p class="error" style="color:red;">{{loginError}}</p>
+          <h2 class="form-signin-heading"></h2>
+          <i class="fa fa-envelope prefix grey-text"></i>
+          <label>Email</label>
+          <input type="email" #email1 class="form-control" name="email" placeholder="Email Address" required /><br>
+          <i class="fa fa-lock prefix grey-text"></i>
+          <label>Password</label>
+          <input type="password" #password1 class="form-control" name="password" placeholder="Password" required /><br>
+          <button  class="btn btn-lg btn-primary btn-block" (click)="login(email1, password1)" type="submit">Login</button><br>
           <a  href="javascript:void(0)" data-toggle="modal" data-target="#signUp">Sign Up</a>
         </form>
       </div>
@@ -24,16 +30,25 @@
 <div class="modal fade" id="signUp" [hidden]="hideModal" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <div class="modal-header text-center">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2>Please signUp</h2>
       </div>
       <div class="modal-body">
         <form class="form-signin">
-          <h2 class="modal-title">Please sign Up</h2>
-          <input type="text" #firstname class="form-control" placeholder="First Name"  name="first_name"><br>
-          <input type="text" #lastname class="form-control" placeholder="Last Name"  name="last_name"><br>
-          <input type="email" #email class="form-control" placeholder="Email address"  name="email"><br>
-          <input type="password" #password class="form-control" placeholder="Password" name="password"><br>
+          <p class="error" style="color:red;">{{singupError}}</p>
+          <i class="fa fa-user prefix grey-text"></i>
+          <label>Fist Name</label>
+          <input type="text" #firstname class="form-control" placeholder="First Name"  name="first_name" required><br>
+          <i class="fa fa-user prefix grey-text"></i>
+          <label>Last Name</label>
+          <input type="text" #lastname class="form-control" placeholder="Last Name"  name="last_name" required><br>
+          <i class="fa fa-envelope prefix grey-text"></i>
+          <label>Email</label>
+          <input type="email" #email class="form-control" placeholder="Email address"  name="email" required><br>
+          <i class="fa fa-lock prefix grey-text"></i>
+          <label>Password</label>
+          <input type="password" #password class="form-control" placeholder="Password" name="password" required><br>
           <button type="submit" (click)="signUp(firstname, lastname, email, password)" class="btn btn-primary  btn btn-lg btn-primary btn-block">Sign Up</button>
         </form>
       </div>

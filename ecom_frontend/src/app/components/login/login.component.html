@@ -6,18 +6,18 @@
         <div class="card col-md-3 product_list" *ngFor="let product of product">
           <div class="thumbnail">
             <img src="https://ipfs.io/ipfs/{{product?.imageLink}}" [routerLink]="['/productDetail', product._id]" alt="blue shirt">
-          </div>  
+          </div>
 
           <div class="product_des">
             <h3>{{product?.name}}</h3>
             <p>{{product?.category}}</p>
             <span>{{product?.price}} <b>levelup</b></span>
 
-            <a href="javascript:void(0)" *ngIf="!uncheck" data-toggle="modal" data-target="#login" class="buy_btn" > Buy</a>
-            <a href="/#/productDetail/{{product._id}}" class="buy_btn" *ngIf="uncheck"  > Buy</a>
+            <a href="javascript:void(0)" *ngIf="!uncheck && !checkAdmin" data-toggle="modal" data-target="#login" class="buy_btn" > Buy</a>
+            <a href="/#/productDetail/{{product._id}}" class="buy_btn" *ngIf="uncheck && !checkAdmin"  > Buy</a>
           </div>
 
-            
+
           </div>
         </div>
       </div>

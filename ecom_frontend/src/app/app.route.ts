@@ -6,6 +6,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { OrderComponent } from './components/order/order.component';
 import { UserOrderComponent } from './components/user-order/user-order.component';
 import { AdminProductComponent } from './components/admin-product/admin-product.component';
+import { PublisherComponent } from './components/publisher/publisher.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const appRoutes: Routes = [
@@ -36,7 +37,12 @@ const appRoutes: Routes = [
     path: 'adminproduct',
     component: AdminProductComponent,
     canActivate: [AuthGuard]
-  }
+},
+{
+    path: 'publisher',
+    component: PublisherComponent,
+    canActivate: [AuthGuard]
+}
 ];
 
 export const appRoutingProviders: any[] = [];

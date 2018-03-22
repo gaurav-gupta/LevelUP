@@ -5,13 +5,13 @@
     <thead>
       <tr>
         <th>
-          <mfDefaultSorter by="product_id">ProductId</mfDefaultSorter>
+          <mfDefaultSorter by="_id">ProductId</mfDefaultSorter>
         </th>
         <th>
-          <mfDefaultSorter by="product_name">Product Name</mfDefaultSorter>
+          <mfDefaultSorter by="name">Product Name</mfDefaultSorter>
         </th>
         <th>
-          <mfDefaultSorter by="categories">Categories</mfDefaultSorter>
+          <mfDefaultSorter by="category">Categories</mfDefaultSorter>
         </th>
         <th>
           <mfDefaultSorter by="price">Price</mfDefaultSorter>
@@ -51,6 +51,7 @@
       </div>
       <div class="modal-body">
         <form role="form" #form="ngForm" class="form-horizontal" (ngSubmit)="createProduct(productModel)">
+            <p class="error" style="color:red;">{{productError}}</p>
           <h4>Product Name</h4>
           <div class="form-group">
             <div class="col-sm-10">

@@ -36,7 +36,7 @@ export class ProductService {
     });
   }
 
-  createProduct(productData){
+  createProduct(productData) {
     const _path: string = (this.baseUrl + '/products');
     return this._httpClient.post(_path, productData).map((res: any) => {
       return res;

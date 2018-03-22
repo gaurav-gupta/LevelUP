@@ -22,6 +22,7 @@ import { UserService } from './services/users.service';
 import { ProductService } from './services/product.service';
 import { AdminProductComponent } from './components/admin-product/admin-product.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { PublisherComponent } from './components/publisher/publisher.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     ProductDetailComponent,
     NavBarComponent,
     AdminComponent,
-    OrderComponent, DataFilterPipe, UserOrderComponent, AdminProductComponent
+    OrderComponent, DataFilterPipe, UserOrderComponent, AdminProductComponent, PublisherComponent
   ],
   imports: [
     BrowserModule, routing, FormsModule, DataTableModule, ImageZoomModule, HttpClientModule, HttpModule, EditorModule

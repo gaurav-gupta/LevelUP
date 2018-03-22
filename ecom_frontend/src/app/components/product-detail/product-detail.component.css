@@ -1,41 +1,15 @@
-#shirtImagePosition {
-  position: absolute;
-  left: 140px;
-  top: 150px;
-}
-
-#form1 {
-  position: absolute;
-  left: 550px;
-  top: 100px;
-}
 
 h5 {
   color: red;
 }
 
-h4 {
-  color: blue;
+
+.prod_detail_col tr{border-bottom: 1px solid #ccc;}
+.prod_detail_col td {
+    min-width: 110px;
+    padding: 10px 0;
 }
 
-td {
-  padding:0 15px 0 15px;
-}
-
-.img {
-  border: 1px solid #D3D3D3;
-  margin-top: 10%;
-  margin-left: 10%;
-  height: 200px;
-width: 50%;
-}
-
-#buttonplaced {
-  position: absolute;
-  left: -320px;
-  top: 300px;
-  margin-left: 30%;
-}
 
 .makeme{
   text-align: center;
@@ -50,20 +24,53 @@ width: 50%;
   top: 440px;
 }
 
-.thumbnail{
-  border:1px solid #D3D3D3;
-  text-align: center;
-  margin: 10px;
-  padding: 10px;
-  width: 300px;
-  height: 200px;
+.product_detail_img {
+    height: 280px;    width: 27%;
+    float: left;
+    text-align: center;
+    border: 1px solid #ccc;
 }
-.onloader_col{width: 100%; height: 100%; z-index: 99999; background: rgba(0,0,0,.5); position: fixed;     top: 0;
-    left: 0;}
-.onloader_col img {    width: 80px;
+.product_detail_img img { height: 100%; width: auto;}
+
+.product_detail_rht_col { float: right; width: 70%;}
+
+.product_detail_rht_col h3 { margin: 0; font-size: 20px;}
+
+.product_detail_rht_col h4 {
+    font-size: 13px;
+    color: green;
+    margin: 7px 0 0 0;
+}
+.product_detail_rht_col h4 img {
+    width: 26px;
+    height: auto;
+}
+
+.product_detail_rht_col  h3.fs18 {
+    font-size: 18px;
+    margin: 15px 0;
+}
+
+.onloader_col {
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.onloader_col img {
+    width: 80px;
     height: 80px;
     position: absolute;
     top: 50%;
     margin-top: -40px;
     left: 50%;
-    margin-left: -40px;}
+    margin-left: -40px;
+}
+
+    .buy_now_btn {
+    font-size: 13px;
+    padding: 8px 10px;
+}

@@ -1,31 +1,36 @@
 <app-nav-bar></app-nav-bar>
 <div class="container">
-    <img  src="https://ipfs.io/ipfs/{{product?.imageLink}}" class="thumbnail" [imageZoom]="zoomedImageSrc"  alt="shirt" id="shirtImagePosition">
-    <div class="container" id="form1">
-        <form>
-            <h3>{{product?.name}}</h3>
-            <h4>Be the first to Review this product <img src="../.././assets/shop.png" alt="shopping icon" width="42" height="42"> </h4>
-            <h3>Specifications</h3>
-            <table>
-                <tbody>
-                    <tr>
-                        <td><b>Category</b></td>
-                        <td>{{product?.category}}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Description</b></td>
-                        <td>{{filedata}}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Price</b></td>
-                        <td>{{product?.price}} levelup</td>
-                    </tr>
-                </tbody>
-            </table><br>
-            <button data-toggle="modal" *ngIf="!check" data-target="#login" id="buttonplaced" class="btn btn-lg btn-primary" type="submit">BUY NOW</button>
-            <button *ngIf="check" data-toggle="modal" data-target="#myModal" id="buttonplaced" class="btn btn-lg btn-primary" type="submit">BUY NOW</button>
-        </form>
+    <div class="container">
+        <div class="product_detail_img">
+            <img  src="https://ipfs.io/ipfs/{{product?.imageLink}}"  [imageZoom]="zoomedImageSrc"  alt="shirt" id="shirtImagePosition">
+        </div>
+        <div class="product_detail_rht_col" id="form1">
+            <form>
+                <h3>{{product?.name}}</h3>
+                <h4>Be the first to Review this product <img src="../.././assets/shop.png" alt="shopping icon" width="42" height="42"> </h4>
+                <h3 class="fs18">Specifications</h3>
+                <table class="prod_detail_col">
+                    <tbody>
+                        <tr>
+                            <td><b>Category</b></td>
+                            <td>{{product?.category}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Description</b></td>
+                            <td>{{filedata}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Price</b></td>
+                            <td>{{product?.price}} levelup</td>
+                        </tr>
+                    </tbody>
+                </table><br>
+                <button data-toggle="modal" *ngIf="!check && !checkAdmin" data-target="#login" id="buttonplaced" class="btn btn-lg btn-primary buy_now_btn"  type="submit">BUY NOW</button>
+                <button *ngIf="check && !checkAdmin" data-toggle="modal" data-target="#myModal" id="buttonplaced" class="btn btn-lg btn-primary buy_now_btn" type="submit">BUY NOW</button>
+            </form>
+        </div>
     </div>
+
 
     <div class="onloader_col"  *ngIf="loader">
         <img src="./assets/loader.gif"/>
@@ -47,6 +52,7 @@
                 <h5>Amount Payable &nbsp; &nbsp; {{product?.price}} levelup</h5>
                 <hr>
                 <h3>Billing Address</h3>
+                <p class="error" style="color:red;">{{orderError}}</p>
                 <form role="form" #form="ngForm" class="form-horizontal makeform" (ngSubmit)="createOrder(orderModel)">
                     <div class="form-group">
                         <div class="col-sm-10">
