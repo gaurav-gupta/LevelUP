@@ -72,6 +72,7 @@ export class AppComponent implements OnInit {
                         });
                     }
                 }, (err) => {
+                    console.log('err>>>>>>>>>>', err);
                     this.loginError = err._body.replace(/"/g, '');
                     this.flag = true;
                     setTimeout(function() {
@@ -112,6 +113,7 @@ export class AppComponent implements OnInit {
                     location.reload();
                     confirm('User created successfully');
                 }, (err) => {
+                    console.log('error>>>>>>>>>', err);
                     this.singupError = err._body;
                     this.flag = true;
                     setTimeout(function() {

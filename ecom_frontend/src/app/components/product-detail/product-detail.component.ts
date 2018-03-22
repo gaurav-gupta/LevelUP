@@ -75,7 +75,6 @@ export class ProductDetailComponent implements OnInit {
                 setTimeout(function() {
                     that.flag = false;
                 }, 3000);
-
             } else {
                 this.loader = true;
                 this.data = {
