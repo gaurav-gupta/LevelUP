@@ -21,6 +21,7 @@ export class AdminProductComponent implements OnInit {
     loader = false;
     productModel: any = {};
     productError: any;
+    flag: any = false;
     constructor(private _productService: ProductService) { }
 
     ngOnInit() {
@@ -46,13 +47,18 @@ export class AdminProductComponent implements OnInit {
     }
 
     createProduct(data) {
+        const that = this;
         console.log('data>>>>>>>>>>>>..', data);
         if (Object.keys(data).length === 0) {
             this.productError = 'All these fields are required !!';
+            this.flag = true;
+            setTimeout(function(){
+                console.log(that.flag);
+                that.flag = false;
+            }, 3000);
         } else {
             this.loader = true;
             const file = this.file;
-            const that = this;
             const reader = new FileReader();
             reader.onloadend = function() {
                 const buf = Buffer1.from(reader.result);

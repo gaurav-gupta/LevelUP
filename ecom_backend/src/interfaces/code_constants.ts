@@ -7,6 +7,7 @@ export class CodeConstants {
   public static readonly TOKEN_REQUIRED: string = "TOKEN IS REQUIRED";
   public static readonly ACCESS_TOKEN_IS_EXPIRED: string = "Access token has been expired.";
   public static readonly FAILURE: string = "Failure";
+  public static readonly SUFFIECIENT_LEVELUP:String = "you have not sufficient levelup in your account"
   public static readonly LevelUp: Object = {
   "contractName": "LevelUp",
   "abi": [

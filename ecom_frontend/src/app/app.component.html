@@ -9,7 +9,7 @@
       </div>
       <div class="wrapper">
         <form class="form-signin">
-        <p class="error" style="color:red;">{{loginError}}</p>
+        <p style="color:red;" *ngIf='flag'>{{loginError}}</p>
           <h2 class="form-signin-heading"></h2>
           <i class="fa fa-envelope prefix grey-text"></i>
           <label>Email</label>
@@ -36,7 +36,7 @@
       </div>
       <div class="modal-body">
         <form class="form-signin">
-          <p class="error" style="color:red;">{{singupError}}</p>
+          <p style="color:red;" *ngIf='flag'>{{singupError}}</p>
           <i class="fa fa-user prefix grey-text"></i>
           <label>Fist Name</label>
           <input type="text" #firstname class="form-control" placeholder="First Name"  name="first_name" required><br>

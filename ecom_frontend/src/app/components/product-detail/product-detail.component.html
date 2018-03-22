@@ -52,7 +52,7 @@
                 <h5>Amount Payable &nbsp; &nbsp; {{product?.price}} levelup</h5>
                 <hr>
                 <h3>Billing Address</h3>
-                <p class="error" style="color:red;">{{orderError}}</p>
+                <p style="color:red;" *ngIf='flag'>{{orderError}}</p>
                 <form role="form" #form="ngForm" class="form-horizontal makeform" (ngSubmit)="createOrder(orderModel)">
                     <div class="form-group">
                         <div class="col-sm-10">

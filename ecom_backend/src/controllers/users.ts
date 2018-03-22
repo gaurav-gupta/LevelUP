@@ -7,12 +7,8 @@ import * as _ from 'underscore';
 import * as appConstant from './../../config/config';
 import { CodeConstants } from '../interfaces/code_constants';
 import { commonHelper  }from '../helpers/common_helper';
+var common = new commonHelper;
 export class userController {
-  private common: commonHelper;
-  constructor() {
-    this.common = new commonHelper();
-    console.log('>>>>>>>>>this<<<<<<<<<common', this.common);
-  }
 
   //create user
   createUser(req, res, next){
@@ -24,7 +20,7 @@ export class userController {
             req.body.password =  hash;
             userModel.createUser(req.body).then(response => {
               if(response) {
-                this.common.assignLevelUpToUser(response, password);
+                common.assignLevelUpToUser(response, password);
                 res.send(response);
               }
             }).catch(err => {
@@ -36,8 +32,7 @@ export class userController {
         }
       });
     } catch(error) {
-        console.log('>>>>>>>ervvvvvvvvvvvvvvror', error);
-      res.send({message:error});
+      res.send(error);
     }
   }
 
@@ -63,7 +58,7 @@ export class userController {
         }
       });
     }catch(e){
-      res.send({message:e});
+      res.send(e);
     }
   }
 
@@ -79,7 +74,7 @@ export class userController {
         }
       });
     }catch(e){
-      res.send({message:e});
+      res.send(e);
     }
   }
 
@@ -94,7 +89,7 @@ export class userController {
         }
       });
     }catch(e){
-      res.send({message:e});
+      res.send(e);
     }
   }
 
@@ -110,7 +105,7 @@ export class userController {
         }
       });
     }catch(e){
-      res.send({message:e});
+      res.send(e);
     }
   }
 
@@ -126,7 +121,7 @@ export class userController {
         }
       });
     }catch(e){
-      res.send({message:e});
+      res.send(e);
     }
   }
 

@@ -49,11 +49,8 @@ export class commonHelper {
         orderEvent = i.NewOrder({fromBlock: 0, toBlock: 'latest'});
         orderEvent.watch(function(err, result) {
           if (err) {
-            console.log(err)
             return;
           }
-          console.log("result.args >?>>>>>>>>>>>>>>>>>>>>>>");
-          console.log(result.args);
           ordersHelper.createOrder(result.args);
         });
       }).catch((err) => {
@@ -69,16 +66,16 @@ export class commonHelper {
       let tokenEvent;
       LevelUp.deployed().then(function(i) {
         tokenEvent = i.BuyerBalance({fromBlock: 0, toBlock: 'latest'});
-
         tokenEvent.watch(function(err, result) {
           if (err) {
             console.log(err)
             return;
+          }else{
+            usersHelper.getUserByWalletAddress(result.args);
           }
-          usersHelper.getUserByWalletAddress(result.args);
         });
       }).catch((err) => {
-        console.log(err);
+        throw new Error(err);
       })
     } catch(e) {
       throw new Error(e);
@@ -87,9 +84,9 @@ export class commonHelper {
 
   assignLevelUpToUser(user, pass) {
     try {
-      console.log('>>>>>>>>>>this is error ???????????/in comon ????????????')
+      console.log('atste ')
       var resp = web3.personal.newAccount(pass);
-      user.wallet_address = resp;
+      //user.wallet_address = resp;
       LevelUp.deployed().then(function(i) {
         i.giveLevelUpTokens(resp, {from: web3.eth.accounts[2], value: web3.toWei(10 * 0.001), gas: 440000})
         .then(function(f){
@@ -117,6 +114,7 @@ export class commonHelper {
           console.log(e)
         })
       }).catch((err) => {
+        console.log(">>>>>>>>>>>>>>>in tythis error ??????????", err);
         console.log(err);
       })
     } catch(e) {

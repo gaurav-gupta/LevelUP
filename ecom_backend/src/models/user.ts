@@ -9,7 +9,9 @@ var userSchema = new Schema({
   email: { type: String ,required:true},
   roles: { type: String , required:true, default: "user"},
   wallet_address: { type: String , default: ''},
-  wallet_amount: {type: Number, default: 0}
+  wallet_amount: {type: Number, default: 0},
+  uuid: { type: String, required: true },
+  website_url: { type: Number, required: true }
 });
 
 export var userModel = mongoose.model('users', userSchema);
@@ -20,7 +22,6 @@ export async function createUser(data){
     obj.save().then(function (doc) {
       resolve(doc);
     }).catch(e=>{
-      console.log('>>>>>>>>>>error', e);
       reject(e);
     });
   });
@@ -51,7 +52,6 @@ export function updateUser(condition, data: any ){
     userModel.findOneAndUpdate(condition, data).then(function (doc) {
       resolve(doc);
     }).catch(e=>{
-      console.log(">>>>>>>.in update error ?>?????????");
       reject(e);
     });
   });

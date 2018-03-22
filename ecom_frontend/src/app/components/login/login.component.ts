@@ -38,18 +38,17 @@ export class LoginComponentComponent implements OnInit {
     ngOnInit() {
       this.getProducts();
       this.current_user = JSON.parse(localStorage.getItem('current_user'));
-      console.log('this.current_user>>>>>>>>>>>.', this.current_user);
       if (this.current_user) {
         this.uncheck = true;
+        this._userService.getUserByEmail(this.current_user.email).subscribe(res1 => {
+            if (res1[0].roles === 'admin') {
+                this.checkAdmin = true;
+            } else {
+                this.checkAdmin = false;
+            }
+        });
       }
 
-      this._userService.getUserByEmail(this.current_user.email).subscribe(res1 => {
-          if (res1[0].roles === 'admin') {
-              this.checkAdmin = true;
-          } else {
-               this.checkAdmin = false;
-          }
-      });
 
     }
 

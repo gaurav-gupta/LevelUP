@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
     hideModal: any;
     loginError: any;
     singupError: any;
+    flag: any = false;
 
     constructor(private route: ActivatedRoute, private router: Router, private _dashAuthService: DashAuthService,
         private _storageService: StorageService, private _userService: UserService,  private _productService: ProductService)  { }
@@ -39,10 +40,16 @@ export class AppComponent implements OnInit {
         }
         // login
         login(email1, password1) {
+            const that = this;
             this.email = email1.value;
             this.password = password1.value;
             if (this.email === '' ||  this.password === '') {
                 this.loginError = 'Email/Password are required !!';
+                    this.flag = true;
+                    setTimeout(function(){
+                        console.log(that.flag);
+                        that.flag = false;
+                    }, 3000);
             } else {
                 const data = {
                     email: this.email,
@@ -67,9 +74,13 @@ export class AppComponent implements OnInit {
                         });
                     }
                 }, (err) => {
-                    console.log('erro>>>>>>>>..', err._body);
-                    console.log('erro>>>>>>>', err._body['error']);
                     this.loginError = err._body;
+                    this.flag = true;
+                    setTimeout(function() {
+                        console.log(that.flag);
+                        that.flag = false;
+                    }, 3000);
+
                 });
             }
         }
@@ -83,6 +94,7 @@ export class AppComponent implements OnInit {
 
         // sign up
         signUp(first_name, last_name, email, password) {
+            const that = this;
             this.email = email.value;
             this.password = password.value;
             this.first_name = first_name.value;
@@ -90,6 +102,11 @@ export class AppComponent implements OnInit {
             console.log('this.email>............', this.email);
             if (this.email === '' ||  this.password === '' || this.first_name === '' || this.last_name === '') {
                 this.singupError = 'These fields are required !!';
+                this.flag = true;
+                setTimeout(function() {
+                    console.log(that.flag);
+                    that.flag = false;
+                }, 3000);
             } else {
                 const  data = {
                     first_name : this.first_name ,

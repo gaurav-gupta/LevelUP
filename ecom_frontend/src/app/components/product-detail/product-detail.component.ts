@@ -31,6 +31,7 @@ export class ProductDetailComponent implements OnInit {
     zoomedImageSrc: any;
     checkAdmin: boolean;
     orderError: any;
+    flag: any = false;
     constructor(private route: ActivatedRoute, private router: Router, private _productService: ProductService,
         private _userService: UserService , private _dashAuthService: DashAuthService, private _storageService: StorageService) { }
 
@@ -40,14 +41,16 @@ export class ProductDetailComponent implements OnInit {
                 this._id = params._id;
                 this.getOneProduct();
             });
-            this._userService.getUserByEmail(this.current_user.email).subscribe(response => {
-                this.check =  response[0];
-                if (this.check.roles === 'admin') {
-                    this.checkAdmin = true;
-                } else {
-                    this.checkAdmin = false;
-                }
-            });
+            if  (this.current_user ) {
+                this._userService.getUserByEmail(this.current_user.email).subscribe(response => {
+                    this.check =  response[0];
+                    if (this.check.roles === 'admin') {
+                        this.checkAdmin = true;
+                    } else {
+                        this.checkAdmin = false;
+                    }
+                });
+            }
         }
 
         getOneProduct() {
@@ -64,9 +67,16 @@ export class ProductDetailComponent implements OnInit {
 
         // create order
         createOrder(form) {
+            const that = this;
             if (form.address === undefined || form.pincode === undefined || form.state === undefined ||
             form.phone_number === undefined || form.city === undefined) {
                 this.orderError = 'All these fields are required !!';
+                that.flag = true;
+                setTimeout(function() {
+                    console.log(that.flag);
+                    that.flag = false;
+                }, 3000);
+
             } else {
                 this.loader = true;
                 this.data = {
