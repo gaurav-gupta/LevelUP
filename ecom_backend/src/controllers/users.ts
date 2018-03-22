@@ -24,7 +24,7 @@ export class userController {
                 res.send(response);
               }
             }).catch(err => {
-                res.status(400).json(err.message);
+              res.status(400).json(err.message);
             });
           });
         }else {
@@ -32,7 +32,7 @@ export class userController {
         }
       });
     } catch(error) {
-        res.status(400).json(error);
+      res.status(400).json(error);
     }
   }
 
@@ -59,7 +59,7 @@ export class userController {
         }
       });
     }catch(e){
-        res.status(400).json(e);
+      res.status(400).json(e);
     }
   }
 
@@ -71,7 +71,7 @@ export class userController {
         if(response){
           res.send(response);
         }else{
-            res.status(400).json(CodeConstants.USER_NOT_FOUND);
+          res.status(400).json(CodeConstants.USER_NOT_FOUND);
         }
       });
     }catch(e){
@@ -86,11 +86,11 @@ export class userController {
         if(response){
           res.send(response);
         }else {
-            res.status(400).json(CodeConstants.USER_NOT_FOUND);
+          res.status(400).json(CodeConstants.USER_NOT_FOUND);
         }
       });
     }catch(e){
-        res.status(400).json(e);
+      res.status(400).json(e);
     }
   }
 
@@ -102,11 +102,11 @@ export class userController {
         if(response){
           res.send(response);
         }else{
-            res.status(400).json(CodeConstants.USER_NOT_FOUND);
+          res.status(400).json(CodeConstants.USER_NOT_FOUND);
         }
       });
     }catch(e){
-        res.status(400).json(e);
+      res.status(400).json(e);
     }
   }
 
@@ -118,11 +118,11 @@ export class userController {
         if(response){
           res.send(response);
         }else{
-            res.status(400).json(CodeConstants.USER_NOT_FOUND);
+          res.status(400).json(CodeConstants.USER_NOT_FOUND);
         }
       });
     }catch(e){
-        res.status(400).json(e);
+      res.status(400).json(e);
     }
   }
 

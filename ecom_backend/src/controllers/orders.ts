@@ -11,24 +11,24 @@ var common = new commonHelper;
 export class orderController{
 
   //create order
-  createOrder (req, res, next){
+  createOrder(req, res, next) {
     try {
       var user = req.user_data[0];
-      common.getBuyerTokens(user).then((token:any) => {
-        if(parseInt(token) >= req.body.price){
-          common.buyProduct(req.body, user).then((plog) => {
-            res.send(plog);
-          }).catch(e =>{
-            res.status(400).json(e);
-          })
-        } else {
-          res.status(400).json(CodeConstants.SUFFIECIENT_LEVELUP);
-        }
-      }).catch(e =>{
-          res.status(400).json(e);
+      console.log("sssssssssssssssssssssss", user);
+      if (user.wallet_amount >= (req.body.price)) {
+        console.log("sssssssssssssssssssssss");
+        common.buyProduct(req.body, user).then((plog) => {
+          res.send(plog);
+        })
+      } else {
+        res.send({
+          message: "you have not sufficient levelup in your account"
+        });
+      }
+    } catch (error) {
+      res.send({
+        message: error
       });
-    } catch(error) {
-      res.status(400).json(error);
     }
   }
 
@@ -42,7 +42,7 @@ export class orderController{
         }
       });
     }catch(error){
-        res.status(400).json(error);
+      res.status(400).json(error);
     }
   }
 
@@ -51,11 +51,11 @@ export class orderController{
     try{
       orderModel.getOrders().then(response =>{
         if(response){
-            res.send(response);
+          res.send(response);
         }
       });
     }catch(error){
-        res.status(400).json(error);
+      res.status(400).json(error);
     }
   }
 
@@ -64,10 +64,10 @@ export class orderController{
     try {
       let id = req.params.id;
       orderModel.getOrdersUser(id).then(response =>{
-          res.send(response);
+        res.send(response);
       });
     }catch(error){
-        res.status(400).json(error);
+      res.status(400).json(error);
     }
   }
 }
