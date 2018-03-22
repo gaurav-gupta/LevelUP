@@ -58,4 +58,7 @@ body {
     margin-top: -40px;
     left: 50%;
     margin-left: -40px;}
-	
+
+	.errorColor {
+	    color:red;
+	}
