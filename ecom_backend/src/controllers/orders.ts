@@ -14,8 +14,7 @@ export class orderController{
   createOrder (req, res, next){
     try {
       var user = req.user_data[0];
-      console.log(">******************user", user);
-      common.getBuyerTokens(user.email).then((token:any) => {
+      common.getBuyerTokens(user).then((token:any) => {
         if(parseInt(token) >= req.body.price){
           common.buyProduct(req.body, user).then((plog) => {
             res.send(plog);
@@ -23,13 +22,13 @@ export class orderController{
             res.send(e);
           })
         } else {
-          res.send("you have not sufficient levelup in your account");
+          res.send(CodeConstants.SUFFIECIENT_LEVELUP);
         }
       }).catch(e =>{
         res.send(e);
       });
     } catch(error) {
-      res.send({message:error});
+      res.send(error);
     }
   }
 
@@ -43,7 +42,7 @@ export class orderController{
         }
       });
     }catch(error){
-      res.send({message:error});
+      res.send(error);
     }
   }
 
@@ -56,7 +55,7 @@ export class orderController{
         }
       });
     }catch(error){
-      res.send({message:error});
+      res.send(error);
     }
   }
 
@@ -68,7 +67,7 @@ export class orderController{
         res.send(response);
       });
     }catch(error){
-      res.send({message:error});
+      res.send(error);
     }
   }
 }

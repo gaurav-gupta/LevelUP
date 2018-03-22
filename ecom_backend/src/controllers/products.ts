@@ -59,13 +59,13 @@ createProduct(req, res, next){
           }
         });
       }).catch((error) =>{
-        res.send({message: error});
+        res.send(error);
       })
     }).catch((error) => {
-      res.send({message: error});
+      res.send(error);
     });
   } catch(err){
-    res.send({message: err});
+    res.send(err);
   }
 }
 }

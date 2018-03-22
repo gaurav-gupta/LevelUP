@@ -36,12 +36,10 @@ export class orderHelper {
                     }
                   }
                   orderModel.createOrder(obj).then(response => {
-                     console.log("order created response >>>>>>>>>>>>>>>>");
                      console.log(response);
                      this.userhelper.updateUserToken(user[0], user[0].wallet_amount - product[0].price);
                   }).catch((err) =>{
-                    console.log("err >>>>>>>>>>>>>>>>>");
-                    console.log(err)
+                    throw new Error(err);
                   });
                 }else{
                   throw new Error("Product not exists");
@@ -54,10 +52,12 @@ export class orderHelper {
             }
           }).catch((err) => {
             console.log(err);
+            throw new Error(err);
           })
         }
       }).catch((err) => {
         console.log(err);
+        throw new Error(err);
       })
     } catch(e) {
       throw new Error(e);

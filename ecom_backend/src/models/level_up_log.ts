@@ -19,6 +19,8 @@ export function createLogs (data) {
     var obj = new LogsModel(data);
     obj.save().then(function (doc) {
       resolve(doc);
+    }).catch(e =>{
+      reject(e);
     });
   });
 }
