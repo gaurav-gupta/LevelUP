@@ -8,8 +8,8 @@ import * as router from '././routes/users';
 import * as routerOrder from '././routes/orders';
 import * as routerProduct from '././routes/products';
 import * as config from '../config/config';
-import * as common from './helpers/common_helper';
-
+import { commonHelper } from './helpers/common_helper';
+var common = new commonHelper();
 var app = express();
 var url = config.MONGO_DB_URL;
 var mongoClient =  mongo.MongoClient;
