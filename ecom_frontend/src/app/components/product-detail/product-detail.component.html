@@ -2,7 +2,9 @@
 <div class="container">
     <div class="container">
         <div class="product_detail_img">
+            <div class="product_detail_wrapper">
             <img  src="https://ipfs.io/ipfs/{{product?.imageLink}}"  [imageZoom]="zoomedImageSrc"  alt="shirt" id="shirtImagePosition">
+            </div>
         </div>
         <div class="product_detail_rht_col" id="form1">
             <form>
@@ -52,7 +54,7 @@
                 <h5>Amount Payable &nbsp; &nbsp; {{product?.price}} levelup</h5>
                 <hr>
                 <h3>Billing Address</h3>
-                <p style="color:red;" *ngIf='flag'>{{orderError}}</p>
+                <p class="errorColor" *ngIf='flag'>{{orderError}}</p>
                 <form role="form" #form="ngForm" class="form-horizontal makeform" (ngSubmit)="createOrder(orderModel)">
                     <div class="form-group">
                         <div class="col-sm-10">
