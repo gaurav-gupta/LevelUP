@@ -112,7 +112,7 @@ export class AppComponent implements OnInit {
                     location.reload();
                     confirm('User created successfully');
                 }, (err) => {
-                    this.singupError = err._body;
+                    this.singupError = err._body.replace(/"/g, '');
                     this.flag = true;
                     setTimeout(function() {
                         that.flag = false;

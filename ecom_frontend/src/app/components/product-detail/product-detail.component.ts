@@ -75,7 +75,6 @@ export class ProductDetailComponent implements OnInit {
                 setTimeout(function() {
                     that.flag = false;
                 }, 3000);
-
             } else {
                 this.loader = true;
                 this.data = {
@@ -100,7 +99,11 @@ export class ProductDetailComponent implements OnInit {
                     }
                 },
                 (err) => {
-                    console.log('error>>>>>>>>>>>>', err);
+                    this.orderError = err._body.replace(/"/g, '');
+                    this.flag = true;
+                    setTimeout(function() {
+                        that.flag = false;
+                    }, 3000);
                 });
             }
         }
