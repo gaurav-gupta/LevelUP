@@ -2,7 +2,6 @@ import * as userModel from './../models/user';
 import * as orderModel from './../models/order';
 import * as productModel from './../models/product';
 import { userHelper } from './user_helper';
-
 export class orderHelper {
   private userhelper: userHelper;
   constructor() {

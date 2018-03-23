@@ -2,6 +2,7 @@ import * as userModel from './../models/user';
 import * as orderModel from './../models/order';
 import * as productModel from './../models/product';
 export class productHelper {
+
   //save product
    saveProduct(data){
     try{
@@ -19,7 +20,7 @@ export class productHelper {
             console.log("product created successfully", response);
           })
         }else{
-          console.log("product already created ............")
+          console.log("product already created .jj...........")
         }
       });
     } catch(err){

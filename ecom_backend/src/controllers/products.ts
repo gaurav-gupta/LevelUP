@@ -3,7 +3,6 @@ import * as  productModel from './../models/product';
 import { CodeConstants } from '../interfaces/code_constants';
 import { commonHelper  } from '../helpers/common_helper';
 var common = new commonHelper;
-
 export class ProductsController{
   //get product
   getProduct (req, res, next){

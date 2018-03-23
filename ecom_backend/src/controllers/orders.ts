@@ -8,7 +8,6 @@ import * as appConstant from './../../config/config';
 import { CodeConstants } from '../interfaces/code_constants';
 import { commonHelper  }from '../helpers/common_helper';
 var common = new commonHelper;
-
 export class orderController {
   //create order
   createOrder(req, res, next) {

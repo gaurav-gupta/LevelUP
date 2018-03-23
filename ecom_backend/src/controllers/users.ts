@@ -109,7 +109,6 @@ export class userController {
       res.status(400).json(e);
     }
   }
-
   //delete all user
   deleteUser(req,res,next){
     try{
