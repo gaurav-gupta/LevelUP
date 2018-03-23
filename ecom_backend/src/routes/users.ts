@@ -5,6 +5,8 @@ import {Router} from 'express';
 var router = express();
 var usersController = new userController();
 
+router.get('/publisher',validator.ValidateAuthToken, usersController.getPublisher);
+router.post('/publisher', validator.ValidateAuthToken, usersController.createPublisher);
 router.post('/', usersController.createUser);
 router.post('/login', usersController.authenticateUser);
 router.get('/', validator.ValidateAuthToken, usersController.getAllUser);

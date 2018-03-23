@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as randomstring from 'randomstring';
 import * as userModel from './../models/user';
 import * as  authUserModel  from './../models/user';
 import * as bcrypt from 'bcrypt';
@@ -124,4 +125,50 @@ export class userController {
       res.status(400).json(e);
     }
   }
+
+  //create publisher
+  createPublisher(req, res, next){
+    try{
+      var password = req.body.password;
+      req.body.roles = "publisher";
+      req.body.uuid =  randomstring.generate();
+      userModel.getUser({email: req.body.email}).then((data: any)=>{
+        if(!data.length){
+          bcrypt.hash(req.body.password, 10).then(hash =>{
+            req.body.password =  hash;
+            userModel.createPublisher(req.body).then(response =>{
+              if(response) {
+                res.send(response);
+              }
+            }).catch(e =>{
+              res.status(400).json(e);
+            });
+          });
+        }else{
+          res.status(400).json(CodeConstants.USER_ALREADY_EXIST);
+        }
+      });
+    }catch(e){
+      res.status(400).json(e);
+    }
+  }
+
+  //get publisher
+  getPublisher(req, res, next){
+    try{
+      console.log(">>.get user >>>>>>>>>>>");
+      req.url = req.url.split('/')[1];
+      var data =  {"roles" : req.url};
+      userModel.getPublisher(data).then(response =>{
+        if(response){
+          res.send(response);
+        }else{
+          res.status(400).json(CodeConstants.USER_NOT_FOUND);
+        }
+      });
+    }catch(e){
+      res.status(400).json(e);
+    }
+  }
+
 }

@@ -11,7 +11,7 @@ var userSchema = new Schema({
   wallet_address: { type: String , default: '' },
   wallet_amount: {type: Number, default: 0},
   uuid: { type: String, required: false },
-  website_url: { type: Number, required: false }
+  website_url: { type: String, required: false }
 });
 
 export var userModel = mongoose.model('users', userSchema);
@@ -60,6 +60,27 @@ export function updateUser(condition, data: any ){
 export function deleteUser (condition){
   return new Promise((resolve, reject) => {
     userModel.findOneAndRemove(condition).then(function (doc) {
+      resolve(doc);
+    }).catch(e=>{
+      reject(e);
+    });
+  });
+};
+
+export async function createPublisher(data){
+  var obj = new userModel(data);
+  return new Promise((resolve, reject) => {
+    obj.save().then(function (doc) {
+      resolve(doc);
+    }).catch(e=>{
+      reject(e);
+    });
+  });
+};
+
+export function getPublisher(data) {
+  return new Promise((resolve, reject) => {
+    userModel.find(data).then(function (doc) {
       resolve(doc);
     }).catch(e=>{
       reject(e);
