@@ -94,7 +94,6 @@ export class ProductDetailComponent implements OnInit {
                     'productId': this.product.productId
                 };
                 this._userService.createOrder(this.data).subscribe((res: any) => {
-                    console.log('res >>>>>>>>>................', res);
                     if (Object.keys(res).length > 0) {
                         this.loader = false;
                         location.reload();
@@ -102,9 +101,8 @@ export class ProductDetailComponent implements OnInit {
                         alert('Order Placed Successfully !!');
                     }
                 }, (err) => {
-                    console.log('error>>>>>..........', err);
                     this.loader = false;
-                    this.orderError = err._body.replace(/"/g, '');
+                    this.orderError = err.error.replace(/"/g, '');
                     this.flag = true;
                     setTimeout(function() {
                         that.flag = false;

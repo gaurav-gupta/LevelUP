@@ -57,5 +57,4 @@ export class PublisherComponent implements OnInit {
             });
         }
     }
-
 }
