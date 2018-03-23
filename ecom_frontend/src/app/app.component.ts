@@ -97,7 +97,14 @@ export class AppComponent implements OnInit {
             this.password = password.value;
             this.first_name = first_name.value;
             this.last_name = last_name.value;
-            if (this.email === '' ||  this.password === '' || this.first_name === '' || this.last_name === '') {
+            const filter = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+            if (!filter.test(this.email)) {
+                this.singupError = 'Invalid Email Address !!';
+                this.flag = true;
+                setTimeout(function(){
+                    that.flag = false;
+                }, 3000);
+            } else if (this.email === '' ||  this.password === '' || this.first_name === '' || this.last_name === '') {
                 this.singupError = 'All these fields are required !!';
                 this.flag = true;
                 setTimeout(function() {

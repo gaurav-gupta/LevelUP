@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PublisherService } from '../../services/publisher.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
     selector: 'app-publisher',
@@ -20,7 +21,8 @@ export class PublisherComponent implements OnInit {
     publisherError: any;
     flag: any = false;
     loader: any = false;
-    constructor(private route: ActivatedRoute, private router: Router, private _publisherService: PublisherService) { }
+    constructor(private route: ActivatedRoute, private router: Router, private _publisherService: PublisherService,
+        private _flashMessagesService: FlashMessagesService) { }
 
     ngOnInit() {
         this.getPublisher();
@@ -36,7 +38,14 @@ export class PublisherComponent implements OnInit {
 
     createPublisher(form) {
         const that = this;
-        if (form.first_name === '' || form.last_name === '' || form.password === '' ||
+        const filter = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+        if (!filter.test(form.email)) {
+            this.publisherError = 'Invalid Email Address !!';
+            this.flag = true;
+            setTimeout(function(){
+                that.flag = false;
+            }, 3000);
+        } else if (form.first_name === '' || form.last_name === '' || form.password === '' ||
             form.email === '' || form.token === '' || form.website_url === '') {
             this.publisherError = 'All these fields are required !!';
             this.flag = true;
@@ -46,15 +55,13 @@ export class PublisherComponent implements OnInit {
         } else {
             this.loader = true;
             this._publisherService.createPublisher(form).subscribe(res => {
-                console.log('res>>>>>>>>>>>>.', res);
                 if (Object.keys(res).length > 0) {
                     this.data.push(res);
                     this.loader = false;
-                    alert('Publisher Created Successfully !!');
                     location.reload();
+                    this._flashMessagesService.show('Publisher Created Successfully !!', { cssClass: 'alert-success', timeout: 7000 });
                 }
             }, (err) => {
-                console.log('errooOOOOOOOOOOOOOO', err);
                 this.loader = false;
                 this.publisherError = err.error.replace(/"/g, '');
                 this.flag = true;

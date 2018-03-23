@@ -24,6 +24,7 @@ import { ProductService } from './services/product.service';
 import { AdminProductComponent } from './components/admin-product/admin-product.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { PublisherComponent } from './components/publisher/publisher.component';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import { PublisherComponent } from './components/publisher/publisher.component';
         ImageZoomModule,
         HttpClientModule,
         HttpModule,
-        EditorModule
+        EditorModule,
+        FlashMessagesModule.forRoot()
     ],
     providers: [
         appRoutingProviders ,
