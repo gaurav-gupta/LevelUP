@@ -10,6 +10,6 @@ export function getAllCategories (req, res, next){
       res.send(response);
     });
   }catch(e){
-   	res.send(e);
+   	res.status(400).json(e);
   }
 }
