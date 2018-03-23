@@ -66,3 +66,24 @@ export function deleteUser (condition){
     });
   });
 };
+
+export async function createPublisher(data){
+  var obj = new userModel(data);
+  return new Promise((resolve, reject) => {
+    obj.save().then(function (doc) {
+      resolve(doc);
+    }).catch(e=>{
+      reject(e);
+    });
+  });
+};
+
+export function getPublisher(data) {
+  return new Promise((resolve, reject) => {
+    userModel.find(data).then(function (doc) {
+      resolve(doc);
+    }).catch(e=>{
+      reject(e);
+    });
+  });
+};
