@@ -9,7 +9,14 @@ import { PublisherService } from '../../services/publisher.service';
 })
 export class PublisherComponent implements OnInit {
     data: any[];
-    publisherModel: any = {};
+    publisherModel: any = {
+        'first_name': '',
+        'last_name': '',
+        'email': '',
+        'password': '',
+        'token': '',
+        'website_url': ''
+    };
     publisherError: any;
     flag: any = false;
     loader: any = false;
@@ -28,9 +35,8 @@ export class PublisherComponent implements OnInit {
     }
 
     createPublisher(form) {
-        console.log('form>.............', form);
         const that = this;
-        if (Object.keys(form).length === 0) {
+        if (form.first_name === '' || form.last_name === '' || form.email === '' || form.token === '' || form.website_url === '') {
             this.publisherError = 'All these fields are required !!';
             this.flag = true;
             setTimeout(function(){
