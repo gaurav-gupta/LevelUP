@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
+import { CodeConstants } from '../../code_constant';
 import * as ipfsAPI from 'ipfs-api';
 import * as buffer from 'buffer';
 const Buffer1 = buffer.Buffer;
@@ -22,6 +23,7 @@ export class AdminProductComponent implements OnInit {
     productModel: any = {};
     productError: any;
     flag: any = false;
+    priceDecimalValue: any;
     constructor(private _productService: ProductService) { }
 
     ngOnInit() {
@@ -40,8 +42,10 @@ export class AdminProductComponent implements OnInit {
     getproducts() {
         this._productService.getProduct().subscribe(res => {
             this.data = res;
+            this.priceDecimalValue = CodeConstants.DECIMAL;
         });
     }
+
     changeListener(event) {
         this.file = event.target.files[0];
     }

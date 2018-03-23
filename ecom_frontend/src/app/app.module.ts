@@ -16,6 +16,7 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { AuthGuard } from './_guards/auth.guard';
 import { ImageZoomModule } from 'angular2-image-zoom';
 import { StorageService } from './services/storage.service';
+import { PublisherService } from './services/publisher.service';
 import { UserOrderComponent } from './components/user-order/user-order.component';
 import { DashAuthService } from './services/dashAuth.service';
 import { UserService } from './services/users.service';
@@ -25,23 +26,43 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { PublisherComponent } from './components/publisher/publisher.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponentComponent,
-    ProductDetailComponent,
-    NavBarComponent,
-    AdminComponent,
-    OrderComponent, DataFilterPipe, UserOrderComponent, AdminProductComponent, PublisherComponent
-  ],
-  imports: [
-    BrowserModule, routing, FormsModule, DataTableModule, ImageZoomModule, HttpClientModule, HttpModule, EditorModule
-  ],
-  providers: [ appRoutingProviders , StorageService, AuthGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true
-    }, DashAuthService, UserService, ProductService],
+    declarations: [
+        AppComponent,
+        LoginComponentComponent,
+        ProductDetailComponent,
+        NavBarComponent,
+        AdminComponent,
+        OrderComponent,
+        DataFilterPipe,
+        UserOrderComponent,
+        AdminProductComponent,
+        PublisherComponent
+    ],
+    imports: [
+        BrowserModule,
+        routing,
+        FormsModule,
+        DataTableModule,
+        ImageZoomModule,
+        HttpClientModule,
+        HttpModule,
+        EditorModule
+    ],
+    providers: [
+        appRoutingProviders ,
+        StorageService,
+        AuthGuard,
+
+        DashAuthService,
+        UserService,
+        ProductService,
+        PublisherService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: JwtInterceptor,
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
-  })
-  export class AppModule { }
+})
+export class AppModule { }

@@ -6,7 +6,7 @@
             <img  src="https://ipfs.io/ipfs/{{product?.imageLink}}"  [imageZoom]="zoomedImageSrc"  alt="shirt" id="shirtImagePosition">
             </div>
         </div>
-        <div class="product_detail_rht_col" id="form1">
+        <div class="product_detail_rht_col">
             <form>
                 <h3>{{product?.name}}</h3>
                 <h4>Be the first to Review this product <img src="../.././assets/shop.png" alt="shopping icon" width="42" height="42"> </h4>
@@ -23,12 +23,12 @@
                         </tr>
                         <tr>
                             <td><b>Price</b></td>
-                            <td>{{product?.price/1000000000000000000}} levelup</td>
+                            <td>{{product?.price/priceDecimalValue}} levelup</td>
                         </tr>
                     </tbody>
                 </table><br>
-                <button data-toggle="modal" *ngIf="!check && !checkAdmin" data-target="#login" id="buttonplaced" class="btn btn-lg btn-primary buy_now_btn"  type="submit">BUY NOW</button>
-                <button *ngIf="check && !checkAdmin" data-toggle="modal" data-target="#myModal" id="buttonplaced" class="btn btn-lg btn-primary buy_now_btn" type="submit">BUY NOW</button>
+                <button data-toggle="modal" *ngIf="!check && !checkAdmin" data-target="#login" class="btn btn-lg btn-primary buy_now_btn"  type="submit">BUY NOW</button>
+                <button *ngIf="check && !checkAdmin" data-toggle="modal" data-target="#myModal" class="btn btn-lg btn-primary buy_now_btn" type="submit">BUY NOW</button>
             </form>
         </div>
     </div>
@@ -49,9 +49,9 @@
                 <h4>{{product?.name}}</h4>
             </div>
             <div class="modal-body">
-                <p>Price(1 item) &nbsp; &nbsp; {{product?.price/1000000000000000000}} levelup</p>
+                <p>Price(1 item) &nbsp; &nbsp; {{product?.price/priceDecimalValue}} levelup</p>
                 <p>Delivery Charge &nbsp; &nbsp; (Free) </p>
-                <h5>Amount Payable &nbsp; &nbsp; {{product?.price/1000000000000000000}} levelup</h5>
+                <h5>Amount Payable &nbsp; &nbsp; {{product?.price/priceDecimalValue}} levelup</h5>
                 <hr>
                 <h3>Billing Address</h3>
                 <p class="errorColor" *ngIf='flag'>{{orderError}}</p>

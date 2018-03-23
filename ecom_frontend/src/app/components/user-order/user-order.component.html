@@ -3,24 +3,6 @@
   <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
     <thead>
       <tr>
-        <!-- <th>
-          <mfDefaultSorter by="order_number">OrderId</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="product_name">Product Name</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="product_name">Product Category</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="product_name">Product Price</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="ordered_on">Ordered on</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="ordered_on">User Email</mfDefaultSorter>
-        </th> -->
         <th class="disableSorting">Order Id</th>
         <th class="disableSorting">Product Name</th>
         <th class="disableSorting">Product Category</th>
@@ -34,7 +16,7 @@
         <td>{{item.order_number}}</td>
         <td>{{item.productsinfo[0].name}}</td>
         <td>{{item.productsinfo[0].category}}</td>
-        <td>{{item.productsinfo[0].price/1000000000000000000}}</td>
+        <td>{{item.productsinfo[0].price/priceDecimalValue}}</td>
         <td>{{item.created_at | date: 'dd/MM/yyyy'}}</td>
         <td>{{item.usersinfo[0].email}}</td>
       </tr>

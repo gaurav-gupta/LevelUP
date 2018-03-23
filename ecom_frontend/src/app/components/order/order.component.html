@@ -3,21 +3,6 @@
   <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
     <thead>
       <tr>
-        <!-- <th>
-          <mfDefaultSorter by="order_number">Order Id</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="name">Product Name</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="productsinfo[0].category">Product Category</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="price">Price</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="usersinfo[0].first_name">Ordered by</mfDefaultSorter>
-        </th> -->
         <th class="disableSorting">Order Id</th>
         <th class="disableSorting">Product Name</th>
         <th class="disableSorting">Product Category</th>
@@ -25,9 +10,6 @@
         <th class="disableSorting">Ordered by</th>
         <th class="disableSorting">Ordered At</th>
         <th class="disableSorting">Shipping Address</th>
-        <!-- <th id="disableSorting">
-        Status
-      </th> -->
     </tr>
   </thead>
   <tbody>
@@ -35,33 +17,13 @@
       <td>{{item.order_number}}</td>
       <td>{{item.productsinfo[0].name}}</td>
       <td>{{item.productsinfo[0].category}}</td>
-      <td>{{item.productsinfo[0].price/1000000000000000000}}</td>
+      <td>{{item.productsinfo[0].price/priceDecimalValue}}</td>
       <td>{{item.usersinfo[0].first_name}} {{item.usersinfo[0].last_name}}</td>
       <td>{{item.created_at | date: 'dd/MM/yyyy'}}</td>
       <td>{{item.address.address}}, {{item.address.city}}, {{item.address.state}}, {{item.address.pincode}}</td>
       <td>
-        <!-- <select class="form-control input-sm" #selectedCategory required>
-        <ng-container *ngIf="item.order_status == 'new'">
-        <option [ngValue]=item.order_status>{{item.order_status}}</option>
-        <option [ngValue]="processing">processing</option>
-        <option [ngValue]="delivered">delivered</option>
-      </ng-container>
-      <ng-container *ngIf="item.order_status == 'processing'">
-      <option [ngValue]=item.order_status>{{item.order_status}}</option>
-      <option [ngValue]="new">new</option>
-      <option [ngValue]="delivered">delivered</option>
-    </ng-container>
-    <ng-container *ngIf="item.order_status == 'delivered'">
-    <option [ngValue]=item.order_status>{{item.order_status}}</option>
-    <option [ngValue]="new">new</option>
-    <option [ngValue]="processing">processing</option>
-  </ng-container>
-</select> -->
 </td>
 <td></td>
-<!-- <td>
-<input type="submit" class="btn btn-primary" (click)="updateOrderStatus(item['order_number'], selectedCategory.value)" value="Update Status">
-</td> -->
 </tr>
 </tbody>
 <tfoot>

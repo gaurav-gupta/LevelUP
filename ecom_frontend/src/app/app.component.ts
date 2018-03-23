@@ -60,6 +60,7 @@ export class AppComponent implements OnInit {
                         this._storageService.setItem('current_user', JSON.stringify(res));
                         const currentUser = JSON.parse(localStorage.getItem('current_user'));
                         this._userService.getUserByEmail(currentUser.email).subscribe(res1 => {
+                            console.log('res>>>>>>>>>>>.', res);
                             if (res1[0].roles === 'admin') {
                                 this.admin = true;
                                 location.reload();
@@ -72,6 +73,7 @@ export class AppComponent implements OnInit {
                         });
                     }
                 }, (err) => {
+                    console.log('User>>>>>>>>>>.er', err);
                     this.loginError = err._body.replace(/"/g, '');
                     this.flag = true;
                     setTimeout(function() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/users.service';
+import { CodeConstants } from '../../code_constant';
 import * as moment from 'moment';
 
 @Component({
@@ -11,27 +12,15 @@ import * as moment from 'moment';
 
 export class OrderComponent implements OnInit {
   data: any[];
+  priceDecimalValue: any;
   constructor(private router: Router, private _userService: UserService) { }
   ngOnInit() {
     this.getOrders();
   }
   getOrders() {
     this._userService.getOrders().subscribe(res => {
-      console.log('>>>>>>>>>>>>data of user?> dayata after lookup>>>>>>>>', res);
       this.data = res;
+      this.priceDecimalValue = CodeConstants.DECIMAL;
     });
   }
-
-//   updateOrderStatus(orderNumber, updatedOrderStatus) {
-//     this._userService.updateOrderStatus(orderNumber, updatedOrderStatus).subscribe(res => {
-//       if (Object.keys(res).length > 0) {
-//         alert('Order Status Update Successfully !!');
-//         this.getOrders();
-//       }
-//     },
-//     (err) => {
-//       console.log('error>>>>>>>>>>>>', err);
-//     });
-//   }
-// }
 }

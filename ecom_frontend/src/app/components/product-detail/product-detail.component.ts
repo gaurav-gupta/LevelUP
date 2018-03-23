@@ -4,6 +4,7 @@ import { ProductService } from '../../services/product.service';
 import { UserService } from '../../services/users.service';
 import { DashAuthService } from '../../services/dashAuth.service';
 import { StorageService } from '../../services/storage.service';
+import { CodeConstants } from '../../code_constant';
 import * as ipfsAPI from 'ipfs-api';
 import * as buffer from 'buffer';
 const Buffer1 = buffer.Buffer;
@@ -32,6 +33,7 @@ export class ProductDetailComponent implements OnInit {
     checkAdmin: boolean;
     orderError: any;
     flag: any = false;
+    priceDecimalValue: any;
     constructor(private route: ActivatedRoute, private router: Router, private _productService: ProductService,
         private _userService: UserService , private _dashAuthService: DashAuthService, private _storageService: StorageService) { }
 
@@ -56,6 +58,7 @@ export class ProductDetailComponent implements OnInit {
         getOneProduct() {
             this._productService.getOneProduct(this._id).subscribe(res => {
                 this.product = res[0];
+                this.priceDecimalValue = CodeConstants.DECIMAL;
                 const that = this ;
                 ipfs.files.cat(this.product.descLink, function (err, file) {
                     that.filedata = file;
@@ -91,14 +94,16 @@ export class ProductDetailComponent implements OnInit {
                     'productId': this.product.productId
                 };
                 this._userService.createOrder(this.data).subscribe((res: any) => {
+                    console.log('res >>>>>>>>>................', res);
                     if (Object.keys(res).length > 0) {
                         this.loader = false;
                         location.reload();
                         this.router.navigate(['/']);
                         alert('Order Placed Successfully !!');
                     }
-                },
-                (err) => {
+                }, (err) => {
+                    console.log('error>>>>>..........', err);
+                    this.loader = false;
                     this.orderError = err._body.replace(/"/g, '');
                     this.flag = true;
                     setTimeout(function() {

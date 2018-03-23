@@ -6,6 +6,7 @@ import { StorageService } from '../../services/storage.service';
 import { ProductService } from '../../services/product.service';
 import * as ipfsAPI from 'ipfs-api';
 import * as buffer from 'buffer';
+import { CodeConstants } from '../../code_constant';
 const Buffer1 = buffer.Buffer;
 const ipfs = ipfsAPI({host: '13.250.35.159', port: '5001', protocol: 'http'});
 
@@ -33,6 +34,7 @@ export class LoginComponentComponent implements OnInit {
     user: any;
     filedata: any;
     checkAdmin: boolean;
+    priceDecimalValue: any;
     constructor(private route: ActivatedRoute, private router: Router, private _dashAuthService: DashAuthService,
         private _storageService: StorageService, private _userService: UserService,  private _productService: ProductService)  { }
         ngOnInit() {
@@ -67,6 +69,7 @@ export class LoginComponentComponent implements OnInit {
         getProducts() {
             this._productService.getProduct().subscribe(res => {
                 this.product = res;
+                this.priceDecimalValue = CodeConstants.DECIMAL;
             });
         }
 
