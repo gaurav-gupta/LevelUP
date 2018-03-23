@@ -80,12 +80,32 @@ export class AdminProductComponent implements OnInit {
                                 confirm('Create Successfully');
                                 location.reload();
                             }
+                        }, (err) => {
+                            console.log('error..1..', err);
+                            that.loader = false;
+                            that.productError = err.error.replace(/"/g, '');
+                            that.flag = true;
+                            setTimeout(function() {
+                                that.flag = false;
+                            }, 3000);
                         });
-                    }).catch((err) => {
-                        console.log(err);
+                    }, (err) => {
+                        console.log('error 2....', err);
+                        that.loader = false;
+                        that.productError = err.error.replace(/"/g, '');
+                        that.flag = true;
+                        setTimeout(function() {
+                            that.flag = false;
+                        }, 3000);
                     });
-                }).catch((err) => {
-                    console.log(err);
+                }, (err) => {
+                    console.log('error.3...', err);
+                    that.loader = false;
+                    that.productError = err.error.replace(/"/g, '');
+                    that.flag = true;
+                    setTimeout(function() {
+                        that.flag = false;
+                    }, 3000);
                 });
             };
             reader.readAsArrayBuffer(file);
