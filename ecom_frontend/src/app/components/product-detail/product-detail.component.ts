@@ -5,6 +5,7 @@ import { UserService } from '../../services/users.service';
 import { DashAuthService } from '../../services/dashAuth.service';
 import { StorageService } from '../../services/storage.service';
 import { CodeConstants } from '../../code_constant';
+import { FlashMessagesService } from 'angular2-flash-messages';
 import * as ipfsAPI from 'ipfs-api';
 import * as buffer from 'buffer';
 const Buffer1 = buffer.Buffer;
@@ -35,7 +36,8 @@ export class ProductDetailComponent implements OnInit {
     flag: any = false;
     priceDecimalValue: any;
     constructor(private route: ActivatedRoute, private router: Router, private _productService: ProductService,
-        private _userService: UserService , private _dashAuthService: DashAuthService, private _storageService: StorageService) { }
+        private _flashMessagesService: FlashMessagesService, private _userService: UserService ,
+        private _dashAuthService: DashAuthService, private _storageService: StorageService) { }
 
         ngOnInit() {
             this.current_user = JSON.parse(localStorage.getItem('current_user'));
@@ -98,7 +100,7 @@ export class ProductDetailComponent implements OnInit {
                         this.loader = false;
                         location.reload();
                         this.router.navigate(['/']);
-                        alert('Order Placed Successfully !!');
+                        this._flashMessagesService.show('Order Placed Successfully !!', { cssClass: 'alert-success', timeout: 7000 });
                     }
                 }, (err) => {
                     this.loader = false;

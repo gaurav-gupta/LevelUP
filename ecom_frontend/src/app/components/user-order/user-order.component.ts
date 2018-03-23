@@ -3,6 +3,7 @@ import { UserService } from '../../services/users.service';
 import { StorageService } from '../../services/storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CodeConstants } from '../../code_constant';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-user-order',
@@ -15,7 +16,7 @@ export class UserOrderComponent implements OnInit {
   userdata: any;
   priceDecimalValue: any;
   constructor(private route: ActivatedRoute, private router: Router, private _userService: UserService,
-    private _storeService: StorageService) { }
+    private _storeService: StorageService, private _flashMessagesService: FlashMessagesService) { }
 
     ngOnInit() {
       this.getUserOrder();
@@ -30,7 +31,7 @@ export class UserOrderComponent implements OnInit {
             this.data = response;
             this.priceDecimalValue = CodeConstants.DECIMAL;
           } else {
-            alert('No Orders Placed Yet !!');
+            this._flashMessagesService.show('No Orders Placed Yet !!', { cssClass: 'alert-success', timeout: 7000 });
           }
         });
       });

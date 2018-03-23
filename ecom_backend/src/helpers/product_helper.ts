@@ -24,8 +24,7 @@ export class productHelper {
         }
       });
     } catch(err){
-      // console.log("saveProduct >>>>>>>>>>>", err);
-        throw new Error(err);
+      console.log("saveProduct >>>>>>>>>>>", err);
     }
   }
 }
