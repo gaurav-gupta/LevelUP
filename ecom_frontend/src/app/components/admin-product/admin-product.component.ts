@@ -20,7 +20,12 @@ export class AdminProductComponent implements OnInit {
     formData: any;
     xhr: any;
     loader = false;
-    productModel: any = {};
+    productModel: any = {
+        'product_name': '',
+        'selectName': '',
+        'descripton': '',
+        'Price': ''
+    };
     productError: any;
     flag: any = false;
     priceDecimalValue: any;
@@ -52,7 +57,7 @@ export class AdminProductComponent implements OnInit {
 
     createProduct(data) {
         const that = this;
-        if (Object.keys(data).length === 0) {
+        if (data.product_name === '' || data.selectName === '' || data.descripton === '' || data.Price === '') {
             this.productError = 'All these fields are required !!';
             this.flag = true;
             setTimeout(function(){
