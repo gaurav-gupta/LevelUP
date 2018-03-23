@@ -22,7 +22,7 @@ export class orderController {
         res.status(400).json(CodeConstants.SUFFIECIENT_LEVELUP);
       }
     } catch (error) {
-      res.send({ message: error });
+    res.status(400).json(error);
     }
   }
 

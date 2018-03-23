@@ -11,6 +11,7 @@ export class CodeConstants {
   public static readonly OWNER_ADDRESS: string = "0x25e7216e6509d4b4bcc0e258ffb2a02a5d6bf365";
   public static readonly OWNER_PASSWORD: string = "0ngraphTeam";
   public static readonly DECIMAL: number = 1000000000000000000;
+  public static readonly PASSWORD_NOT_FOUND: String = "PASSWORD REQUIRED";
   public static readonly LevelUp: Object = {
   "contractName": "GGTestToken",
   "abi": [
