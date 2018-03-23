@@ -19,7 +19,7 @@ export class orderController {
           res.send(plog);
         })
       } else {
-        res.send({ message: "you have not sufficient levelup in your account" });
+        res.status(400).json(CodeConstants.SUFFIECIENT_LEVELUP);
       }
     } catch (error) {
       res.send({ message: error });

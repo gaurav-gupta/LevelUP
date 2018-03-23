@@ -40,10 +40,10 @@ export class ProductsController{
       common.addProductToStore(data, user).then((response) => {
         res.send(response);
       }).catch((error)=> {
-        res.send({message: error});
+        res.status(400).json(error);
       })
     } catch (err) {
-      res.send({ message: err });
+      res.status(400).json(err);
     }
   }
 }

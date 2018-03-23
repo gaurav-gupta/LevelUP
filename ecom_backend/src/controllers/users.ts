@@ -156,7 +156,6 @@ export class userController {
   //get publisher
   getPublisher(req, res, next){
     try{
-      console.log(">>.get user >>>>>>>>>>>");
       req.url = req.url.split('/')[1];
       var data =  {"roles" : req.url};
       userModel.getPublisher(data).then(response =>{
