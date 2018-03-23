@@ -133,25 +133,17 @@ export class userController {
       req.body.roles = "publisher";
       req.body.uuid =  randomstring.generate();
       userModel.getUser({email: req.body.email}).then((data: any)=>{
-        console.log(">>>>>>>>>>res", data);
         if(!data.length){
-        if(req.body.password){
-            bcrypt.hash(req.body.password, 10).then(hash =>{
-              req.body.password =  hash;
-              userModel.createPublisher(req.body).then(response =>{
-                if(response) {
-                  res.send(response);
-                }
-              }).catch(e =>{
-                res.status(400).json(e);
-              });
+          bcrypt.hash(req.body.password, 10).then(hash =>{
+            req.body.password =  hash;
+            userModel.createPublisher(req.body).then(response =>{
+              if(response) {
+                res.send(response);
+              }
+            }).catch(e =>{
+              res.status(400).json(e.name);
             });
-
-          }else{
-            res.status(400).json(CodeConstants.PASSWORD_NOT_FOUND);
-          }
-
-          
+          });
         }else{
           res.status(400).json(CodeConstants.USER_ALREADY_EXIST);
         }

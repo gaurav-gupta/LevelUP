@@ -17,7 +17,10 @@ export class orderController {
       if (user.wallet_amount >= (req.body.price)) {
         common.buyProduct(req.body, user).then((plog) => {
           res.send(plog);
-        })
+        }).catch(e =>{
+          var e = JSON.parse(JSON.stringify(e, Object.getOwnPropertyNames(e))).message;
+          res.status(400).json(e);
+        });
       } else {
         res.status(400).json(CodeConstants.SUFFIECIENT_LEVELUP);
       }
