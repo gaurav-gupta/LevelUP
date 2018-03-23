@@ -10,6 +10,9 @@ import { PublisherService } from '../../services/publisher.service';
 export class PublisherComponent implements OnInit {
     data: any[];
     publisherModel: any = {};
+    publisherError: any;
+    flag: any = false;
+    loader: any = false;
     constructor(private route: ActivatedRoute, private router: Router, private _publisherService: PublisherService) { }
 
     ngOnInit() {
@@ -26,12 +29,33 @@ export class PublisherComponent implements OnInit {
 
     createPublisher(form) {
         console.log('form>.............', form);
-        this._publisherService.createPublisher(form).subscribe(res => {
-             this.data.push(res);
-             location.reload();
-        }, (err) => {
-            console.log('error....', err);
-        });
+        const that = this;
+        if (Object.keys(form).length === 0) {
+            this.publisherError = 'All these fields are required !!';
+            this.flag = true;
+            setTimeout(function(){
+                that.flag = false;
+            }, 3000);
+        } else {
+            this.loader = true;
+            this._publisherService.createPublisher(form).subscribe(res => {
+                console.log('res>>>>>>>>>>>>.', res);
+                if (Object.keys(res).length > 0) {
+                    this.data.push(res);
+                    this.loader = false;
+                    alert('Publisher Created Successfully !!');
+                    location.reload();
+                }
+            }, (err) => {
+                console.log('errooOOOOOOOOOOOOOO', err);
+                this.loader = false;
+                this.publisherError = err.error.replace(/"/g, '');
+                this.flag = true;
+                setTimeout(function() {
+                    that.flag = false;
+                }, 3000);
+            });
+        }
     }
 
 }
