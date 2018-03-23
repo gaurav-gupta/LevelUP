@@ -36,7 +36,8 @@ export class PublisherComponent implements OnInit {
 
     createPublisher(form) {
         const that = this;
-        if (form.first_name === '' || form.last_name === '' || form.email === '' || form.token === '' || form.website_url === '') {
+        if (form.first_name === '' || form.last_name === '' || form.password === '' ||
+        form.email === '' || form.token === '' || form.website_url === '') {
             this.publisherError = 'All these fields are required !!';
             this.flag = true;
             setTimeout(function(){
