@@ -135,7 +135,7 @@ export class userController {
       userModel.getUser({email: req.body.email}).then((data: any)=>{
         console.log(">>>>>>>>>>res", data);
         if(!data.length){
-          if(req.body.password){
+        if(req.body.password){
             bcrypt.hash(req.body.password, 10).then(hash =>{
               req.body.password =  hash;
               userModel.createPublisher(req.body).then(response =>{
@@ -146,9 +146,12 @@ export class userController {
                 res.status(400).json(e);
               });
             });
+
           }else{
             res.status(400).json(CodeConstants.PASSWORD_NOT_FOUND);
           }
+
+          
         }else{
           res.status(400).json(CodeConstants.USER_ALREADY_EXIST);
         }
