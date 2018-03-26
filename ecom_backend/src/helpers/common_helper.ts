@@ -219,4 +219,56 @@ export class commonHelper {
       }
     });
   }
+  assignLevelUpToPublisher(publisher, password, token) {
+    try {
+      var resp = web3.personal.newAccount(password);
+      publisher.wallet_address = resp;
+      userModel.updateUser({
+        email: publisher.email
+      }, publisher).then(function(user) {
+        LevelUp.deployed().then(function(i) {
+          var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
+          if (isUnlock) {
+            var assignToken = token * CodeConstants.DECIMAL;
+            i.transfer(resp, assignToken, {
+              from: CodeConstants.OWNER_ADDRESS,
+              gas: 440000
+            }).then(function(f) {
+              var obj = {
+                dtype: "Assign_Level_Up_Token_To_Publisher",
+                logs: f.logs,
+                receipt: f.receipt,
+                created_at: new Date(),
+                reference_id: f.logs[0].args.buyer,
+                block_hash: f.logs[0].blockHash,
+                transaction_hash: f.logs[0].transactionHash
+              }
+              LogModel.createLogs(obj).then(function(log) {
+                console.log("user logs >>>>>>>>>>>>>>>>", log);
+                i.contractOwnerApproveSelf(resp, assignToken, {
+                  from: CodeConstants.OWNER_ADDRESS,
+                  gas: 440000
+                }).then((approvalLog) => {
+                  console.log("approvalLog >>>>>>>>>>>>>>>>>>>>");
+                  console.log(approvalLog);
+                }).catch((err) => {
+                  console.log("approval error >>>>>>>>>>>>>>", err);
+                })
+              }).catch((error) => {
+                console.log("create assign level up to user error", error);
+              })
+            }).catch((e) => {
+              console.log("create assign level up to user error", e);
+            })
+          } else {
+            console.log("account is locked ................")
+          }
+        });
+      }).catch((err) => {
+        console.log("update user validation err >>>>>>>>>>", err);
+      });
+    } catch (err) {
+      return err;
+    }
+  }
 }

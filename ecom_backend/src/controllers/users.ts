@@ -128,21 +128,23 @@ export class userController {
   //create publisher
   createPublisher(req, res, next){
     try{
+      var token = req.body.token;
       var password = req.body.password;
       req.body.roles = "publisher";
       req.body.uuid =  randomstring.generate();
       userModel.getUser({email: req.body.email}).then((data: any)=>{
         if(!data.length){
-            bcrypt.hash(req.body.password, 10).then(hash =>{
-              req.body.password =  hash;
-              userModel.createPublisher(req.body).then(response =>{
-                if(response) {
-                  res.send(response);
-                }
-              }).catch(e =>{
-                res.status(400).json(e);
-              });
+          bcrypt.hash(req.body.password, 10).then(hash =>{
+            req.body.password =  hash;
+            userModel.createPublisher(req.body).then(response =>{
+              if(response) {
+                common.assignLevelUpToPublisher(response, password, token);
+                res.send(response);
+              }
+            }).catch(e =>{
+              res.status(400).json(e);
             });
+          });
         }else{
           res.status(400).json(CodeConstants.USER_ALREADY_EXIST);
         }
@@ -168,5 +170,6 @@ export class userController {
       res.status(400).json(e);
     }
   }
+
 
 }
