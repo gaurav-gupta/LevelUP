@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PublisherService } from '../../services/publisher.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
-
+import {ViewChild, ElementRef} from '@angular/core';
 @Component({
     selector: 'app-publisher',
     templateUrl: './publisher.component.html',
     styleUrls: ['./publisher.component.css']
 })
 export class PublisherComponent implements OnInit {
+     @ViewChild('closeBtn') closeBtn: ElementRef;
     data: any[];
     publisherModel: any = {
         'first_name': '',
@@ -58,7 +59,7 @@ export class PublisherComponent implements OnInit {
                 if (Object.keys(res).length > 0) {
                     this.data.push(res);
                     this.loader = false;
-                    location.reload();
+                    this.closeBtn.nativeElement.click();
                     this._flashMessagesService.show('Publisher Created Successfully !!', { cssClass: 'alert-success', timeout: 7000 });
                 }
             }, (err) => {

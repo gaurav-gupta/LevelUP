@@ -26,8 +26,10 @@ export class NavBarComponent implements OnInit {
       this.current_user = JSON.parse(localStorage.getItem('current_user'));
       if  (this.current_user) {
         this._userService.getUserByEmail(this.current_user.email).subscribe(res1 => {
+            console.log('res1>>..........1000000000000000000..', res1);
           this.price = res1[0].wallet_amount;
           this.priceDecimalValue = CodeConstants.DECIMAL;
+          console.log(' this.priceDecimalValue............',  this.priceDecimalValue);
           if (res1[0].roles === 'admin') {
             this.admin = true;
           } else {

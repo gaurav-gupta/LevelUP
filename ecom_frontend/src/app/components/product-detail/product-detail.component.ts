@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { UserService } from '../../services/users.service';
@@ -35,6 +35,7 @@ export class ProductDetailComponent implements OnInit {
     orderError: any;
     flag: any = false;
     priceDecimalValue: any;
+    @ViewChild('closeBtn') closeBtn: ElementRef;
     constructor(private route: ActivatedRoute, private router: Router, private _productService: ProductService,
         private _flashMessagesService: FlashMessagesService, private _userService: UserService ,
         private _dashAuthService: DashAuthService, private _storageService: StorageService) { }
@@ -98,9 +99,12 @@ export class ProductDetailComponent implements OnInit {
                 this._userService.createOrder(this.data).subscribe((res: any) => {
                     if (Object.keys(res).length > 0) {
                         this.loader = false;
-                        location.reload();
-                        this.router.navigate(['/']);
-                        this._flashMessagesService.show('Order Placed Successfully !!', { cssClass: 'alert-success', timeout: 7000 });
+                        this.closeBtn.nativeElement.click();
+                        this._flashMessagesService.show('Order Placed Successfully !!', { cssClass: 'alert-success', timeout: 10000 });
+                         this.router.navigate(['/']);
+                        // setTimeout((router: Router) => {
+                        //     this.router.navigate(['/']);
+                        // }, 10000);
                     }
                 }, (err) => {
                     this.loader = false;
