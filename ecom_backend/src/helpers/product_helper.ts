@@ -2,7 +2,8 @@ import * as userModel from './../models/user';
 import * as orderModel from './../models/order';
 import * as productModel from './../models/product';
 export class productHelper {
-
+  constructor() {
+  }
   //save product
    saveProduct(data){
     try{
