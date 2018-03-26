@@ -20,14 +20,6 @@ export class DashAuthService {
     });
   }
 
-  // logout dashboard user
-  logoutDashUser(email) {
-    return this._httpClient.post(this.baseUrl + '/users/logout/' + email, {}).map((res: any) => {
-      if (res) {
-        this._storageService.removeItem('current_user');
-      }
-    });
-  }
   signUpUser(data) {
     return this._http.post(this.baseUrl + '/users', data).map((res: any) => {
       return res.json();

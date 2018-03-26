@@ -101,6 +101,7 @@ export class ProductDetailComponent implements OnInit {
                         this.loader = false;
                         this.closeBtn.nativeElement.click();
                         this._flashMessagesService.show('Order Placed Successfully !!', { cssClass: 'alert-success', timeout: 7000 });
+                        this.orderModel = {};
                         setTimeout(() => {
                             this.router.navigate(['/']);
                         }, 7000);

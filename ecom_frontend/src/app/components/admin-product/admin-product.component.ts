@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { CodeConstants } from '../../code_constant';
 import * as ipfsAPI from 'ipfs-api';
@@ -29,6 +29,8 @@ export class AdminProductComponent implements OnInit {
     productError: any;
     flag: any = false;
     priceDecimalValue: any;
+    @ViewChild('closeBtn') closeBtn: ElementRef;
+    @ViewChild('myImageFile') myImageFile: any;
     constructor(private _productService: ProductService) { }
 
     ngOnInit() {
@@ -78,7 +80,11 @@ export class AdminProductComponent implements OnInit {
                             if (res) {
                                 that.loader = false;
                                 confirm('Create Successfully');
-                                location.reload();
+                                that.closeBtn.nativeElement.click();
+                                that.productModel = {
+                                    'selectName': 'Select the Categories'
+                                };
+                                that.myImageFile.nativeElement.value = '';
                             }
                         }, (err) => {
                             console.log('error..1..', err);

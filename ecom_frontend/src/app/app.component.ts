@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DashAuthService } from './services/dashAuth.service';
 import { UserService } from './services/users.service';
@@ -27,7 +27,8 @@ export class AppComponent implements OnInit {
     loginError: any;
     singupError: any;
     flag: any = false;
-
+    @ViewChild('closeBtnLogin') closeBtnLogin: ElementRef;
+    @ViewChild('closeBtnSignUp') closeBtnSignUp: ElementRef;
     constructor(private route: ActivatedRoute, private router: Router, private _dashAuthService: DashAuthService,
         private _storageService: StorageService, private _userService: UserService,  private _productService: ProductService)  { }
 
@@ -60,20 +61,17 @@ export class AppComponent implements OnInit {
                         this._storageService.setItem('current_user', JSON.stringify(res));
                         const currentUser = JSON.parse(localStorage.getItem('current_user'));
                         this._userService.getUserByEmail(currentUser.email).subscribe(res1 => {
-                            console.log('res>>>>>>>>>>>.', res);
                             if (res1[0].roles === 'admin') {
-                                this.admin = true;
-                                location.reload();
+                                this.closeBtnLogin.nativeElement.click();
                                 this.router.navigate(['/admin']);
                             } else {
-                                this.user = true;
+                                this.closeBtnLogin.nativeElement.click();
                                 location.reload();
                                 this.router.navigate(['/']);
                             }
                         });
                     }
                 }, (err) => {
-                    console.log('User>>>>>>>>>>.er', err);
                     this.loginError = err._body.replace(/"/g, '');
                     this.flag = true;
                     setTimeout(function() {
@@ -118,8 +116,12 @@ export class AppComponent implements OnInit {
                     password : this.password
                 };
                 this._dashAuthService.signUpUser(data).subscribe(res => {
-                    location.reload();
                     confirm('User created successfully');
+                    this.closeBtnSignUp.nativeElement.click();
+                    email.value = '';
+                    password.value = '';
+                    first_name.value = '';
+                    last_name.value = '';
                 }, (err) => {
                     this.singupError = err._body.replace(/"/g, '');
                     this.flag = true;

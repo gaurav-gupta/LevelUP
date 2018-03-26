@@ -72,12 +72,4 @@ export class LoginComponentComponent implements OnInit {
                 this.priceDecimalValue = CodeConstants.DECIMAL;
             });
         }
-
-        // user logout
-        logout() {
-            this._dashAuthService.logoutDashUser(this.current_user.email).subscribe(res => {
-                location.reload();
-            });
-        }
-
-    }
+}

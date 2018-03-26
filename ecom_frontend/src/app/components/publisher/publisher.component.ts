@@ -9,7 +9,6 @@ import {ViewChild, ElementRef} from '@angular/core';
     styleUrls: ['./publisher.component.css']
 })
 export class PublisherComponent implements OnInit {
-     @ViewChild('closeBtn') closeBtn: ElementRef;
     data: any[];
     publisherModel: any = {
         'first_name': '',
@@ -22,6 +21,7 @@ export class PublisherComponent implements OnInit {
     publisherError: any;
     flag: any = false;
     loader: any = false;
+    @ViewChild('closeBtn') closeBtn: ElementRef;
     constructor(private route: ActivatedRoute, private router: Router, private _publisherService: PublisherService,
         private _flashMessagesService: FlashMessagesService) { }
 
@@ -61,6 +61,7 @@ export class PublisherComponent implements OnInit {
                     this.loader = false;
                     this.closeBtn.nativeElement.click();
                     this._flashMessagesService.show('Publisher Created Successfully !!', { cssClass: 'alert-success', timeout: 7000 });
+                    this.publisherModel = {};
                 }
             }, (err) => {
                 this.loader = false;
