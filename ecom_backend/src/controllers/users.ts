@@ -148,7 +148,6 @@ export class userController {
       userModel.getUser({_id: publisher_id, roles: "publisher"}).then((publisher:any) =>{
         if(publisher.length){
           userModel.getUser({_id: gamer_id}).then((gamer:any) =>{
-            console.log('response[0].email>............', gamer[0].email)
             if(gamer.length){
               common.updateUserToken(publisher[0], gamer[0]).then((response) => {
                 res.send(response);

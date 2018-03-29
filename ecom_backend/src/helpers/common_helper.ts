@@ -88,15 +88,12 @@ export class commonHelper {
                   console.log("user logs >>>>>>>>>>>>>>>>", log);
                 }).catch((error) => {
                   reject(error);
-                  // console.log("create assign level up to user error", error);
                 })
               }).catch((e) => {
                 reject(e);
-                // console.log(e)
               })
             }
           }).catch((err) => {
-            // console.log(err);
             reject(err);
           })
         }).catch(err => {
@@ -166,11 +163,9 @@ export class commonHelper {
                   userModel.updateUser({ wallet_address: data.to }, { wallet_amount: toUser }).then((updateUser) => {});
                 }).catch((err) => {
                   return reject(err)
-                  // console.log("to update user token err", err);
                 })
               }).catch((err) => {
                 return reject(err)
-                // console.log("from update user token err", err);
               })
             }
           });
@@ -244,12 +239,10 @@ export class commonHelper {
                 transaction_hash: f.logs[0].transactionHash
               }
               LogModel.createLogs(obj).then(function(log) {
-                console.log("user logs >>>>>>>>>>>>>>>>", log);
                 i.contractOwnerApproveSelf(resp, assignToken, {
                   from: CodeConstants.OWNER_ADDRESS,
                   gas: 440000
                 }).then((approvalLog) => {
-                  console.log("approvalLog >>>>>>>>>>>>>>>>>>>>");
                   console.log(approvalLog);
                 }).catch((err) => {
                   console.log("approval error >>>>>>>>>>>>>>", err);
