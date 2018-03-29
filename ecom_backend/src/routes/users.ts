@@ -6,7 +6,11 @@ var router = express();
 var usersController = new userController();
 
 router.get('/publisher',validator.ValidateAuthToken, usersController.getPublisher);
+router.get('/loginModal', usersController.signInUser);
+router.get('/signUpModal', usersController.signUpModal);
+router.post('/transaction', usersController.userTransaction)
 
+router.get('/:id/check', usersController.checkPublisher);
 router.post('/publisher', validator.ValidateAuthToken, usersController.createPublisher);
 router.post('/', usersController.createUser);
 router.post('/login', usersController.authenticateUser);

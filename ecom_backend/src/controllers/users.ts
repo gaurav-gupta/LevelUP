@@ -63,6 +63,109 @@ export class userController {
     }
   }
 
+  // signIn Modal
+  signInUser(req, res, next) {
+    try {
+      let html = `<div id="userBlock">
+            <div class="modal fade" id="login" role="dialog">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2>Please signIn</h2>
+                </div>
+                <div class="wrapper">
+                  <form class="form-signin">
+                    <span class="validationError"> </span>
+                    <h2 class="form-signin-heading"></h2>
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <label>Email</label>
+                    <input type="email" id=email class="form-control" name="email" placeholder="Email Address" required /><br>
+                    <i class="fa fa-lock prefix grey-text"></i>
+                    <label>Password</label>
+                    <input type="password" id=password class="form-control" name="password" placeholder="Password" required /><br>
+                    <button  class="btn btn-lg btn-primary btn-block" id=signInUser type="button">Login</button><br>
+                    <a id="signUpUser">Sign Up</a>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      res.send(html);
+    }
+    catch (e) {
+        res.status(400).json(e);
+        console.log('eror>>>>>>>>>>>.', e)
+    }
+  }
+
+  signUpModal(req, res, next) {
+    try {
+      let html = `
+           <div class="modal fade" id="signUp" role="dialog">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header text-center">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h2>Please signUp</h2>
+                  </div>
+                  <div class="modal-body">
+                    <form class="form-signin">
+                      <span class="validationError"> </span><br>
+                      <i class="fa fa-user prefix grey-text"></i>
+                      <label>Fist Name</label>
+                      <input type="text" id=firstname class="form-control" placeholder="First Name"  name="first_name" required><br>
+                      <i class="fa fa-user prefix grey-text"></i>
+                      <label>Last Name</label>
+                      <input type="text" id=lastname class="form-control" placeholder="Last Name"  name="last_name" required><br>
+                      <i class="fa fa-envelope prefix grey-text"></i>
+                      <label>Email</label>
+                      <input type="email" id=emailUser class="form-control" placeholder="Email address"  name="email" required><br>
+                      <i class="fa fa-lock prefix grey-text"></i>
+                      <label>Password</label>
+                      <input type="password" id=passwordUser class="form-control" placeholder="Password" name="password" required><br>
+                      <button type="button" id=createUser class="btn btn-primary  btn btn-lg btn-primary btn-block">Sign Up</button>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                  </div>
+                </div>
+              </div>
+            </div>`;
+      res.send(html);
+    }
+    catch (e) {
+      res.status(400).json(e);
+      console.log('eror>>>>>>>>>>>.', e)
+    }
+  }
+
+  userTransaction(req, res, next) {
+    try {
+      let publisher_id = req.body.publisher_id;
+      let gamer_id = req.body.gamer_id;
+      userModel.getUser({_id: publisher_id, roles: "publisher"}).then((publisher:any) =>{
+        if(publisher.length){
+          userModel.getUser({_id: gamer_id}).then((gamer:any) =>{
+            console.log('response[0].email>............', gamer[0].email)
+            if(gamer.length){
+              common.updateUserToken(publisher[0], gamer[0]).then((response) => {
+                res.send(response);
+              }).catch((err) => {
+                res.status(400).json(err);
+              });
+            }
+          })
+        } else {
+          res.status(400).json("Publsiher not present...");
+        }
+      });
+    } catch(e) {
+      res.status(400).json(e);
+    }
+  }
+
   //get user
   getUser(req, res, next){
     try {
@@ -109,6 +212,7 @@ export class userController {
       res.status(400).json(e);
     }
   }
+
   //delete all user
   deleteUser(req,res,next){
     try{
@@ -171,5 +275,18 @@ export class userController {
     }
   }
 
-
+  checkPublisher(req, res, next){
+    try{
+      let id = req.params.id;
+      userModel.getUser({_id: id, roles: "publisher"}).then(response =>{
+        if(response){
+          res.send(response);
+        }else{
+          res.status(400).json(CodeConstants.USER_NOT_FOUND);
+        }
+      });
+    }catch(e){
+      res.status(400).json(e);
+    } 
+  }
 }
