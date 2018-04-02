@@ -7,7 +7,7 @@ import * as jwt from 'jsonwebtoken';
 import * as _ from 'underscore';
 import * as appConstant from './../../config/config';
 import { CodeConstants } from '../interfaces/code_constants';
-import { commonHelper  }from '../helpers/common_helper';
+import { commonHelper  } from '../helpers/common_helper';
 var common = new commonHelper;
 
 export class userController {
@@ -21,7 +21,7 @@ export class userController {
             req.body.password =  hash;
             userModel.createUser(req.body).then(response => {
               if(response) {
-                common.assignLevelUpToUser(response, password);
+                common.createUserWalletAddress(response, password);
                 res.send(response);
               }
             }).catch(err => {
@@ -277,8 +277,8 @@ export class userController {
   checkPublisher(req, res, next){
     try{
       let id = req.params.id;
-      userModel.getUser({_id: id, roles: "publisher"}).then(response =>{
-        if(response){
+      userModel.getUser({_id: id, roles: "publisher"}).then((response:any) =>{
+        if(response.length){
           res.send(response);
         }else{
           res.status(400).json(CodeConstants.USER_NOT_FOUND);

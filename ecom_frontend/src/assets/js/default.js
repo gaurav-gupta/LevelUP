@@ -33,7 +33,7 @@ jQuery(function(){
         $.ajax({
             url: 'http://localhost:8080/users/loginModal',
             success: function(response) {
-            	if($("#userBlock")){
+            	if(!$("#userBlock").length){
 	                $("#playButton").after(response);
             	}
 	            $("#login").modal('show');

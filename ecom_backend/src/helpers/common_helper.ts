@@ -30,7 +30,7 @@ export class commonHelper {
           if (err) {
             return;
           }
-          productsHelper.saveProduct(result.args);
+          productsHelper.saveProduct(result);
         });
       }).catch((err) => {
         throw new Error(err);
@@ -49,7 +49,9 @@ export class commonHelper {
           if (err) {
             return;
           }
-          ordersHelper.createOrder(result.args);
+          ordersHelper.createOrder(result);
+          console.log("setupUserBuyProductEventListner result")
+          console.log(result)
         });
       }).catch((err) => {
         console.log(err);
@@ -59,43 +61,13 @@ export class commonHelper {
     }
   }
 
-  assignLevelUpToUser(user, pass) {
+  createUserWalletAddress(user, pass) {
     return new Promise((resolve, reject) => {
       try {
         var resp = web3.personal.newAccount(pass);
         user.wallet_address = resp;
-        userModel.updateUser({
-          email: user.email
-        }, user).then(function(user) {
-          LevelUp.deployed().then(function(i) {
-            var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
-            if (isUnlock) {
-              var assignToken = 1 * CodeConstants.DECIMAL;
-              i.transfer(resp, assignToken, {
-                from: CodeConstants.OWNER_ADDRESS,
-                gas: 440000
-              }).then(function(f) {
-                var obj = {
-                  dtype: "Assign_Level_Up_Token_To_User",
-                  logs: f.logs,
-                  receipt: f.receipt,
-                  created_at: new Date(),
-                  reference_id: f.logs[0].args.buyer,
-                  block_hash: f.logs[0].blockHash,
-                  transaction_hash: f.logs[0].transactionHash
-                }
-                LogModel.createLogs(obj).then(function(log) {
-                  console.log("user logs >>>>>>>>>>>>>>>>", log);
-                }).catch((error) => {
-                  reject(error);
-                })
-              }).catch((e) => {
-                reject(e);
-              })
-            }
-          }).catch((err) => {
-            reject(err);
-          })
+        userModel.updateUser({ email: user.email }, user).then(function(user) {
+          resolve(user);
         }).catch(err => {
           console.log("update user with update user with level up error", err)
           reject(err);
@@ -113,24 +85,8 @@ export class commonHelper {
         LevelUp.deployed().then(function(i) {
           var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
           if (isUnlock) {
-            i.buyProduct(user.wallet_address, data.productId, data.price, address.address, address.state, address.city, address.pincode, address.phone_number, {
-              from: CodeConstants.OWNER_ADDRESS,
-              gas: 440000
-            }).then(function(f) {
-              var obj = {
-                dtype: "Buy_Product_Log",
-                logs: f.logs,
-                receipt: f.receipt,
-                created_at: new Date(),
-                reference_id: f.logs[0].args._orderId,
-                block_hash: f.logs[0].blockHash,
-                transaction_hash: f.logs[0].transactionHash
-              }
-              LogModel.createLogs(obj).then(function(log) {
-                return resolve(f);
-              }).catch((error) => {
-                reject(error);
-              })
+            i.buyProduct(user.wallet_address, data.productId, data.price, address.address, address.state, address.city, address.pincode, address.phone_number, { from: CodeConstants.OWNER_ADDRESS, gas: 440000 }).then(function(f) {
+              return resolve(f);
             }).catch((e) => {
               return reject(e)
             })
@@ -155,19 +111,35 @@ export class commonHelper {
               return;
             }
             var data = result.args;
-            var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
-            if (isUnlock) {
-              i.balanceOf(data.from, { from: CodeConstants.OWNER_ADDRESS, gas: 44000 }).then((fromUser) => {
-                userModel.updateUser({ wallet_address: data.from }, { wallet_amount: fromUser }).then((updateUser) => {})
-                i.balanceOf(data.to, { from: CodeConstants.OWNER_ADDRESS, gas: 44000 }).then((toUser) => {
-                  userModel.updateUser({ wallet_address: data.to }, { wallet_amount: toUser }).then((updateUser) => {});
-                }).catch((err) => {
-                  return reject(err)
-                })
-              }).catch((err) => {
-                return reject(err)
-              })
+            var obj = {
+              dtype: "Transfer_Token",
+              logs: result,
+              created_at: new Date(),
+              reference_id: null,
+              block_hash: result.blockHash,
+              transaction_hash: result.transactionHash,
+              from: data.from,
+              to: data.to,
+              tokens: data.tokens
             }
+
+            LogModel.createLogs(obj).then(response => {
+              if (response) {
+                var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
+                if (isUnlock) {
+                  i.balanceOf(data.from, { from: CodeConstants.OWNER_ADDRESS, gas: 44000 }).then((fromUser) => {
+                    userModel.updateUser({ wallet_address: data.from }, { wallet_amount: fromUser }).then((updateUser) => {})
+                    i.balanceOf(data.to, { from: CodeConstants.OWNER_ADDRESS, gas: 44000 }).then((toUser) => {
+                      userModel.updateUser({ wallet_address: data.to }, { wallet_amount: toUser }).then((updateUser) => {});
+                    }).catch((err) => {
+                      return reject(err)
+                    })
+                  }).catch((err) => {
+                    return reject(err)
+                  })
+                }
+              }
+            }); 
           });
         }).catch((err) => {
           return reject(err)
@@ -184,24 +156,10 @@ export class commonHelper {
         LevelUp.deployed().then(function(i) {
           var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
           if (isUnlock) {
-            i.addProductToStore(data.product_name, data.selectName, data.imageLink, data.descLink, (data.Price * CodeConstants.DECIMAL), {
-              from: CodeConstants.OWNER_ADDRESS,
-              gas: 440000
-            }).then(function(f) {
-              var obj = {
-                dtype: "Add_Product_To_Store_Log",
-                logs: f.logs,
-                receipt: f.receipt,
-                created_at: new Date(),
-                reference_id: f.logs[0].args._productId,
-                block_hash: f.logs[0].blockHash,
-                transaction_hash: f.logs[0].transactionHash
+            i.addProductToStore(data.product_name, data.selectName, data.imageLink, data.descLink, (data.Price * CodeConstants.DECIMAL), { from: CodeConstants.OWNER_ADDRESS, gas: 440000 }).then(function(f) {
+              if (f) {
+                resolve(f);
               }
-              LogModel.createLogs(obj).then(response => {
-                if (response) {
-                  resolve(response);
-                }
-              });
             }).catch((error) => {
               reject(error);
             })
@@ -214,41 +172,22 @@ export class commonHelper {
       }
     });
   }
+
   assignLevelUpToPublisher(publisher, password, token) {
     try {
       var resp = web3.personal.newAccount(password);
       publisher.wallet_address = resp;
-      userModel.updateUser({
-        email: publisher.email
-      }, publisher).then(function(user) {
+      userModel.updateUser({ email: publisher.email }, publisher).then(function(user) {
         LevelUp.deployed().then(function(i) {
           var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
           if (isUnlock) {
             var assignToken = token * CodeConstants.DECIMAL;
-            i.transfer(resp, assignToken, {
-              from: CodeConstants.OWNER_ADDRESS,
-              gas: 440000
-            }).then(function(f) {
-              var obj = {
-                dtype: "Assign_Level_Up_Token_To_Publisher",
-                logs: f.logs,
-                receipt: f.receipt,
-                created_at: new Date(),
-                reference_id: f.logs[0].args.buyer,
-                block_hash: f.logs[0].blockHash,
-                transaction_hash: f.logs[0].transactionHash
-              }
-              LogModel.createLogs(obj).then(function(log) {
-                i.contractOwnerApproveSelf(resp, assignToken, {
-                  from: CodeConstants.OWNER_ADDRESS,
-                  gas: 440000
-                }).then((approvalLog) => {
-                  console.log(approvalLog);
-                }).catch((err) => {
-                  console.log("approval error >>>>>>>>>>>>>>", err);
-                })
-              }).catch((error) => {
-                console.log("create assign level up to user error", error);
+            i.transfer(resp, assignToken, { from: CodeConstants.OWNER_ADDRESS, gas: 440000 }).then(function(f) {
+              i.contractOwnerApproveSelf(resp, assignToken, {from: CodeConstants.OWNER_ADDRESS, gas: 440000 }).then((approvalLog) => {
+                console.log("approvalLog >>>>>>>>>>>>>>>>>>>>");
+                console.log(approvalLog);
+              }).catch((err) => {
+                console.log("approval error >>>>>>>>>>>>>>", err);
               })
             }).catch((e) => {
               console.log("create assign level up to user error", e);
