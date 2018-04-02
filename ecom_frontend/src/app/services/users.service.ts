@@ -44,4 +44,12 @@ export class UserService {
       return res;
     });
   }
+
+  // get user Transaction
+
+  getUserTransaction(_id) {
+      return this._httpClient.get(this.baseUrl + '/users/transaction/' + _id).map((res: any) => {
+        return res;
+      });
+  }
 }

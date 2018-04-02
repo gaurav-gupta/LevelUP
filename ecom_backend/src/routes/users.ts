@@ -9,7 +9,7 @@ router.get('/publisher',validator.ValidateAuthToken, usersController.getPublishe
 router.get('/loginModal', usersController.signInUser);
 router.get('/signUpModal', usersController.signUpModal);
 router.post('/transaction', usersController.userTransaction)
-
+router.get('/transaction/:id', validator.ValidateAuthToken, usersController.getUserTransaction)
 router.get('/:id/check', usersController.checkPublisher);
 router.post('/publisher', validator.ValidateAuthToken, usersController.createPublisher);
 router.post('/', usersController.createUser);

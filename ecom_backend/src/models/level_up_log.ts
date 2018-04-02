@@ -26,3 +26,29 @@ export function createLogs (data) {
     });
   });
 }
+
+export function getUserTransaction (data) {
+    return new Promise((resolve, reject) => {
+    LogsModel.aggregate([{$match: {'dtype': "Transfer_Token", $or: [{'to': data[0].wallet_address}, {'from': data[0].wallet_address}]}},
+     {
+        $lookup: {
+        from: "users",
+        localField: "from",
+        foreignField: "wallet_address",
+        as: "usersInfoFrom"
+      }
+    },
+    {
+      $lookup: {
+      from: "users",
+      localField: "to",
+      foreignField: "wallet_address",
+      as: "usersInfoTo"
+    }
+}]).then(res => {
+    resolve(res);
+}).catch(e=>{
+  reject(e);
+});
+    });
+}

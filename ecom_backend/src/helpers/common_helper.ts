@@ -139,7 +139,7 @@ export class commonHelper {
                   })
                 }
               }
-            }); 
+            });
           });
         }).catch((err) => {
           return reject(err)

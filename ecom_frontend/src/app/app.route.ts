@@ -7,6 +7,7 @@ import { OrderComponent } from './components/order/order.component';
 import { UserOrderComponent } from './components/user-order/user-order.component';
 import { AdminProductComponent } from './components/admin-product/admin-product.component';
 import { PublisherComponent } from './components/publisher/publisher.component';
+import { UserTransactionComponent } from './components/user-transaction/user-transaction.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const appRoutes: Routes = [
@@ -41,6 +42,11 @@ const appRoutes: Routes = [
 {
     path: 'publisher',
     component: PublisherComponent,
+    canActivate: [AuthGuard]
+},
+{
+    path: 'userTransaction',
+    component: UserTransactionComponent,
     canActivate: [AuthGuard]
 }
 ];

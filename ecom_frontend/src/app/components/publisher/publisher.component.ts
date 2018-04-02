@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PublisherService } from '../../services/publisher.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import {ViewChild, ElementRef} from '@angular/core';
+import { CodeConstants } from '../../code_constant';
 @Component({
     selector: 'app-publisher',
     templateUrl: './publisher.component.html',
@@ -18,6 +19,7 @@ export class PublisherComponent implements OnInit {
         'token': '',
         'website_url': ''
     };
+    priceDecimalValue: any;
     publisherError: any;
     flag: any = false;
     loader: any = false;
@@ -32,6 +34,7 @@ export class PublisherComponent implements OnInit {
     getPublisher() {
         this._publisherService.getPublisher().subscribe(res => {
             this.data = res;
+             this.priceDecimalValue = CodeConstants.DECIMAL;
         }, (err) => {
             console.log('error....', err);
         });

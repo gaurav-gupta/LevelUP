@@ -1,0 +1,34 @@
+<app-nav-bar></app-nav-bar>
+<div class="container">
+<flash-messages></flash-messages>
+  <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+      <tr>
+        <th class="disableSorting">Transaction Hash</th>
+        <th class="disableSorting">From</th>
+        <th class="disableSorting">To</th>
+        <th class="disableSorting">Token</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of mf.data">
+        <td>{{item.transaction_hash}}</td>
+        <td>{{item.usersInfoFrom[0].first_name}} {{item.usersInfoFrom[0].last_name}}</td>
+        <ng-container *ngIf="item.usersInfoTo[0] != null">
+         <td>{{item.usersInfoTo[0].first_name}} {{item.usersInfoTo[0].last_name}}</td>
+        </ng-container>
+        <ng-container *ngIf="item.usersInfoTo[0] == null">
+         <td>null</td>
+        </ng-container>
+        <td>{{item.tokens/priceDecimalValue}}</td>
+    </tr>
+</tbody>
+<tfoot>
+  <tr>
+    <td colspan="3">
+      <mfBootstrapPaginator></mfBootstrapPaginator>
+    </td>
+  </tr>
+</tfoot>
+</table>
+</div>

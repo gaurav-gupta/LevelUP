@@ -85,6 +85,7 @@ export class AdminProductComponent implements OnInit {
                                     'selectName': 'Select the Categories'
                                 };
                                 that.myImageFile.nativeElement.value = '';
+                                that.getproducts();
                             }
                         }, (err) => {
                             console.log('error..1..', err);

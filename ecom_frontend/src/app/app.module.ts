@@ -25,6 +25,7 @@ import { AdminProductComponent } from './components/admin-product/admin-product.
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { PublisherComponent } from './components/publisher/publisher.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { UserTransactionComponent } from './components/user-transaction/user-transaction.component';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
         DataFilterPipe,
         UserOrderComponent,
         AdminProductComponent,
-        PublisherComponent
+        PublisherComponent,
+        UserTransactionComponent
     ],
     imports: [
         BrowserModule,
