@@ -13,7 +13,12 @@
   <tbody>
     <tr *ngFor="let item of mf.data">
         <td>{{item.transaction_hash}}</td>
+        <ng-container *ngIf="item.usersInfoFrom[0] != null">
         <td>{{item.usersInfoFrom[0].first_name}} {{item.usersInfoFrom[0].last_name}}</td>
+        </ng-container>
+        <ng-container *ngIf="item.usersInfoFrom[0] == null">
+         <td>null</td>
+        </ng-container>
         <ng-container *ngIf="item.usersInfoTo[0] != null">
          <td>{{item.usersInfoTo[0].first_name}} {{item.usersInfoTo[0].last_name}}</td>
         </ng-container>

@@ -27,6 +27,16 @@ export function createLogs (data) {
   });
 }
 
+export function findLogs (condition) {
+  return new Promise((resolve, reject) => {
+    LogsModel.find(condition).then(function (doc) {
+      resolve(doc);
+    }).catch(e =>{
+      reject(e);
+    });
+  });
+}
+
 export function getUserTransaction (data) {
     return new Promise((resolve, reject) => {
     LogsModel.aggregate([{$match: {'dtype': "Transfer_Token", $or: [{'to': data[0].wallet_address}, {'from': data[0].wallet_address}]}},
