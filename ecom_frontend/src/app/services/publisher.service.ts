@@ -25,7 +25,6 @@ createPublisher(form) {
     const body: any = JSON.stringify(form);
     const _path: string = (this.baseUrl + '/users/publisher');
     return this._httpClient.post(_path, body).map((res: any) => {
-        console.log('res>>>>>>>>>>>.', res);
       return res;
     });
 }

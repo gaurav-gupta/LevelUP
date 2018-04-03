@@ -8,24 +8,31 @@
         <th class="disableSorting">From</th>
         <th class="disableSorting">To</th>
         <th class="disableSorting">Token</th>
+        <th class="disableSorting">In/Out</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let item of mf.data">
-        <td>{{item.transaction_hash}}</td>
+        <td><a target="_blank" href="https://ropsten.etherscan.io/tx/{{item.transaction_hash}}">https://ropsten.etherscan.io/tx/{{item.transaction_hash}}</a></td>
         <ng-container *ngIf="item.usersInfoFrom[0] != null">
         <td>{{item.usersInfoFrom[0].first_name}} {{item.usersInfoFrom[0].last_name}}</td>
         </ng-container>
         <ng-container *ngIf="item.usersInfoFrom[0] == null">
-         <td>null</td>
+         <td>Admin</td>
         </ng-container>
         <ng-container *ngIf="item.usersInfoTo[0] != null">
          <td>{{item.usersInfoTo[0].first_name}} {{item.usersInfoTo[0].last_name}}</td>
         </ng-container>
         <ng-container *ngIf="item.usersInfoTo[0] == null">
-         <td>null</td>
+         <td>Admin</td>
         </ng-container>
         <td>{{item.tokens/priceDecimalValue}}</td>
+        <ng-container *ngIf="item.usersInfoTo[0] == null || item.usersInfoFrom[0] == null">
+         <td>Out</td>
+        </ng-container>
+        <ng-container *ngIf="item.usersInfoTo[0] != null && item.usersInfoFrom[0] != null">
+         <td>In</td>
+        </ng-container>
     </tr>
 </tbody>
 <tfoot>

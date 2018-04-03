@@ -4,6 +4,7 @@ import { CodeConstants } from '../../code_constant';
 import * as ipfsAPI from 'ipfs-api';
 import * as buffer from 'buffer';
 const Buffer1 = buffer.Buffer;
+import { FlashMessagesService } from 'angular2-flash-messages';
 const ipfs = ipfsAPI({host: '13.250.35.159', port: '5001', protocol: 'http'});
 
 @Component({
@@ -31,7 +32,7 @@ export class AdminProductComponent implements OnInit {
     priceDecimalValue: any;
     @ViewChild('closeBtn') closeBtn: ElementRef;
     @ViewChild('myImageFile') myImageFile: any;
-    constructor(private _productService: ProductService) { }
+    constructor(private _productService: ProductService, private _flashMessagesService: FlashMessagesService) { }
 
     ngOnInit() {
         this.getCategories();
@@ -79,7 +80,8 @@ export class AdminProductComponent implements OnInit {
                         that._productService.createProduct(data).subscribe(res => {
                             if (res) {
                                 that.loader = false;
-                                confirm('Create Successfully');
+                                that._flashMessagesService.show('Product Created Successfully !!',
+                                { cssClass: 'alert-success', timeout: 7000 });
                                 that.closeBtn.nativeElement.click();
                                 that.productModel = {
                                     'selectName': 'Select the Categories'

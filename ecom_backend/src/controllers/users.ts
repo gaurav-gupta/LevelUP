@@ -97,7 +97,6 @@ export class userController {
         }
         catch (e) {
             res.status(400).json(e);
-            console.log('eror>>>>>>>>>>>.', e)
         }
     }
 
@@ -138,7 +137,6 @@ export class userController {
         }
         catch (e) {
             res.status(400).json(e);
-            console.log('eror>>>>>>>>>>>.', e)
         }
     }
 
@@ -151,7 +149,6 @@ export class userController {
                     userModel.getUser({_id: gamer_id}).then((gamer:any) =>{
                         if(gamer.length){
                             common.updateUserToken(publisher[0], gamer[0]).then((response) => {
-                                //  console.log('response >>>> userTransaction >>>>>>>>>>>>>>...', response)
                                 res.send(response);
                             }).catch((err) => {
                                 res.status(400).json(err);

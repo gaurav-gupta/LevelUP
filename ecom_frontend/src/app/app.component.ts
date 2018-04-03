@@ -4,6 +4,7 @@ import { DashAuthService } from './services/dashAuth.service';
 import { UserService } from './services/users.service';
 import { StorageService } from './services/storage.service';
 import { ProductService } from './services/product.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
     selector: 'app-root',
@@ -30,7 +31,8 @@ export class AppComponent implements OnInit {
     @ViewChild('closeBtnLogin') closeBtnLogin: ElementRef;
     @ViewChild('closeBtnSignUp') closeBtnSignUp: ElementRef;
     constructor(private route: ActivatedRoute, private router: Router, private _dashAuthService: DashAuthService,
-        private _storageService: StorageService, private _userService: UserService,  private _productService: ProductService)  { }
+        private _storageService: StorageService, private _userService: UserService,
+        private _productService: ProductService, private _flashMessagesService: FlashMessagesService)  { }
 
         ngOnInit() {
             this.getProducts();
@@ -115,8 +117,8 @@ export class AppComponent implements OnInit {
                     email : this.email,
                     password : this.password
                 };
-                this._dashAuthService.signUpUser(data).subscribe(res => {
-                    confirm('User created successfully');
+                this._dashAuthService.signUpUser(data).subscribe(res => {  
+                    this._flashMessagesService.show('User created successfully !!', { cssClass: 'alert-success', timeout: 7000 });
                     this.closeBtnSignUp.nativeElement.click();
                     email.value = '';
                     password.value = '';

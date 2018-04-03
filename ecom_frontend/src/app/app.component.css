@@ -62,3 +62,17 @@ body {
 		.errorColor {
 			color:red;
 		}
+
+		 .alert-success {
+		    color: #3c763d;
+		    margin-left: 90px;
+		    margin-right: 90px;
+		    background-color: #dff0d8;
+		    border-color: #d6e9c6;
+		}
+
+		.message {
+			left: 60px;
+			position: absolute;
+			top: 70px; 
+		}

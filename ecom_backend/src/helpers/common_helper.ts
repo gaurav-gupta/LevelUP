@@ -50,8 +50,6 @@ export class commonHelper {
                         return;
                     }
                     ordersHelper.createOrder(result);
-                    console.log("setupUserBuyProductEventListner result")
-                    console.log(result)
                 });
             }).catch((err) => {
                 console.log(err);
@@ -110,7 +108,6 @@ export class commonHelper {
                         if (err) {
                             return;
                         }
-                        console.log('result tranfer>>>>>>>>>>>>>>>', result);
                         var data = result.args;
                         LogModel.findLogs({transaction_hash: result.transactionHash}).then((res1: any) => {
                             if(res1.length <= 0 ){
@@ -127,7 +124,6 @@ export class commonHelper {
                                 }
                                 LogModel.createLogs(obj).then(response => {
                                     if (response) {
-                                        console.log('response>>>>>>>>>>>>......',response);
                                         var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
                                         if (isUnlock) {
                                             i.balanceOf(data.from, { from: CodeConstants.OWNER_ADDRESS, gas: 44000 }).then((fromUser) => {
@@ -193,8 +189,7 @@ export class commonHelper {
                         var assignToken = token * CodeConstants.DECIMAL;
                         i.transfer(resp, assignToken, { from: CodeConstants.OWNER_ADDRESS, gas: 440000 }).then(function(f) {
                             i.contractOwnerApproveSelf(resp, assignToken, {from: CodeConstants.OWNER_ADDRESS, gas: 440000 }).then((approvalLog) => {
-                                console.log("approvalLog >>>>>>>>>>>>>>>>>>>>");
-                                console.log(approvalLog);
+                                console.log("approvalLog >>>>>>>>>>>>>>>>>>>>", approvalLog);
                             }).catch((err) => {
                                 console.log("approval error >>>>>>>>>>>>>>", err);
                             })
