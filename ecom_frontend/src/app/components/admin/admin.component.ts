@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 
 export class AdminComponent implements OnInit {
     data: any[];
-    filterQuery: any = '';
     constructor(private router: Router, private _userService: UserService) { }
 
     ngOnInit() {
