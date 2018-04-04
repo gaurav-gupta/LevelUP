@@ -4,13 +4,13 @@ var Schema = mongoose.Schema;
 
 var orderSchema = new Schema({
     order_number: { type: String, required: true},
-    orderId: { type: String, required: true},
+    orderId: { type: String },
     order_status: { type: String, default: 'new'},
     price: { type: Number, required: true},
     customer_id: { type: Object, required: true},
-    productId: { type: Object, required: true},
-    created_at: { type: Date },
-    updated_at: { type: Date },
+    product_id: { type: Object, required: true},
+    created_at: { type: Date, default: new Date() },
+    updated_at: { type: Date, default: new Date() },
     address:{
         address:{type: String , required: true},
         state:{ type: String , required: true},
@@ -19,7 +19,7 @@ var orderSchema = new Schema({
         phone_number:{ type: String ,required: true}
     },
     txHash: { type: String },
-    status: { type: String, default: 'pending' }
+    status: { type: String, default: 'Pending' }
 });
 
 export var orderModel = mongoose.model('orders', orderSchema);
@@ -58,7 +58,7 @@ export function getOrders (){
         {
             $lookup: {
                 from: "products",
-                localField: "productId",
+                localField: "product_id",
                 foreignField: "_id",
                 as: "productsinfo"
             }

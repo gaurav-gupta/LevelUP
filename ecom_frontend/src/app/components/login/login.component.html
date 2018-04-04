@@ -3,21 +3,18 @@
   <div class="app flex-row align-items-center">
     <div class="container">
       <div class="row">
-        <div class="card col-md-3 product_list" *ngFor="let product of product">
-        <ng-container *ngIf="product.status == 'Approved'">
+        <div class="card col-md-3 product_list"  *ngFor="let p of product | approvedPipe">
           <div class="thumbnail">
-            <img src="https://ipfs.io/ipfs/{{product?.imageLink}}" [routerLink]="['/productDetail', product._id]" alt="blue shirt">
+            <img src="https://ipfs.io/ipfs/{{p?.imageLink}}" [routerLink]="['/productDetail', p._id]" alt="blue shirt">
           </div>
-
           <div class="product_des">
-            <h3>{{product?.name}}</h3>
-            <p>{{product?.category}}</p>
-            <span>{{product?.price/priceDecimalValue}} <b>levelup</b></span>
+            <h3>{{p?.name}}</h3>
+            <p>{{p?.category}}</p>
+            <span>{{p?.price/priceDecimalValue}} <b>levelup</b></span>
 
             <a href="javascript:void(0)" *ngIf="!uncheck && !checkAdmin" data-toggle="modal" data-target="#login" class="buy_btn" > Buy</a>
-            <a href="/#/productDetail/{{product._id}}" class="buy_btn" *ngIf="uncheck && !checkAdmin"  > Buy</a>
+            <a href="/#/productDetail/{{p._id}}" class="buy_btn" *ngIf="uncheck && !checkAdmin"  > Buy</a>
           </div>
-        </ng-container>
         </div>
         </div>
       </div>

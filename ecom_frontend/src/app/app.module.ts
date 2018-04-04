@@ -10,6 +10,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { DataTableModule } from 'angular2-datatable';
 import { OrderComponent } from './components/order/order.component';
 import { DataFilterPipe } from './directives/data-filter.pipe';
+import { ApprovedPipe } from './directives/approved.pipe';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
@@ -36,6 +37,7 @@ import { UserTransactionComponent } from './components/user-transaction/user-tra
         AdminComponent,
         OrderComponent,
         DataFilterPipe,
+        ApprovedPipe,
         UserOrderComponent,
         AdminProductComponent,
         PublisherComponent,
