@@ -158,14 +158,19 @@ export class commonHelper {
     addProductToStore(data, user){
         return new Promise((resolve, reject) => {
             try{
+                console.log("addProductToStore >>>>>>>>>>>>>>")
                 LevelUp.deployed().then(function(i) {
                     var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
                     if (isUnlock) {
+                        console.log("addProductToStore >>>>>>>>>>>>>>", data)
                         i.addProductToStore(data.product_name, data.selectName, data.imageLink, data.descLink, (data.Price * CodeConstants.DECIMAL), { from: CodeConstants.OWNER_ADDRESS, gas: 440000 }).then(function(f) {
                             if (f) {
+                                console.log("addProductToStore >>>>>>>>>>>>>>", f)
                                 resolve(f);
                             }
                         }).catch((error) => {
+                            console.log("error >>>>>>>>>>>>>>>>>>>>>>>>>")
+                            console.log(error)
                             reject(error);
                         })
                     }

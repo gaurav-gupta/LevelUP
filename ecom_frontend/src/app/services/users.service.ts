@@ -7,49 +7,49 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class UserService {
-  private baseUrl = environment.baseUrl;
-  constructor(private _httpClient: HttpClient, private _http: Http, private _storageService: StorageService) {
-  }
+    private baseUrl = environment.baseUrl;
+    constructor(private _httpClient: HttpClient, private _http: Http, private _storageService: StorageService) {
+    }
 
-  // Get user by Email
-  getUserByEmail(email) {
-    return this._httpClient.get(this.baseUrl + '/users/' + email).map((res: any) => {
-      return res;
-    });
-  }
+    // Get user by Email
+    getUserByEmail(email) {
+        return this._httpClient.get(this.baseUrl + '/users/' + email).map((res: any) => {
+            return res;
+        });
+    }
 
-  // Get all user
-  getUsers() {
-    return this._httpClient.get(this.baseUrl + '/users').map((res: any) => {
-      return res;
-    });
-  }
-  // create user
-  createOrder(data) {
-    const body: any = JSON.stringify(data);
-    const _path: string = (this.baseUrl + '/orders');
-    return this._httpClient.post(_path, body).map((res: any) => {
-      return res;
-    });
-  }
-// get order of user
-  getUserOrder(_id) {
-    return this._httpClient.get(this.baseUrl + '/orders/' + _id).map((res: any) => {
-      return res;
-    });
-  }
-// get all orders
-  getOrders() {
-    return this._httpClient.get(this.baseUrl + '/orders').map((res: any) => {
-      return res;
-    });
-  }
+    // Get all user
+    getUsers() {
+        return this._httpClient.get(this.baseUrl + '/users').map((res: any) => {
+            return res;
+        });
+    }
+    // create user
+    createOrder(data) {
+        const body: any = JSON.stringify(data);
+        const _path: string = (this.baseUrl + '/orders');
+        return this._httpClient.post(_path, body).map((res: any) => {
+            return res;
+        });
+    }
+    // get order of user
+    getUserOrder(_id) {
+        return this._httpClient.get(this.baseUrl + '/orders/' + _id).map((res: any) => {
+            return res;
+        });
+    }
+    // get all orders
+    getOrders() {
+        return this._httpClient.get(this.baseUrl + '/orders').map((res: any) => {
+            return res;
+        });
+    }
 
-  // get user Transaction
+    // get user Transaction
 
-  getUserTransaction(_id) {
-      return this._httpClient.get(this.baseUrl + '/users/transaction/' + _id).map((res: any) => {
-        return res;
-      });
-  }
+    getUserTransaction(_id) {
+        return this._httpClient.get(this.baseUrl + '/users/transaction/' + _id).map((res: any) => {
+            return res;
+        });
+    }
 }

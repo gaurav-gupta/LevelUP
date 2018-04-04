@@ -4,22 +4,22 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class StorageService {
-  constructor() {
-  }
+    constructor() {
+    }
 
-  // set local storage
-  setItem(key, value) {
-    localStorage.setItem(key, value);
-  }
+    // set local storage
+    setItem(key, value) {
+        localStorage.setItem(key, value);
+    }
 
-  // get local storage
-  getItem(key) {
-    const data = localStorage.getItem(key);
-    return data;
-  }
+    // get local storage
+    getItem(key) {
+        const data = localStorage.getItem(key);
+        return data;
+    }
 
-  // remove item from local storage
-  removeItem(key) {
-    localStorage.removeItem(key);
-  }
+    // remove item from local storage
+    removeItem(key) {
+        localStorage.removeItem(key);
+    }
 }

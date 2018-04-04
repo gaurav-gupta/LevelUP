@@ -18,7 +18,8 @@ export class UserOrderComponent implements OnInit , OnDestroy {
     priceDecimalValue: any;
     private subscription: ISubscription;
     constructor(private route: ActivatedRoute, private router: Router, private _userService: UserService,
-        private _storeService: StorageService, private _flashMessagesService: FlashMessagesService) { }
+        private _storeService: StorageService, private _flashMessagesService: FlashMessagesService,
+        private changeDetectorRef: ChangeDetectorRef) { }
 
         ngOnInit() {
             this.getUserOrder();
@@ -35,11 +36,15 @@ export class UserOrderComponent implements OnInit , OnDestroy {
                     } else {
                         this._flashMessagesService.show('No Orders Placed Yet !!', { cssClass: 'alert-success', timeout: 7000 });
                     }
+                     this.changeDetectorRef.detectChanges();
                 });
+                 this.changeDetectorRef.detectChanges();
             });
         }
 
         ngOnDestroy() {
             this.subscription.unsubscribe();
+            this.changeDetectorRef.detach();
         }
+
     }

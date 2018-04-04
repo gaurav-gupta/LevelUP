@@ -72,4 +72,4 @@ export class LoginComponentComponent implements OnInit {
                 this.priceDecimalValue = CodeConstants.DECIMAL;
             });
         }
-}
+    }

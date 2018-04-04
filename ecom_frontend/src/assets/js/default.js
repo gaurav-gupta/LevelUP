@@ -23,7 +23,7 @@ jQuery(function(){
            	$('body').prepend('<button type="button" id="playButton" class="btn-primary">Play</button>')
         	if(email && user_auth_token) {
         		getUser(email, user_auth_token, true);
-        	}  
+        	}
         },error: function(error){
             alert("That publisher not exists");
         }
@@ -89,8 +89,8 @@ jQuery(function(){
     });
 
     function setCookie(response) {
-        document.cookie = "user_auth_token=" + response.user_auth_token;   
-        document.cookie = "email="+ response.email;   
+        document.cookie = "user_auth_token=" + response.user_auth_token;
+        document.cookie = "email="+ response.email;
     }
 
     function getCookie(cname) {

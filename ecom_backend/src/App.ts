@@ -14,11 +14,11 @@ var app = express();
 var url = config.MONGO_DB_URL;
 var mongoClient =  mongo.MongoClient;
 mongoose.connect(url, (err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('Connected to MongoDb');
-  }
+    if (err) {
+        console.log(err);
+    } else {
+        console.log('Connected to MongoDb');
+    }
 });
 mongoose.set('debug', true);
 
@@ -28,10 +28,10 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT ,DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-  next();
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT ,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
 });
 
 app.use('/users', router);
@@ -40,8 +40,8 @@ app.use('/products', routerProduct);
 
 var server = http.createServer(app);
 server.listen(8080, function () {
-  var port = server.address().port;
-  console.log("App now running on port", port);
+    var port = server.address().port;
+    console.log("App now running on port", port);
 });
 
 common.setupProductEventListner();

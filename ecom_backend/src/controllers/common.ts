@@ -5,11 +5,11 @@ import * as  categoryModel  from './../models/category';
 
 //get categories
 export function getAllCategories (req, res, next){
-  try{
-    categoryModel.getAllCategories().then(response =>{
-      res.send(response);
-    });
-  }catch(e){
-   	res.status(400).json(e);
-  }
+    try {
+        categoryModel.getAllCategories().then(response =>{
+            res.send(response);
+        });
+    } catch(e) {
+        res.status(400).json(e);
+    }
 }

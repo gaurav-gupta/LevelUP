@@ -49,10 +49,10 @@ export class AppComponent implements OnInit {
             this.password = password1.value;
             if (this.email === '' ||  this.password === '') {
                 this.loginError = 'Email/Password are required !!';
-                    this.flag = true;
-                    setTimeout(function(){
-                        that.flag = false;
-                    }, 3000);
+                this.flag = true;
+                setTimeout(function(){
+                    that.flag = false;
+                }, 3000);
             } else {
                 const data = {
                     email: this.email,
@@ -117,7 +117,7 @@ export class AppComponent implements OnInit {
                     email : this.email,
                     password : this.password
                 };
-                this._dashAuthService.signUpUser(data).subscribe(res => {  
+                this._dashAuthService.signUpUser(data).subscribe(res => {
                     this._flashMessagesService.show('User created successfully !!', { cssClass: 'alert-success', timeout: 7000 });
                     this.closeBtnSignUp.nativeElement.click();
                     email.value = '';

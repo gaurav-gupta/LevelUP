@@ -75,46 +75,45 @@ export class ProductDetailComponent implements OnInit {
         createOrder(form) {
             const that = this;
             if (form.address === undefined || form.pincode === undefined || form.state === undefined ||
-            form.phone_number === undefined || form.city === undefined) {
-                this.orderError = 'All these fields are required !!';
-                that.flag = true;
-                setTimeout(function() {
-                    that.flag = false;
-                }, 3000);
-            } else {
-                this.loader = true;
-                this.data = {
-                    'address': {
-                        'address': form.address,
-                        'pincode': form.pincode,
-                        'state': form.state,
-                        'phone_number': form.phone_number,
-                        'city': form.city
-                    },
-                    'customer_email': this.check.email,
-                    'customer_id': this.check._id,
-                    'price': this.product.price,
-                    'productId': this.product.productId
-                };
-                this._userService.createOrder(this.data).subscribe((res: any) => {
-                    if (Object.keys(res).length > 0) {
-                        this.loader = false;
-                        this.closeBtn.nativeElement.click();
-                        this._flashMessagesService.show('Order Placed Successfully !!', { cssClass: 'alert-success', timeout: 7000 });
-                        this.orderModel = {};
-                        setTimeout(() => {
-                            this.router.navigate(['/']);
-                        }, 7000);
-                    }
-                }, (err) => {
-                    this.loader = false;
-                    this.orderError = err.error.replace(/"/g, '');
-                    this.flag = true;
+                form.phone_number === undefined || form.city === undefined) {
+                    this.orderError = 'All these fields are required !!';
+                    that.flag = true;
                     setTimeout(function() {
                         that.flag = false;
                     }, 3000);
-                });
+                } else {
+                    this.loader = true;
+                    this.data = {
+                        'address': {
+                            'address': form.address,
+                            'pincode': form.pincode,
+                            'state': form.state,
+                            'phone_number': form.phone_number,
+                            'city': form.city
+                        },
+                        'customer_email': this.check.email,
+                        'customer_id': this.check._id,
+                        'price': this.product.price,
+                        'productId': this.product.productId
+                    };
+                    this._userService.createOrder(this.data).subscribe((res: any) => {
+                        if (Object.keys(res).length > 0) {
+                            this.loader = false;
+                            this.closeBtn.nativeElement.click();
+                            this._flashMessagesService.show('Order Placed Successfully !!', { cssClass: 'alert-success', timeout: 7000 });
+                            this.orderModel = {};
+                            setTimeout(() => {
+                                this.router.navigate(['/']);
+                            }, 7000);
+                        }
+                    }, (err) => {
+                        this.loader = false;
+                        this.orderError = err.error.replace(/"/g, '');
+                        this.flag = true;
+                        setTimeout(function() {
+                            that.flag = false;
+                        }, 3000);
+                    });
+                }
             }
         }
-
-    }
