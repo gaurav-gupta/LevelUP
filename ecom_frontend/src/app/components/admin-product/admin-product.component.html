@@ -5,25 +5,29 @@
   <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
     <thead>
       <tr>
-        <th>
-          <mfDefaultSorter by="_id">ProductId</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="name">Product Name</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="category">Categories</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="price">Price</mfDefaultSorter>
-        </th>
-        <th>
-          <mfDefaultSorter by="price">Status</mfDefaultSorter>
-        </th>
+          <th>
+            <mfDefaultSorter by="txHash">Transaction Hash</mfDefaultSorter>
+          </th>
+          <th>
+              <mfDefaultSorter by="_id">ProductId</mfDefaultSorter>
+          </th>
+          <th>
+              <mfDefaultSorter by="name">Product Name</mfDefaultSorter>
+          </th>
+          <th>
+              <mfDefaultSorter by="category">Categories</mfDefaultSorter>
+          </th>
+          <th>
+              <mfDefaultSorter by="price">Price</mfDefaultSorter>
+          </th>
+          <th>
+              <mfDefaultSorter by="price">Status</mfDefaultSorter>
+          </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of mf.data">
+        <td><a target="_blank" href="https://ropsten.etherscan.io/tx/{{item?.txHash}}">{{item?.txHash}}</a></td>
         <td>{{item?._id}}</td>
         <td>{{item?.name}}</td>
         <td>{{item?.category}}</td>

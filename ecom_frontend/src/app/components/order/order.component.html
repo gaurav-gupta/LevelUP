@@ -3,6 +3,7 @@
   <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
     <thead>
       <tr>
+        <th class="disableSorting">Transaction Hash</th>
         <th class="disableSorting">Order Id</th>
         <th class="disableSorting">Product Name</th>
         <th class="disableSorting">Product Category</th>
@@ -10,10 +11,12 @@
         <th class="disableSorting">Ordered by</th>
         <th class="disableSorting">Ordered At</th>
         <th class="disableSorting">Shipping Address</th>
+        <th class="disableSorting">Status</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let item of mf.data">
+        <td><a target="_blank" href="https://ropsten.etherscan.io/tx/{{item?.txHash}}">{{item?.txHash}}</a></td>
       <td>{{item.order_number}}</td>
       <td>{{item.productsinfo[0].name}}</td>
       <td>{{item.productsinfo[0].category}}</td>
@@ -21,10 +24,8 @@
       <td>{{item.usersinfo[0].first_name}} {{item.usersinfo[0].last_name}}</td>
       <td>{{item.created_at | date: 'dd/MM/yyyy'}}</td>
       <td>{{item.address.address}}, {{item.address.city}}, {{item.address.state}}, {{item.address.pincode}}</td>
-      <td>
-</td>
-<td></td>
-</tr>
+      <td>{{item.status}}</td>
+    </tr>
 </tbody>
 <tfoot>
   <tr>

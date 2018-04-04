@@ -85,7 +85,7 @@ export function getOrdersUser(id) {
         {
             $lookup: {
                 from: "products",
-                localField: "productId",
+                localField: "product_id",
                 foreignField: "_id",
                 as: "productsinfo"
             }

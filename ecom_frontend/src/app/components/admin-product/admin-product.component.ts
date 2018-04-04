@@ -49,8 +49,10 @@ export class AdminProductComponent implements OnInit {
 
     getproducts() {
         this._productService.getProduct().subscribe(res => {
-            this.data = res;
-            this.priceDecimalValue = CodeConstants.DECIMAL;
+            if (res.length > 0) {
+                this.data = res;
+                this.priceDecimalValue = CodeConstants.DECIMAL;
+            }
         });
     }
 
@@ -80,7 +82,7 @@ export class AdminProductComponent implements OnInit {
                         that._productService.createProduct(data).subscribe(res => {
                             if (res) {
                                 that.loader = false;
-                                that._flashMessagesService.show('Product Created Successfully !!',
+                                that._flashMessagesService.show('Product created successfully and it will be available soon!!',
                                 { cssClass: 'alert-success', timeout: 7000 });
                                 that.closeBtn.nativeElement.click();
                                 that.productModel = {

@@ -84,11 +84,7 @@ export class commonHelper {
                     var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
                     if (isUnlock) {
                         i.buyProduct.sendTransaction(user.wallet_address, data.productId, data.price, address.address, address.state, address.city, address.pincode, address.phone_number, { from: CodeConstants.OWNER_ADDRESS, gas: 440000 }).then(function(f) {
-                            console.log("sendTransaction >>>>>>>>>>>>>>>>>>>>>>>")
-                            console.log(f)
-                            console.log(data)
                             productModel.getProduct({productId: data.productId}).then((product:any) => {
-                                console.log("product >>>>>>>>>>>>>", product);
                                 var orderObj = {
                                     order_number: Math.floor(Math.random()*(10000-1000+1))+1000,
                                     price: data.price,
@@ -103,8 +99,6 @@ export class commonHelper {
                                     },
                                     txHash: f
                                 }
-                                console.log("order >>>>>>>>>>>>>>>>>>>>>>")
-                                console.log(orderObj)
                                 orderModel.createOrder(orderObj).then((corder) =>{
                                     userModel.updateUser({_id: user._id}, {wallet_amount: (user.wallet_amount - data.price)}).then((updateduser) => {
                                         resolve(corder);
@@ -190,7 +184,6 @@ export class commonHelper {
     addProductToStore(data, user){
         return new Promise((resolve, reject) => {
             try{
-                console.log("addProductToStore >>>>>>>>>>>>>>")
                 LevelUp.deployed().then(function(i) {
                     var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
                     if (isUnlock) {
@@ -204,16 +197,12 @@ export class commonHelper {
                                 txHash: f
 
                             }
-                            console.log("product >>>>>>>>>>>>>>>>>>>>>>")
-                            console.log(productObj)
                             productModel.createProduct(productObj).then((cproduct) =>{
                                 resolve(cproduct);
                             }).catch((err) => {
                                 reject(err);
                             })
                         }).catch((error) => {
-                            console.log("error >>>>>>>>>>>>>>>>>>>>>>>>>")
-                            console.log(error)
                             reject(error);
                         })
                     } else {

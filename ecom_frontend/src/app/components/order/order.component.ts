@@ -19,8 +19,10 @@ export class OrderComponent implements OnInit {
     }
     getOrders() {
         this._userService.getOrders().subscribe(res => {
-            this.data = res;
-            this.priceDecimalValue = CodeConstants.DECIMAL;
+            if (res.length > 0) {
+                this.data = res;
+                this.priceDecimalValue = CodeConstants.DECIMAL;
+            }
         });
     }
 }

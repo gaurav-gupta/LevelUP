@@ -37,8 +37,6 @@ export class ProductsController{
             var data = req.body;
             var user = req.user_data[0];
             common.addProductToStore(data, user).then((response) => {
-                console.log("response >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-                console.log(response)
                 res.send(response);
             }).catch((e)=> {
                 var e = JSON.parse(JSON.stringify(e, Object.getOwnPropertyNames(e))).message;

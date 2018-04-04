@@ -7,6 +7,9 @@
   <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
     <thead>
       <tr>
+          <th>
+            <mfDefaultSorter by="_id">Publisher Id</mfDefaultSorter>
+          </th>
         <th>
           <mfDefaultSorter by="first_name">First Name</mfDefaultSorter>
         </th>
@@ -26,6 +29,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let item of mf.data">
+        <td>{{item._id}}</td>    
         <td>{{item.first_name}}</td>
         <td>{{item.last_name}}</td>
         <td>{{item.email}}</td>

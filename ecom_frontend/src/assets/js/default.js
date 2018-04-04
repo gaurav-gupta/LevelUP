@@ -13,10 +13,10 @@ style.type = 'text/css';
 style.appendChild(document.createTextNode(css));
 headTag.appendChild(style);
 
-
+var envBaseUrl = "http://13.250.35.159:3000/";
 jQuery(function(){
     $.ajax({
-        url: 'http://localhost:8080/users/'+ publisher_id +'/check',
+        url: envBaseUrl + 'users/'+ publisher_id +'/check',
         success: function(response) {
         	var user_auth_token = getCookie("user_auth_token");
         	var email = getCookie("email");
@@ -31,7 +31,7 @@ jQuery(function(){
 
     $(document).on('click', '#playButton', function(event) {
         $.ajax({
-            url: 'http://localhost:8080/users/loginModal',
+            url: envBaseUrl + 'users/loginModal',
             success: function(response) {
             	if(!$("#userBlock").length){
 	                $("#playButton").after(response);
@@ -46,7 +46,7 @@ jQuery(function(){
         $('#login').modal('hide');
         $('#login').on('hidden.bs.modal', function () {
             $.ajax({
-                url: 'http://localhost:8080/users/signUpModal',
+                url: envBaseUrl + 'users/signUpModal',
                 success: function(response) {
                     $("#userBlock").html('');
                     $("#userBlock").html(response);
@@ -67,7 +67,7 @@ jQuery(function(){
         var filter = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
         if (filter.test(email)) {
             $.ajax({
-                url: 'http://localhost:8080/users/login',
+                url: envBaseUrl + 'users/login',
                 type: "POST",
                 data: {
                     "email": email,
@@ -116,7 +116,7 @@ jQuery(function(){
                 'Authorization':'Basic ' +  btoa('token:' + user_auth_token),
                 'Content-Type':'application/json'
             },
-            url: 'http://localhost:8080/users/' + email,
+            url: envBaseUrl + 'users/' + email,
             success: function(res) {
                 $("#playButton").text('Levelup ' + res[0].wallet_amount/1000000000000000000);
                 if(check){
@@ -130,7 +130,7 @@ jQuery(function(){
 
     function setGameTime(gamer) {
         $.ajax({
-            url: 'http://localhost:8080/users/transaction',
+            url: envBaseUrl + 'users/transaction',
             type: "POST",
             data: {
                 "gamer_id": gamer._id,
@@ -161,7 +161,7 @@ jQuery(function(){
         var filter = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
         if (filter.test(email)) {
             $.ajax({
-                url: 'http://localhost:8080/users',
+                url: envBaseUrl + 'users',
                 type: "POST",
                 data: {
                     "email": email,

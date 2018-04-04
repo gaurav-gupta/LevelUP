@@ -31,7 +31,7 @@ export class UserTransactionComponent implements OnInit, OnDestroy  {
                     this.data = response;
                     this.priceDecimalValue = CodeConstants.DECIMAL;
                 } else {
-                    this._flashMessagesService.show('No Transaction Placed Yet !!', { cssClass: 'alert-success', timeout: 7000 });
+                    this._flashMessagesService.show('No Transaction Placed Yet !!', { cssClass: 'alert-success', timeout: 4000 });
                 }
                  this.changeDetectorRef.detectChanges();
             });
