@@ -17,27 +17,23 @@ export class productHelper {
         descLink: data._descLink,
         price: data._price
       }
-      productModel.getProduct({productId: parseInt(obj.productId)}).then((response:any) => {
-        if(response.length == 0){
-          productModel.createProduct(obj).then(response => {
-            var lobj = {
-                dtype: "Add_Product_To_Store_Log",
-                logs: result,
-                created_at: new Date(),
-                reference_id: data._productId,
-                block_hash: result.blockHash,
-                transaction_hash: result.transactionHash
-              }
-              logModel.createLogs(lobj).then(f => {
-                console.log("product created successfully", response);
-              }).catch((err) => {
-                throw err;
-              })
+      productModel.updateProduct({txHash: result.transactionHash}, {productId: data._productId, status: "Approved"}).then(response => {
+        var lobj = {
+            dtype: "Add_Product_To_Store_Log",
+            logs: result,
+            created_at: new Date(),
+            reference_id: data._productId,
+            block_hash: result.blockHash,
+            transaction_hash: result.transactionHash
+          }
+          logModel.createLogs(lobj).then(f => {
+            console.log("product created successfully", response);
+          }).catch((err) => {
+            throw err;
           })
-        }else{
-          console.log("product already created .jj...........")
-        }
-      });
+      }).catch((err) => {
+        console.log("updateProduct >>>>>>>>>>>", err);  
+      }) 
     } catch(err){
       console.log("saveProduct >>>>>>>>>>>", err);
     }
