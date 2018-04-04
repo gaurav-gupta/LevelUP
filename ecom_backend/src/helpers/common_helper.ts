@@ -83,18 +83,45 @@ export class commonHelper {
                 LevelUp.deployed().then(function(i) {
                     var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
                     if (isUnlock) {
-                        resolve(i.buyProduct(user.wallet_address, data.productId, data.price, address.address, address.state, address.city, address.pincode, address.phone_number, { from: CodeConstants.OWNER_ADDRESS, gas: 440000 }));
-                        // .then(function(f) {
-                        //     return resolve(f);
-                        // }).catch((e) => {
-                        //     return reject(e)
-                        // })
+                        i.buyProduct.sendTransaction(user.wallet_address, data.productId, data.price, address.address, address.state, address.city, address.pincode, address.phone_number, { from: CodeConstants.OWNER_ADDRESS, gas: 440000 }).then(function(f) {
+                            console.log("sendTransaction >>>>>>>>>>>>>>>>>>>>>>>")
+                            console.log(f)
+                            console.log(data)
+                            productModel.getProduct({productId: data.productId}).then((product:any) => {
+                                console.log("product >>>>>>>>>>>>>", product);
+                                var orderObj = { 
+                                    order_number: Math.floor(Math.random()*(10000-1000+1))+1000,
+                                    price: data.price,
+                                    customer_id: user._id,
+                                    product_id: product[0]._id,
+                                    address:{
+                                        address: address.address,
+                                        state: address.state,
+                                        city: address.city,
+                                        pincode: address.pincode,
+                                        phone_number: address.phone_number
+                                    },
+                                    txHash: f
+                                }
+                                console.log("order >>>>>>>>>>>>>>>>>>>>>>")
+                                console.log(orderObj)
+                                orderModel.createOrder(orderObj).then((corder) =>{
+                                    resolve(corder);
+                                }).catch((err) => {
+                                    reject(err);
+                                })
+                            })
+                        }).catch((e) => {
+                            reject(e)
+                        })
+                    } else {
+                        reject("Your account is locked ..");
                     }
                 }).catch((err) => {
-                    return reject(err)
+                    reject(err)
                 })
             } catch (e) {
-                return reject(e)
+                reject(e)
             }
         });
     }
