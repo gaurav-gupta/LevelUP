@@ -36,17 +36,15 @@ export class ProductsController{
         try {
             var data = req.body;
             var user = req.user_data[0];
-            console.log("user >>>>>>>>>>>>>>>>>>>>>>>>")
-            console.log(user)
             common.addProductToStore(data, user).then((response) => {
-                console.log("response >>>>>>>>>>>>>>>>>>>>>", response)
+                console.log("response >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+                console.log(response)
                 res.send(response);
             }).catch((e)=> {
-                // var e = JSON.parse(JSON.stringify(e, Object.getOwnPropertyNames(e))).message;
-                console.log("e >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-                console.log(e)
+                var e = JSON.parse(JSON.stringify(e, Object.getOwnPropertyNames(e))).message;
                 res.status(400).json(e);
             })
+            // res.status(200).json({msg: "Transcation is created and your product will avilable soon."});
         } catch (err) {
             res.status(400).json(err);
         }

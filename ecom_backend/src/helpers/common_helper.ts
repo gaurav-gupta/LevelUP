@@ -83,11 +83,12 @@ export class commonHelper {
                 LevelUp.deployed().then(function(i) {
                     var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
                     if (isUnlock) {
-                        i.buyProduct(user.wallet_address, data.productId, data.price, address.address, address.state, address.city, address.pincode, address.phone_number, { from: CodeConstants.OWNER_ADDRESS, gas: 440000 }).then(function(f) {
-                            return resolve(f);
-                        }).catch((e) => {
-                            return reject(e)
-                        })
+                        resolve(i.buyProduct(user.wallet_address, data.productId, data.price, address.address, address.state, address.city, address.pincode, address.phone_number, { from: CodeConstants.OWNER_ADDRESS, gas: 440000 }));
+                        // .then(function(f) {
+                        //     return resolve(f);
+                        // }).catch((e) => {
+                        //     return reject(e)
+                        // })
                     }
                 }).catch((err) => {
                     return reject(err)
@@ -162,17 +163,30 @@ export class commonHelper {
                 LevelUp.deployed().then(function(i) {
                     var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
                     if (isUnlock) {
-                        console.log("addProductToStore >>>>>>>>>>>>>>", data)
-                        i.addProductToStore(data.product_name, data.selectName, data.imageLink, data.descLink, (data.Price * CodeConstants.DECIMAL), { from: CodeConstants.OWNER_ADDRESS, gas: 440000 }).then(function(f) {
-                            if (f) {
-                                console.log("addProductToStore >>>>>>>>>>>>>>", f)
-                                resolve(f);
+                        i.addProductToStore.sendTransaction(data.product_name, data.selectName, data.imageLink, data.descLink, (data.Price * CodeConstants.DECIMAL), { from: CodeConstants.OWNER_ADDRESS, gas: 440000 }).then(function(f) {
+                            var productObj = {
+                                name: data.product_name,
+                                category: data.selectName,
+                                imageLink: data.imageLink,
+                                descLink: data.descLink,
+                                price: (data.Price * CodeConstants.DECIMAL),
+                                txHash: f
+
                             }
+                            console.log("product >>>>>>>>>>>>>>>>>>>>>>")
+                            console.log(productObj)
+                            productModel.createProduct(productObj).then((cproduct) =>{
+                                resolve(cproduct);
+                            }).catch((err) => {
+                                reject(err);
+                            })
                         }).catch((error) => {
                             console.log("error >>>>>>>>>>>>>>>>>>>>>>>>>")
                             console.log(error)
                             reject(error);
                         })
+                    } else {
+                        reject("Your account is locked ..");
                     }
                 }).catch((error) => {
                     reject(error);

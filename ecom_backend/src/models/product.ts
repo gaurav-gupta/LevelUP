@@ -8,7 +8,9 @@ var productSchema = new Schema({
     category: { type: String },
     imageLink: { type: String },
     descLink: { type: String },
-    price: { type: Number }
+    price: { type: Number },
+    txHash: { type: String },
+    status: { type: String, default: 'Pending' }
 });
 
 export var productModel = mongoose.model('products', productSchema);
@@ -43,3 +45,13 @@ export function createProduct (data) {
         });
     });
 }
+
+export function updateProduct(condition, data: any ){
+    return new Promise((resolve, reject) => {
+        productModel.findOneAndUpdate(condition, data).then(function (doc) {
+            resolve(doc);
+        }).catch(e=>{
+            reject(e);
+        });
+    });
+};

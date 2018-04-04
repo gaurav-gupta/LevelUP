@@ -17,7 +17,9 @@ var orderSchema = new Schema({
         city:{ type: String , required: true},
         pincode:{ type: String ,required: true},
         phone_number:{ type: String ,required: true}
-    }
+    },
+    txHash: { type: String },
+    status: { type: String, default: 'pending' }
 });
 
 export var orderModel = mongoose.model('orders', orderSchema);
