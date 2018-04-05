@@ -8,10 +8,7 @@ export class ApprovedPipe implements PipeTransform  {
         if (objects) {
             return objects.filter(object => {
                 if (object.status) {
-                return object.status === 'Approved';
-                }
-                if (object.roles) {
-                return object.roles === 'user';
+                    return object.status === 'Approved';
                 }
             });
         }

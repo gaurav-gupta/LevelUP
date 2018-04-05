@@ -37,9 +37,9 @@ export function getUser(condition) {
     });
 };
 
-export function getAllUser() {
+export function getAllUser(condition) {
     return new Promise((resolve, reject) => {
-        userModel.find().then(function (doc) {
+        userModel.find(condition).then(function (doc) {
             resolve(doc);
         }).catch(e=>{
             reject(e);

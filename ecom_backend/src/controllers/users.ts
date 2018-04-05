@@ -198,7 +198,7 @@ export class userController {
     //get all user
     getAllUser(req,res,next){
         try{
-            userModel.getAllUser().then(response =>{
+            userModel.getAllUser({ roles: "user" }).then(response =>{
                 if(response){
                     res.send(response);
                 }else {
