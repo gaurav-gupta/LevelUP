@@ -18,7 +18,9 @@ export class AdminComponent implements OnInit {
 
     getUsers() {
         this._userService.getUsers().subscribe(res => {
-            this.data = res;
+            if (res.length > 0) {
+                this.data = res;
+            }
         }, (err) => {
             console.log('error....', err);
         });

@@ -1,6 +1,6 @@
 <app-nav-bar></app-nav-bar>
 <div class="container">
-  <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
+  <table class="table table-striped" [mfData]="data | approvedPipe" #mf="mfDataTable" [mfRowsOnPage]="10">
     <thead>
       <tr>
         <th>
@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of mf.data ">
+      <tr *ngFor="let item of mf.data">
         <td>{{item.first_name}}</td>
         <td>{{item.last_name}}</td>
         <td>{{item.email}}</td>
