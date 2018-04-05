@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-var ObjectId = mongoose.Types.ObjectId;
 var Schema = mongoose.Schema;
 
 var orderSchema = new Schema({
@@ -45,9 +44,9 @@ export function updateOrder (condition, data){
     });
 };
 
-export function getOrders (){
+export function getOrders(condition) {
     return new Promise((resolve, reject) => {
-        orderModel.aggregate([{
+        orderModel.aggregate([{$match: condition }, {
             $lookup: {
                 from: "users",
                 localField: "customer_id",
@@ -69,41 +68,4 @@ export function getOrders (){
         reject(e);
     });
 });
-};
-
-export function getOrdersUser(id) {
-    return new Promise((resolve, reject) => {
-        var user_id = new ObjectId(id);
-        orderModel.aggregate([{$match: { customer_id: user_id } }, {
-            $lookup: {
-                from: "users",
-                localField: "customer_id",
-                foreignField: "_id",
-                as: "usersinfo"
-            }
-        },
-        {
-            $lookup: {
-                from: "products",
-                localField: "product_id",
-                foreignField: "_id",
-                as: "productsinfo"
-            }
-        }
-    ]).then(res => {
-        resolve(res);
-    }).catch(e => {
-        reject(e);
-    });
-});
-}
-
-export function getOrder(cond) {
-    return new Promise((resolve, reject) => {
-        orderModel.find(cond).then(doc => {
-            resolve(doc);
-        }).catch(e => {
-            reject (e);
-        });
-    });
 }

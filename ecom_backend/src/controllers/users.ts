@@ -198,7 +198,7 @@ export class userController {
     //get all user
     getAllUser(req,res,next){
         try{
-            userModel.getAllUser({ roles: "user" }).then(response =>{
+            userModel.getUser({ roles: "user" }).then(response =>{
                 if(response){
                     res.send(response);
                 }else {
@@ -253,7 +253,7 @@ export class userController {
                 if(!data.length){
                     bcrypt.hash(req.body.password, 10).then(hash =>{
                         req.body.password =  hash;
-                        userModel.createPublisher(req.body).then(response =>{
+                        userModel.createUser(req.body).then(response =>{
                             if(response) {
                                 common.assignLevelUpToPublisher(response, password, token);
                                 res.send(response);
@@ -276,7 +276,7 @@ export class userController {
         try{
             req.url = req.url.split('/')[1];
             var data =  {"roles" : req.url};
-            userModel.getPublisher(data).then(response =>{
+            userModel.getUser(data).then(response =>{
                 if(response){
                     res.send(response);
                 }else{

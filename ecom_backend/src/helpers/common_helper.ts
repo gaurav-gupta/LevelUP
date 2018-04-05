@@ -8,13 +8,11 @@ import * as orderModel from './../models/order';
 import * as productModel from './../models/product';
 import * as LogModel from './../models/level_up_log';
 import  { orderHelper }  from './order_helper';
-import  { userHelper }  from './user_helper';
 import  { productHelper }  from './product_helper';
 var web3 = new Web3( new Web3.providers.HttpProvider("http://13.250.35.159:8545"));
 var LevelUp = contract(CodeConstants.LevelUp);
 LevelUp.setProvider(web3.currentProvider);
 var ordersHelper = new orderHelper();
-var usersHelper = new userHelper();
 var productsHelper = new productHelper();
 
 export class commonHelper {
@@ -84,7 +82,7 @@ export class commonHelper {
                     var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
                     if (isUnlock) {
                         i.buyProduct.sendTransaction(user.wallet_address, data.productId, data.price, address.address, address.state, address.city, address.pincode, address.phone_number, { from: CodeConstants.OWNER_ADDRESS, gas: 440000 }).then(function(f) {
-                            productModel.getProduct({productId: data.productId}).then((product:any) => {
+                            productModel.getProducts({productId: data.productId}).then((product:any) => {
                                 var orderObj = {
                                     order_number: Math.floor(Math.random()*(10000-1000+1))+1000,
                                     price: data.price,

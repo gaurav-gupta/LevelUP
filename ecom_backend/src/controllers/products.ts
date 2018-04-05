@@ -5,10 +5,10 @@ import { commonHelper  } from '../helpers/common_helper';
 var common = new commonHelper;
 export class ProductsController{
     //get product
-    getProduct (req, res, next){
+    getProduct(req, res, next) {
         try {
             let id = req.params.id;
-            productModel.getProduct({_id: id}).then(response => {
+            productModel.getProducts({_id: id}).then(response => {
                 if(response) {
                     res.send(response);
                 }
@@ -19,9 +19,9 @@ export class ProductsController{
     }
 
     //get products
-    getAllProduct(req,res,next){
+    getAllProduct(req,res,next) {
         try {
-            productModel.getAllProduct().then(response => {
+            productModel.getProducts({}).then(response => {
                 if(response){
                     res.send(response);
                 }

@@ -4,10 +4,13 @@ import * as  userModel  from './../models/user';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import * as _ from 'underscore';
+import * as mongoose from 'mongoose';
 import * as appConstant from './../../config/config';
 import { CodeConstants } from '../interfaces/code_constants';
 import { commonHelper  }from '../helpers/common_helper';
+var ObjectId = mongoose.Types.ObjectId;
 var common = new commonHelper;
+
 export class orderController {
     //create order
     createOrder(req, res, next) {
@@ -45,7 +48,7 @@ export class orderController {
     //get orders
     getOrders(req,res,next){
         try {
-            orderModel.getOrders().then(response =>{
+            orderModel.getOrders({}).then(response =>{
                 if(response){
                     res.send(response);
                 }
@@ -59,7 +62,8 @@ export class orderController {
     getOrdersUser(req,res,next){
         try {
             let id = req.params.id;
-            orderModel.getOrdersUser(id).then(response =>{
+            var user_id = new ObjectId(id);
+            orderModel.getOrders({customer_id: user_id}).then(response =>{
                 res.send(response);
             });
         }catch(error){

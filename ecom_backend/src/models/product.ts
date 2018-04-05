@@ -15,19 +15,9 @@ var productSchema = new Schema({
 
 export var productModel = mongoose.model('products', productSchema);
 
-export function getProduct (cond){
+export function getProducts(condition){
     return new Promise((resolve, reject) => {
-        productModel.find(cond).then(function (doc) {
-            resolve(doc);
-        }).catch(e=>{
-            reject(e);
-        });
-    });
-};
-
-export function getAllProduct (){
-    return new Promise((resolve, reject) => {
-        productModel.find().then(function (doc) {
+        productModel.find(condition).then(function (doc) {
             resolve(doc);
         }).catch(e=>{
             reject(e);

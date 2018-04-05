@@ -37,16 +37,6 @@ export function getUser(condition) {
     });
 };
 
-export function getAllUser(condition) {
-    return new Promise((resolve, reject) => {
-        userModel.find(condition).then(function (doc) {
-            resolve(doc);
-        }).catch(e=>{
-            reject(e);
-        });
-    });
-};
-
 export function updateUser(condition, data: any ){
     return new Promise((resolve, reject) => {
         userModel.findOneAndUpdate(condition, data).then(function (doc) {
@@ -60,27 +50,6 @@ export function updateUser(condition, data: any ){
 export function deleteUser (condition){
     return new Promise((resolve, reject) => {
         userModel.findOneAndRemove(condition).then(function (doc) {
-            resolve(doc);
-        }).catch(e=>{
-            reject(e);
-        });
-    });
-};
-
-export async function createPublisher(data){
-    var obj = new userModel(data);
-    return new Promise((resolve, reject) => {
-        obj.save().then(function (doc) {
-            resolve(doc);
-        }).catch(e=>{
-            reject(e);
-        });
-    });
-};
-
-export function getPublisher(data) {
-    return new Promise((resolve, reject) => {
-        userModel.find(data).then(function (doc) {
             resolve(doc);
         }).catch(e=>{
             reject(e);

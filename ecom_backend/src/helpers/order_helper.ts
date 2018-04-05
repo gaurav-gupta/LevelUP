@@ -2,11 +2,8 @@ import * as userModel from './../models/user';
 import * as orderModel from './../models/order';
 import * as productModel from './../models/product';
 import * as logModel from './../models/level_up_log';
-import { userHelper } from './user_helper';
 export class orderHelper {
-    private userhelper: userHelper;
     constructor() {
-        this.userhelper = new userHelper();
     }
 
     createOrder(result) {
@@ -21,8 +18,6 @@ export class orderHelper {
                     block_hash: result.blockHash,
                     transaction_hash: result.transactionHash
                 }
-                console.log("buy object >>>>>>>>>>>>> Lobj")
-                console.log(Lobj)
                 logModel.createLogs(Lobj).then(function(log) {
                 }).catch((error) => {
                     throw new Error(error);

@@ -13,7 +13,7 @@ export function ValidateAuthToken(req,res,next) {
             jwt.verify(token, 'shhhhh', function(err, decoded) {
                 if(err){
                     return res.status(401).json({"status": CodeConstants.FAILURE, "msg": CodeConstants.INVALID_TOKEN});
-                }else{                    
+                }else{
                     userModel.getUser({email: decoded.email}).then(response =>{
                         if(response){
                             req.user_data = response;
@@ -24,10 +24,10 @@ export function ValidateAuthToken(req,res,next) {
                     });
                 }
             });
-        }catch(e){
+        } catch(e) {
             return res.status(401).json(e);
         }
-    }else {
+    } else {
         return res.status(401).json({"status": CodeConstants.FAILURE, "msg": CodeConstants.TOKEN_REQUIRED});
     }
 }
