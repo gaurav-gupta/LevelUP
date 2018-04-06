@@ -13,12 +13,13 @@ style.type = 'text/css';
 style.appendChild(document.createTextNode(css));
 headTag.appendChild(style);
 
-// var envBaseUrl = "http://13.250.35.159:8080/";
-var envBaseUrl = "http://localhost:8080/";
+var envBaseUrl = "http://13.250.35.159:8080/";
+// var envBaseUrl = "http://localhost:8080/";
 jQuery(function(){
     $.ajax({
         url: envBaseUrl + 'users/'+ publisher_id +'/check',
         success: function(response) {
+        	$('body').prepend('<button type="button" id="playButton" class="btn-primary">Play</button>')
         	start();
         },error: function(error){
             alert("That publisher not exists");
@@ -154,7 +155,7 @@ function getUser(email, user_auth_token, check) {
         success: function(res) {
             $("#playButton").text('Levelup ' + res[0].wallet_amount/1000000000000000000);
             if(check){
-            	setTimeout(setGameTime, 30000, res[0]);
+            	setTimeout(setGameTime, 60000, res[0]);
             }
         }, error: function (error) {
             $('.validationError').text("Error : " + error.responseText.replace(/"/g, ''));
@@ -173,7 +174,7 @@ function setGameTime(gamer) {
         success: function(response) {
         	var user_auth_token = getCookie("user_auth_token");
     		var email = getCookie("email");
-            setTimeout(setGameTime, 30000, gamer);
+            setTimeout(setGameTime, 60000, gamer);
     		getUser(email, user_auth_token, false)
         }, error: function (error) {
             console.log(error);
@@ -182,18 +183,9 @@ function setGameTime(gamer) {
 }
 
 function start(){
-	console.log("ssssssssssssssssssssssssss")
 	var user_auth_token = getCookie("user_auth_token");
 	var email = getCookie("email");
-	console.log("ssssssssssssssssssssssssss")
-   	$('body').prepend('<button type="button" id="playButton" class="btn-primary">Play</button>')
-	console.log("ssssssssssssssssssssssssss", userLoggedIn)
-	console.log("email >>>>>>>>>>>", email)
-	console.log("user_auth_token >>>>>>>>>>>", user_auth_token)
-	// user_auth_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cmFqbWVodGEuMTI1QGdtYWlsLmNvbSIsImlkIjoiNWFjMzFiYmFlZGUzZTAxNDE4NTljN2ZiIiwiaWF0IjoxNTIyOTI3MDI5fQ.FJ7yFrjHYygEs-dUGdidUbD-pbFLiM7GG7UyaietRpQ";
-	// email = "surajmehta.125@gmail.com";
 	if(email && user_auth_token) {
-		console.log("sssssssssd hello llllllllllllllllllllllll");
 		getUser(email, user_auth_token, userLoggedIn);
 		userLoggedIn = true;
 	}

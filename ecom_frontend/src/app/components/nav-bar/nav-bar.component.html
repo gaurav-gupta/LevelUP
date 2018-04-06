@@ -18,7 +18,7 @@
       </ng-container>
       <ng-container>
         <li><a *ngIf="!admin && uncheck" [routerLink]="['/userOrder']"><b>My Order</b></a></li>
-        <!-- <li><a *ngIf="!admin && uncheck" [routerLink]="['/userTransaction']"><b>My Transaction</b></a></li> -->
+        <li><a *ngIf="!admin && uncheck" [routerLink]="['/userTransaction']"><b>My Transaction</b></a></li>
       </ng-container>
       <li><a *ngIf="uncheck" (click)=logout()><b>Sign Out</b></a></li>
     </ul>

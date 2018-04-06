@@ -252,7 +252,7 @@ export class commonHelper {
                     var isUnlock = web3.personal.unlockAccount(CodeConstants.OWNER_ADDRESS, CodeConstants.OWNER_PASSWORD, 500)
                     if (isUnlock) {
                         var assignToken = 1 * CodeConstants.DECIMAL;
-                        i.transferFrom(publisher.wallet_address, gamer.wallet_address, assignToken, { from: CodeConstants.OWNER_ADDRESS, gas: 440000 }).then(function(f) {
+                        i.transferFrom.sendTransaction(publisher.wallet_address, gamer.wallet_address, assignToken, { from: CodeConstants.OWNER_ADDRESS, gas: 600000 }).then(function(f) {
                             resolve(f);
                         }).catch((err) => {
                             reject(err);
