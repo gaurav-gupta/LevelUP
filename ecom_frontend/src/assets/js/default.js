@@ -19,7 +19,7 @@ jQuery(function(){
     $.ajax({
         url: envBaseUrl + 'users/'+ publisher_id +'/check',
         success: function(response) {
-        	$('body').prepend('<button type="button" id="playButton" class="btn-primary">Play</button>')
+        	$('body').prepend('<button type="button" id="playButton" class="btn-primary">Level UP</button>')
         	start();
         },error: function(error){
             alert("That publisher not exists");
