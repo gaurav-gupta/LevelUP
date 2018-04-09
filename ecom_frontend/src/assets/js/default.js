@@ -19,23 +19,11 @@ jQuery(function(){
     $.ajax({
         url: envBaseUrl + 'users/'+ publisher_id +'/check',
         success: function(response) {
-        	$('body').prepend('<button type="button" id="playButton" class="btn-primary">Level UP</button>')
+        	$('body').prepend('<button type="button" id="playButton" class="btn-primary" onClick="openLoginModal()">Level UP</button>')
         	start();
         },error: function(error){
             alert("That publisher not exists");
         }
-    });
-
-    $(document).on('click', '#playButton', function(event) {
-        $.ajax({
-            url: envBaseUrl + 'users/loginModal',
-            success: function(response) {
-            	if(!$("#userBlock").length){
-	                $("#playButton").after(response);
-            	}
-	            $("#login").modal('show');
-            }
-        });
     });
 
     // get signUp modal
@@ -74,9 +62,9 @@ jQuery(function(){
                     alert('User Successfully Login !!');
                     $('#login').modal('hide');
                     getUser(response.email, response.user_auth_token, false);
-                    console.log(response);
                     setCookie(response);
                     userLoggedIn = true;
+                    $('#playButton').removeAttr('onclick');
                 }, error: function (error) {
                     $('.validationError').text("Error : " + error.responseText.replace(/"/g, ''));
                 }
@@ -178,6 +166,18 @@ function setGameTime(gamer) {
     		getUser(email, user_auth_token, false)
         }, error: function (error) {
             console.log(error);
+        }
+    });
+}
+
+function openLoginModal(){
+    $.ajax({
+        url: envBaseUrl + 'users/loginModal',
+        success: function(response) {
+        	if(!$("#userBlock").length){
+                $("#playButton").after(response);
+        	}
+            $("#login").modal('show');
         }
     });
 }
