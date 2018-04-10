@@ -143,7 +143,7 @@ function getUser(email, user_auth_token, check) {
         success: function(res) {
             $("#playButton").text('Levelup ' + res[0].wallet_amount/1000000000000000000);
             if(check){
-            	setTimeout(setGameTime, 60000, res[0]);
+            	setGameTime(user_auth_token);
             }
         }, error: function (error) {
             $('.validationError').text("Error : " + error.responseText.replace(/"/g, ''));
@@ -151,19 +151,20 @@ function getUser(email, user_auth_token, check) {
     });
 }
 
-function setGameTime(gamer) {
+function setGameTime(user_auth_token) {
     $.ajax({
         url: envBaseUrl + 'users/transaction',
-        type: "POST",
+        type: "put",
         data: {
-            "gamer_id": gamer._id,
             "publisher_id": publisher_id
         },
+        headers: {
+            'Authorization': 'Basic ' +  btoa('token:' + user_auth_token)
+        },
         success: function(response) {
-        	var user_auth_token = getCookie("user_auth_token");
-    		var email = getCookie("email");
-            setTimeout(setGameTime, 60000, gamer);
-    		getUser(email, user_auth_token, false)
+			var email = getCookie("email");
+            var user_auth_token = getCookie("user_auth_token");
+            getUser(email, user_auth_token, false);
         }, error: function (error) {
             console.log(error);
         }
@@ -186,7 +187,9 @@ function start(){
 	var user_auth_token = getCookie("user_auth_token");
 	var email = getCookie("email");
 	if(email && user_auth_token) {
-		getUser(email, user_auth_token, userLoggedIn);
+		if(userLoggedIn){
+			setGameTime(user_auth_token);
+		}
 		userLoggedIn = true;
 	}
 }

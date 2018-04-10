@@ -143,18 +143,14 @@ export class userController {
     userTransaction(req, res, next) {
         try {
             let publisher_id = req.body.publisher_id;
-            let gamer_id = req.body.gamer_id;
+            let gamer = req.user_data[0];
             userModel.getUser({_id: publisher_id, roles: "publisher"}).then((publisher:any) =>{
                 if(publisher.length){
-                    userModel.getUser({_id: gamer_id}).then((gamer:any) =>{
-                        if(gamer.length){
-                            common.updateUserToken(publisher[0], gamer[0]).then((response) => {
-                                res.send(response);
-                            }).catch((err) => {
-                                res.status(400).json(err);
-                            });
-                        }
-                    })
+                    common.updateUserToken(publisher[0], gamer).then((response) => {
+                        res.send(response);
+                    }).catch((err) => {
+                        res.status(400).json(err);
+                    });
                 } else {
                     res.status(400).json("Publsiher not present...");
                 }
