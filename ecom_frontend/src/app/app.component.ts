@@ -118,7 +118,8 @@ export class AppComponent implements OnInit {
                     password : this.password
                 };
                 this._dashAuthService.signUpUser(data).subscribe(res => {
-                    this._flashMessagesService.show('User created successfully !!', { cssClass: 'alert-success', timeout: 4000 });
+                    this._flashMessagesService.show('User created successfully !!', { cssClass: 'alert-success',
+                    timeout: 4000, showCloseBtn: true });
                     this.closeBtnSignUp.nativeElement.click();
                     email.value = '';
                     password.value = '';

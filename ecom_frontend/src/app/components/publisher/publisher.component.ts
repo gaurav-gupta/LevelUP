@@ -63,7 +63,8 @@ export class PublisherComponent implements OnInit {
                         this.data.push(res);
                         this.loader = false;
                         this.closeBtn.nativeElement.click();
-                        this._flashMessagesService.show('Publisher Created Successfully !!', { cssClass: 'alert-success', timeout: 4000 });
+                        this._flashMessagesService.show('Publisher Created Successfully !!', { cssClass: 'alert-success',
+                         timeout: 4000, showCloseBtn: true });
                         this.publisherModel = {};
                     }
                 }, (err) => {
