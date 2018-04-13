@@ -201,7 +201,7 @@ function start(){
 function socket() {
     var socket = io.connect(envSocketUrl);
     socket.on('userInfo', (data)=> {
-        if(Object.keys(data.userInfo).length > 0) {
+        if((Object.keys(data.userInfo).length > 0)&&(data.userInfo.email == email)) {
            $("#playButton").text('Levelup ' + data.userInfo.wallet_amount/1000000000000000000);
         }
     });
