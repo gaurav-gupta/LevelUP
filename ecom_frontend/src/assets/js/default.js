@@ -115,7 +115,7 @@ jQuery(function(){
             return;
         }
     });
-    setTimeout(socket, 20000);
+    setTimeout(socket, 10000);
 });
 
 function setCookie(response) {
@@ -166,9 +166,6 @@ function setGameTime(user_auth_token) {
             'Authorization': 'Basic ' +  btoa('token:' + user_auth_token)
         },
         success: function(response) {
-			var email =  getCookie("email")
-            var user_auth_token = getCookie("user_auth_token");
-            getUser(email, user_auth_token);
         }, error: function (error) {
             console.log(error);
         }
@@ -193,8 +190,11 @@ function start(){
 	if(email && user_auth_token) {
 		if(userLoggedIn){
 			setGameTime(user_auth_token);
+		}else{
+			getUser(email, user_auth_token);
+			$('#playButton').removeAttr('onclick');
+			userLoggedIn = true;
 		}
-		userLoggedIn = true;
 	}
 }
 
