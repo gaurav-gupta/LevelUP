@@ -7,6 +7,11 @@ jqTag.type = 'text/javascript';
 jqTag.src = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
 headTag.appendChild(jqTag);
 
+var ioTag = document.createElement('script');
+ioTag.type = 'text/javascript';
+ioTag.src = 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js';
+headTag.appendChild(ioTag);
+
 var style = document.createElement('style');
 var css = '#userBlock .modal-open .modal {overflow-x: hidden;overflow-y: auto;} #userBlock { padding: 0;margin: 0;font: normal 14px Arial;color: #656D78;line-height: 20px;} #userBlock .modal {display: none; overflow: hidden; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1050; -webkit-overflow-scrolling: touch; outline: 0;}#userBlock .fade { opacity: 0; -webkit-transition: opacity .15s linear; -moz-transition: opacity .15s linear; -o-transition: opacity .15s linear; transition: opacity .15s linear;}#userBlock .fade.in { opacity: 1;}#userBlock .modal.in .modal-dialog { -webkit-transform: translate(0,0); -ms-transform: translate(0,0); -o-transform: translate(0,0); transform: translate(0,0);}#userBlock .modal.fade .modal-dialog { -webkit-transform: translate(0,-25%); -ms-transform: translate(0,-25%); -o-transform: translate(0,-25%); transform: translate(0,-25%); -webkit-transition: -webkit-transform .3s ease-out; -moz-transition: -moz-transform .3s ease-out; -o-transition: -o-transform .3s ease-out; transition: transform .3s ease-out;}#userBlock .modal-dialog { position: relative; width: auto; margin: 10px; }#userBlock .modal-content { position: relative; background-color: #fff; border: 1px solid #999; border: 1px solid rgba(0,0,0,.2); border-radius: 3px; -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5); box-shadow: 0 3px 9px rgba(0,0,0,.5); background-clip: padding-box; outline: 0;box-shadow: 0 5px 15px rgba(0,0,0,.5);}#userBlock .text-align-center, .text-center { text-align: center!important; }#userBlock .modal-header {  padding: 15px; border-bottom: 1px solid #e5e5e5;}#userBlock .wrapper { margin-top: 30px;margin-bottom: 80px;}#userBlock .form-signin { max-width: 380px; padding: 15px 35px 45px; margin: 0 auto;background-color: #fff;border: 1px solid rgba(0,0,0,0.1);}#userBlock h2 {letter-spacing: -1px; font-size: 22px; margin: 20px 0; line-height: normal;}#userBlock label {display: inline-block; max-width: 100%; margin-bottom: 5px; font-weight: 700;}#userBlock .form-control {display: block;width: 100%;height: 32px;padding: 6px 12px;font-size: 13px;line-height: 1.42857143;color: #555;background-color: #fff; background-image: none; border: 1px solid #ccc; border-radius: 0;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075); box-shadow: inset 0 1px 1px rgba(0,0,0,.075); -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s; -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;}#userBlock .form-control, #userBlock .input-lg, #userBlock .input-sm, #userBlock .input-xs {border-radius: 0!important; -webkit-border-radius: 0!important;-moz-border-radius: 0!important;}.modal-backdrop { position: fixed; top: 0;right: 0;bottom: 0;left: 0;z-index: 1040;background-color: #000;}.modal-backdrop.in {opacity: .5;filter: alpha(opacity=50);}#userBlock .btn { display: inline-block;margin-bottom: 0;font-weight: 400;text-align: center;vertical-align: middle;touch-action: manipulation; cursor: pointer;background-image: none;border: 1px solid transparent;white-space: nowrap;padding: 6px 12px;font-size: 13px;line-height: 1.42857143;border-radius: 2px; -webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;border-radius: 2px;-webkit-border-radius: 2px;-moz-border-radius: 2px;box-shadow: inset 0 -2px 0 rgba(0,0,0,.05);-moz-box-shadow: inset 0 -2px 0 rgba(0,0,0,.05);-webkit-box-shadow: inset 0 -2px 0 rgba(0,0,0,.05);}#userBlock .btn-primary {color: #fff;background-color: #3276b1;border-color: #2c699d;}#userBlock .btn-group-lg>.btn, #userBlock .btn-lg {padding: 10px 16px;font-size: 17px;line-height: 1.33;border-radius: 3px;}#userBlock .btn-block {display: block;width: 100%;}#userBlock a {color: #3276b1;text-decoration: none;}#userBlock .modal-header .close { margin-top: -2px;}#userBlock button.close {padding: 0;cursor: pointer;background: 0 0;border: 0; -webkit-appearance: none;}#userBlock .close {float: right;font-size: 19.5px;font-weight: 700;line-height: 1;color: #000;text-shadow: 0 1px 0 #fff;opacity: .2;filter: alpha(opacity=20);}#userBlock h2 {letter-spacing: -1px;font-size: 22px;margin: 20px 0;line-height: normal;font-family: "Open Sans",Arial,Helvetica,Sans-Serif;font-weight: 300;}#userBlock .modal-dialog { width: 600px;margin:140px auto}#userBlock .modal-lg {width: 900px;}#userBlock .modal-body{padding: 10px 0;}#playButton { position: absolute; top: 3px; }#playButton.btn-primary { color: #fff;background-color: #3276b1;border-color: #2c699d;padding: 5px 12px;border: none;border-radius: 3px;box-shadow: none;font-size: 14px;}#userBlock .validationError {color: red;}';
 style.type = 'text/css';
@@ -14,7 +19,9 @@ style.appendChild(document.createTextNode(css));
 headTag.appendChild(style);
 
 var envBaseUrl = "http://13.250.35.159:8080/";
+var envSocketUrl = "http://13.250.35.159:8081/";
 // var envBaseUrl = "http://localhost:8080/";
+// var envSocketUrl = "http://localhost:8081/";
 jQuery(function(){
     $.ajax({
         url: envBaseUrl + 'users/'+ publisher_id +'/check',
@@ -61,7 +68,7 @@ jQuery(function(){
                 success: function(response) {
                     alert('User Successfully Login !!');
                     $('#login').modal('hide');
-                    getUser(response.email, response.user_auth_token, false);
+                    getUser(response.email, response.user_auth_token);
                     setCookie(response);
                     userLoggedIn = true;
                     $('#playButton').removeAttr('onclick');
@@ -108,12 +115,12 @@ jQuery(function(){
             return;
         }
     });
-
-})
+    setTimeout(socket, 20000);
+});
 
 function setCookie(response) {
-    document.cookie = "user_auth_token=" + response.user_auth_token;   
-    document.cookie = "email="+ response.email;   
+    document.cookie = "user_auth_token=" + response.user_auth_token;
+    document.cookie = "email="+ response.email;
 }
 
 function getCookie(cname) {
@@ -133,7 +140,7 @@ function getCookie(cname) {
 }
 
 // get one user details
-function getUser(email, user_auth_token, check) {
+function getUser(email, user_auth_token) {
     $.ajax({
         headers: {
             'Authorization':'Basic ' +  btoa('token:' + user_auth_token),
@@ -142,9 +149,6 @@ function getUser(email, user_auth_token, check) {
         url: envBaseUrl + 'users/' + email,
         success: function(res) {
             $("#playButton").text('Levelup ' + res[0].wallet_amount/1000000000000000000);
-            if(check){
-            	setGameTime(user_auth_token);
-            }
         }, error: function (error) {
             $('.validationError').text("Error : " + error.responseText.replace(/"/g, ''));
         }
@@ -162,9 +166,9 @@ function setGameTime(user_auth_token) {
             'Authorization': 'Basic ' +  btoa('token:' + user_auth_token)
         },
         success: function(response) {
-			var email = getCookie("email");
+			var email =  getCookie("email")
             var user_auth_token = getCookie("user_auth_token");
-            getUser(email, user_auth_token, false);
+            getUser(email, user_auth_token);
         }, error: function (error) {
             console.log(error);
         }
@@ -184,12 +188,21 @@ function openLoginModal(){
 }
 
 function start(){
-	var user_auth_token = getCookie("user_auth_token");
-	var email = getCookie("email");
+	var email =  getCookie("email")
+    var user_auth_token = getCookie("user_auth_token");
 	if(email && user_auth_token) {
 		if(userLoggedIn){
 			setGameTime(user_auth_token);
 		}
 		userLoggedIn = true;
 	}
+}
+
+function socket() {
+    var socket = io.connect(envSocketUrl);
+    socket.on('userInfo', (data)=> {
+        if(Object.keys(data.userInfo).length > 0) {
+           $("#playButton").text('Levelup ' + data.userInfo.wallet_amount/1000000000000000000);
+        }
+    });
 }

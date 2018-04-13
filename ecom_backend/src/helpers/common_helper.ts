@@ -14,6 +14,9 @@ var LevelUp = contract(CodeConstants.LevelUp);
 LevelUp.setProvider(web3.currentProvider);
 var ordersHelper = new orderHelper();
 var productsHelper = new productHelper();
+var io = require('socket.io')();
+io.on('connection', function(client){});
+io.listen(8081);
 
 export class commonHelper {
     constructor() {
@@ -153,7 +156,13 @@ export class commonHelper {
                                             i.balanceOf(data.from, { from: CodeConstants.OWNER_ADDRESS, gas: 44000 }).then((fromUser) => {
                                                 userModel.updateUser({ wallet_address: data.from }, { wallet_amount: fromUser }).then((updateUser) => {})
                                                 i.balanceOf(data.to, { from: CodeConstants.OWNER_ADDRESS, gas: 44000 }).then((toUser) => {
-                                                    userModel.updateUser({ wallet_address: data.to }, { wallet_amount: toUser }).then((updateUser) => {});
+                                                    userModel.updateUser({ wallet_address: data.to }, { wallet_amount: toUser }).then((updateUser) => {
+                                                        userModel.getUser({ wallet_address: data.to}).then((getUser:any) => {
+                                                            if(getUser.length > 0){
+                                                                io.emit('userInfo', {userInfo: getUser[0]});
+                                                            }
+                                                        });
+                                                    });
                                                 }).catch((err) => {
                                                     return reject(err)
                                                 })
