@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/users.service';
 import { CodeConstants } from '../../code_constant';
-import * as moment from 'moment';
 
 @Component({
     selector: 'app-order',
