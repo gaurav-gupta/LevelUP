@@ -6,49 +6,43 @@ import { AdminComponent } from './components/admin/admin.component';
 import { OrderComponent } from './components/order/order.component';
 import { UserOrderComponent } from './components/user-order/user-order.component';
 import { AdminProductComponent } from './components/admin-product/admin-product.component';
-import { PublisherComponent } from './components/publisher/publisher.component';
 import { UserTransactionComponent } from './components/user-transaction/user-transaction.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const appRoutes: Routes = [
-  {
-    path: '',
-    component: LoginComponentComponent
-  },
-  {
-    path: 'productDetail/:_id',
-    component: ProductDetailComponent,
-  },
-  {
-    path: 'admin',
-    component: AdminComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'order',
-    component: OrderComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'userOrder',
-    component: UserOrderComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'adminproduct',
-    component: AdminProductComponent,
-    canActivate: [AuthGuard]
-},
-{
-    path: 'publisher',
-    component: PublisherComponent,
-    canActivate: [AuthGuard]
-},
-{
-    path: 'userTransaction',
-    component: UserTransactionComponent,
-    canActivate: [AuthGuard]
-}
+    {
+        path: '',
+        component: LoginComponentComponent
+    },
+    {
+        path: 'productDetail/:_id',
+        component: ProductDetailComponent,
+    },
+    {
+        path: 'admin',
+        component: AdminComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'order',
+        component: OrderComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'userOrder',
+        component: UserOrderComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'adminproduct',
+        component: AdminProductComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'userTransaction',
+        component: UserTransactionComponent,
+        canActivate: [AuthGuard]
+    }
 ];
 
 export const appRoutingProviders: any[] = [];
