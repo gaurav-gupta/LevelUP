@@ -9,7 +9,6 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { AuthGuard } from './_guards/auth.guard';
-import { ImageZoomModule } from 'angular2-image-zoom';
 import { StorageService } from './services/storage.service';
 import { DashAuthService } from './services/dashAuth.service';
 import { EditorModule } from '@tinymce/tinymce-angular';
@@ -36,7 +35,6 @@ import { TransactionComponent } from './components/transaction/transaction.compo
         routing,
         FormsModule,
         DataTableModule,
-        ImageZoomModule,
         HttpClientModule,
         HttpModule,
         EditorModule,
