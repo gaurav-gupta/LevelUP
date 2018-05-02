@@ -1,4 +1,9 @@
-ecom_frontend/node_modules
 ecom_backend/node_modules
 ecom_backend/dist
+ecom_backend/package-lock.json
+ecom_frontend/node_modules
 ecom_frontend/dist
+ecom_frontend/package-lock.json
+transaction_frontend/node_modules
+transaction_frontend/dist
+transaction_frontend/package-lock.json

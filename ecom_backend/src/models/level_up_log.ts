@@ -62,3 +62,30 @@ export function getUserTransaction (data) {
         });
     });
 }
+
+
+export function getAllTransaction (cond) {
+    return new Promise((resolve, reject) => {
+        LogsModel.aggregate([
+        {
+            $lookup: {
+                from: "users",
+                localField: "from",
+                foreignField: "wallet_address",
+                as: "usersInfoFrom"
+            }
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "to",
+                foreignField: "wallet_address",
+                as: "usersInfoTo"
+            }
+        }]).then(res => {
+            resolve(res);
+        }).catch(e=>{
+            reject(e);
+        });
+    });
+}

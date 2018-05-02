@@ -1,0 +1,53 @@
+<div class="container">
+  <h3>My Transactions</h3>
+  <table class="table table-striped" [mfData]="transactions" #mf="mfDataTable" [mfRowsOnPage]="10">
+    <thead>
+      <tr>
+        <th class="disableSorting">Transaction Hash</th>
+        <th class="disableSorting">From</th>
+        <th class="disableSorting">To</th>
+        <th class="disableSorting">Token</th>
+        <th class="disableSorting">In/Out</th>
+        <th class="disableSorting">Date/Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of mf.data">
+        <td>
+          <a target="_blank" href="https://ropsten.etherscan.io/tx/{{item.transaction_hash}}">
+            {{item.transaction_hash}}
+          </a>
+        </td>
+        <ng-container *ngIf="item.usersInfoFrom[0] != null">
+          <td>{{item.usersInfoFrom[0].first_name}} {{item.usersInfoFrom[0].last_name}}</td>
+        </ng-container>
+        <ng-container *ngIf="item.usersInfoFrom[0] == null">
+          <td>Admin</td>
+        </ng-container>
+        <ng-container *ngIf="item.usersInfoTo[0] != null">
+          <td>{{item.usersInfoTo[0].first_name}} {{item.usersInfoTo[0].last_name}}</td>
+        </ng-container>
+        <ng-container *ngIf="item.usersInfoTo[0] == null">
+          <td>Admin</td>
+        </ng-container>
+        <td>{{item.tokens/priceDecimalValue}}</td>
+        <ng-container *ngIf="item.usersInfoTo[0] == null || item.usersInfoFrom[0] == null">
+          <td>Out</td>
+        </ng-container>
+        <ng-container *ngIf="item.usersInfoTo[0] != null && item.usersInfoFrom[0] != null">
+          <td>In</td>
+        </ng-container>
+        <ng-container>
+          <td>{{item.created_at | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
+        </ng-container>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3">
+          <mfBootstrapPaginator></mfBootstrapPaginator>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

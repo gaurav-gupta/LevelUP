@@ -49,7 +49,7 @@ export class userController {
                         if(check){
                             var token = jwt.sign({ email: email, id: response[0]._id}, 'shhhhh');
                             if(token){
-                                res.send({ email: email, user_auth_token: token });
+                                res.send({ email: email, user_auth_token: token, roles: response[0].roles });
                             }
                         }else{
                             res.status(400).json(CodeConstants.PASSWORD_DO_NOT_MATCH);
@@ -152,7 +152,7 @@ export class userController {
                         res.status(400).json(err);
                     });
                 } else {
-                    res.status(400).json("Publsiher not present...");
+                    res.status(400).json("Publisher not present...");
                 }
             });
         } catch(e) {
@@ -171,6 +171,31 @@ export class userController {
                 }
             });
         } catch(e) {
+            res.status(400).json(e);
+        }
+    }
+
+    //Fetch logs
+    getTransactions(req, res, next){
+        try{
+            LogsModel.getAllTransaction({}).then((response: any) => {
+                res.status(200).json(response);
+            }); 
+        }catch(e){
+            res.status(400).json(e);
+        }
+    }
+
+    //Fetch logs
+    getUserTransactions(req, res, next){
+        try{
+            var user = req.user_data;
+            LogsModel.getUserTransaction(user).then((response: any) => {
+                console.log("response >>>>>>>>>>>>>>>>>>>")
+                console.log(response)
+                res.status(200).json(response);
+            }); 
+        }catch(e){
             res.status(400).json(e);
         }
     }

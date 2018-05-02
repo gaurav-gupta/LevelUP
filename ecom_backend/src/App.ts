@@ -7,6 +7,7 @@ import * as http from 'http';
 import * as router from '././routes/users';
 import * as routerOrder from '././routes/orders';
 import * as routerProduct from '././routes/products';
+import * as routerTransaction from '././routes/transactions';
 import * as config from '../config/config';
 import { commonHelper } from './helpers/common_helper';
 var common = new commonHelper();
@@ -37,6 +38,7 @@ app.use(function(req, res, next) {
 app.use('/users', router);
 app.use('/orders', routerOrder);
 app.use('/products', routerProduct);
+app.use('/transactions', routerTransaction);
 
 var server = http.createServer(app);
 server.listen(8080, function () {
