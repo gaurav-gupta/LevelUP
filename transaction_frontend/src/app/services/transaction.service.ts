@@ -25,31 +25,7 @@ export class TransactionService {
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
         return this._httpClient.get(this.baseUrl + '/transactions/my').map((res: any) => {
-            console.log("res >>>>>>>>>>>>>>>>>>>>>>")
-            console.log(res)
             return res;
         });
     }
-
-    // getOneProduct(_id) {
-    //     const headers = new Headers({ 'Content-Type': 'application/json' });
-    //     const options = new RequestOptions({ headers: headers });
-    //     return this._http.get(this.baseUrl + '/products/' + _id).map((res: any) => {
-    //         return res.json();
-    //     });
-    // }
-
-    // getCategories() {
-    //     const _path: string = (this.baseUrl + '/products/category');
-    //     return this._httpClient.get(_path).map((res: any) => {
-    //         return res;
-    //     });
-    // }
-
-    // createProduct(productData) {
-    //     const _path: string = (this.baseUrl + '/products');
-    //     return this._httpClient.post(_path, productData).map((res: any) => {
-    //         return res;
-    //     });
-    // }
 }

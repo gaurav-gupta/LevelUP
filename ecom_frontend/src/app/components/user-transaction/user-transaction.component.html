@@ -9,6 +9,7 @@
         <th class="disableSorting">To</th>
         <th class="disableSorting">Token</th>
         <th class="disableSorting">In/Out</th>
+        <th class="disableSorting">Date/Time</th>
     </tr>
   </thead>
   <tbody>
@@ -33,6 +34,7 @@
         <ng-container *ngIf="item.usersInfoTo[0] != null && item.usersInfoFrom[0] != null">
          <td>In</td>
         </ng-container>
+        <td>{{item.created_at | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
     </tr>
 </tbody>
 <tfoot>

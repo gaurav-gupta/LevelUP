@@ -1,0 +1,6 @@
+.disableSorting {
+    color: #337ab7;
+}
+
+.table>tbody>tr, .table>thead>tr{border-bottom:1px solid #ddd }
+.table>tbody>tr>td, .table>thead>tr>td{    border-top: 0;}

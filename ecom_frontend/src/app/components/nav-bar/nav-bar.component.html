@@ -8,7 +8,6 @@
         <li><a *ngIf="admin" [routerLink]="['/admin']"><b>User</b></a></li>
         <li><a *ngIf="admin" [routerLink]="['/order']"><b>Order</b></a></li>
         <li><a *ngIf="admin" [routerLink]="['/adminproduct']"><b>Product</b></a></li>
-        <li><a *ngIf="admin" [routerLink]="['/publisher']"><b>Publisher</b></a></li>
       </ng-container>
       <ng-container >
         <li><a *ngIf="!admin && uncheck"><b>Wallet Address ({{wallet_address}})</b></a></li>

@@ -1,14 +1,15 @@
 <div class="container">
   <h3>My Transactions</h3>
+  <flash-messages></flash-messages>
   <table class="table table-striped" [mfData]="transactions" #mf="mfDataTable" [mfRowsOnPage]="10">
     <thead>
       <tr>
         <th class="disableSorting">Transaction Hash</th>
         <th class="disableSorting">From</th>
         <th class="disableSorting">To</th>
-        <th class="disableSorting">Token</th>
+        <th><mfDefaultSorter by="token">Token</mfDefaultSorter></th>
         <th class="disableSorting">In/Out</th>
-        <th class="disableSorting">Date/Time</th>
+        <th><mfDefaultSorter by="created_at">Date/Time</mfDefaultSorter></th>
       </tr>
     </thead>
     <tbody>

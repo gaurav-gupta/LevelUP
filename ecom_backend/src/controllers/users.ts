@@ -49,7 +49,7 @@ export class userController {
                         if(check){
                             var token = jwt.sign({ email: email, id: response[0]._id}, 'shhhhh');
                             if(token){
-                                res.send({ email: email, user_auth_token: token, roles: response[0].roles });
+                                res.send({ email: email, user_auth_token: token, roles: response[0].roles , wallet_address: response[0].wallet_address});
                             }
                         }else{
                             res.status(400).json(CodeConstants.PASSWORD_DO_NOT_MATCH);
@@ -180,7 +180,7 @@ export class userController {
         try{
             LogsModel.getAllTransaction({}).then((response: any) => {
                 res.status(200).json(response);
-            }); 
+            });
         }catch(e){
             res.status(400).json(e);
         }
@@ -191,10 +191,8 @@ export class userController {
         try{
             var user = req.user_data;
             LogsModel.getUserTransaction(user).then((response: any) => {
-                console.log("response >>>>>>>>>>>>>>>>>>>")
-                console.log(response)
                 res.status(200).json(response);
-            }); 
+            });
         }catch(e){
             res.status(400).json(e);
         }

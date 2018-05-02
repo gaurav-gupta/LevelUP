@@ -39,7 +39,12 @@ export function findLogs (condition) {
 
 export function getUserTransaction (data) {
     return new Promise((resolve, reject) => {
-        LogsModel.aggregate([{$match: {'dtype': "Transfer_Token", $or: [{'to': data[0].wallet_address}, {'from': data[0].wallet_address}]}},
+        LogsModel.aggregate([{$match: {$or: [
+            {'dtype': "Transfer_Token", 'to': data[0].wallet_address},
+            {'dtype': "Buy_Product_Log", 'to': data[0].wallet_address},
+            {'dtype': "Transfer_Token", 'from': data[0].wallet_address},
+            {'dtype': "Buy_Product_Log", 'from': data[0].wallet_address}
+        ]}},
         {
             $lookup: {
                 from: "users",
@@ -66,7 +71,7 @@ export function getUserTransaction (data) {
 
 export function getAllTransaction (cond) {
     return new Promise((resolve, reject) => {
-        LogsModel.aggregate([
+        LogsModel.aggregate([{$match: {$or: [{'dtype': "Transfer_Token"}, {'dtype': "Buy_Product_Log"}]}},
         {
             $lookup: {
                 from: "users",

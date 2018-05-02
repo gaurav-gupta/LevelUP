@@ -24,7 +24,6 @@ import { UserService } from './services/users.service';
 import { ProductService } from './services/product.service';
 import { AdminProductComponent } from './components/admin-product/admin-product.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
-import { PublisherComponent } from './components/publisher/publisher.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { UserTransactionComponent } from './components/user-transaction/user-transaction.component';
 
@@ -40,7 +39,6 @@ import { UserTransactionComponent } from './components/user-transaction/user-tra
         ApprovedPipe,
         UserOrderComponent,
         AdminProductComponent,
-        PublisherComponent,
         UserTransactionComponent
     ],
     imports: [

@@ -1,17 +1,20 @@
 <nav class="navbar navbar-inverse">
-  <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/">Shopping</a>
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Wallet</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <ng-container>
+                <li><a *ngIf="!user_data" [routerLink]="['/login']">SignIn</a></li>
+            </ng-container>
+            <li>
+                <a *ngIf="!is_admin&&user_data"><b>Wallet Address ({{user_data.wallet_address}})</b></a>
+            </li>
+            <li>
+                <a *ngIf="user_data&&is_admin" [routerLink]="['/publishers']"><b>Publisher</b></a>
+            </li>
+            <li><a *ngIf="!is_admin&&user_data" [routerLink]="['/transactions']"><b>My Transactions</b></a></li>
+            <li><a *ngIf="user_data" (click)="logout()"><b>Sign Out</b></a></li>
+        </ul>
     </div>
-    <ul class="nav navbar-nav navbar-right">
-      <ng-container >
-        <li><a *ngIf="!user_data" [routerLink]="['/login']" >SignIn</a></li>
-      </ng-container>
-      <li>
-        <a *ngIf="user_data&&is_admin" [routerLink]="['/publishers']">Publisher</a>
-      </li>
-      <li><a *ngIf="!is_admin&&user_data" [routerLink]="['/transactions']">My Transactions</a></li>
-      <li><a *ngIf="user_data" (click)="logout()"><b>Sign Out</b></a></li>
-    </ul>
-  </div>
 </nav>
