@@ -9,7 +9,7 @@ import * as productModel from './../models/product';
 import * as LogModel from './../models/level_up_log';
 import  { orderHelper }  from './order_helper';
 import  { productHelper }  from './product_helper';
-var web3 = new Web3( new Web3.providers.HttpProvider("http://13.250.35.159:8545"));
+var web3 = new Web3( new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
 var LevelUp = contract(CodeConstants.LevelUp);
 LevelUp.setProvider(web3.currentProvider);
 var ordersHelper = new orderHelper();
