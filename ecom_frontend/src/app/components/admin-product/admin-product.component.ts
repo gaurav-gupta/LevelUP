@@ -5,7 +5,7 @@ import * as ipfsAPI from 'ipfs-api';
 import * as buffer from 'buffer';
 const Buffer1 = buffer.Buffer;
 import { FlashMessagesService } from 'angular2-flash-messages';
-const ipfs = ipfsAPI({host: '13.250.35.159', port: '5001', protocol: 'http'});
+const ipfs = ipfsAPI({host: CodeConstants.URL, port: '5001', protocol: 'http'});
 
 @Component({
     selector: 'app-admin-product',

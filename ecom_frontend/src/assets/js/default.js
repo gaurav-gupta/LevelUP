@@ -18,8 +18,8 @@ style.type = 'text/css';
 style.appendChild(document.createTextNode(css));
 headTag.appendChild(style);
 
-var envBaseUrl = "http://13.250.35.159:8080/";
-var envSocketUrl = "http://13.250.35.159:8081/";
+var envBaseUrl = "http://164.132.137.143:8080/";
+var envSocketUrl = "http://164.132.137.143:8081/";
 // var envBaseUrl = "http://localhost:8080/";
 // var envSocketUrl = "http://localhost:8081/";
 jQuery(function(){
